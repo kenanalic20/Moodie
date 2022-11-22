@@ -91,3 +91,14 @@ body {
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
 }
+.helper{
+  text-align: center;
+  margin-top: 20px;
+  display: block;
+}
+.forgotPassword:hover {
+  color:blue;
+}
+.redirectToLogin:hover{
+  color:blue;
+}
