@@ -1,27 +1,22 @@
 <div class="login-wrapper" fxLayout="column" fxLayoutAlign="center center">
-    <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title>Log in</mat-card-title>
-      </mat-card-header>
+  <div class="title">
+    <h1 >Moodie says Hi!</h1>
+    <h2>Please log-in to continue</h2>
+  </div>
+  <div class="box">
       <form class="example-form">
-        <mat-card-content>
-          <mat-form-field class="example-full-width">
-            <input type="text" matInput placeholder="Email" #userName required>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input type="password" matInput placeholder="Password" #userPassword required >
-          </mat-form-field>
-        </mat-card-content>
-        <button (click)="authService.SignIn(userName.value, userPassword.value)" mat-stroked-button color="accent" class="btn-block" >Log in</button>
+        <input type="text"   placeholder="Email" #userName required>
+        <input type="password"   placeholder="Password" #userPassword required >
+        
       </form>
-      
-    </mat-card>
-    <div class="helper">
-      <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
+      <div class="btn-div">
+        <button (click)=" router.GoToComponent('register')"  class="btn-reg" >I don’t have an account</button>
+        <button (click)="authService.SignIn(userName.value, userPassword.value)"  class="btn-log" >Log in</button>
       </div>
-      <div class="redirectToLogin">
-        <span class="redirect" routerLink="/register">Don't have an account? Sign Up</span>
+      <div class="helper">
+        <div class="forgotPassword">
+          <span routerLink="/forgot-password">I don’t know my password</span>
+        </div>
       </div>
     </div>
   </div>
