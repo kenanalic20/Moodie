@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Moodie';
+  sliderValue: any;
   constructor(private router: Router) { }
   GoToComponent(name:string):any{
     this.router.navigate([name]);

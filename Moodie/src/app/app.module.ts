@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
 //komponente
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -40,6 +41,7 @@ import { AuthService } from './shared/services/auth.service';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    MatSliderModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
