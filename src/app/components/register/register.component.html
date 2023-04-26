@@ -1,0 +1,49 @@
+<div class="w-screen h-screen flex items-center justify-center p-5 select-none">
+  <div class="max-w-lg flex flex-col place-content-center text-center gap-10">
+    <div class="cursor-pointer" routerLink="/">
+      <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">Moodie
+        <em>says</em> hi!</h1>
+      <p class="text-s sm:text-2xl mb-4 transition-all">Please log in to continue</p>
+    </div>
+
+    <div>
+
+      <input
+        class="w-full p-2 mb-4 font-sans rounded-xl transition-all bg-transparent border-2 border-background-100 focus:outline-none focus:border-white text-center focus:placeholder:opacity-40"
+        placeholder="Username"
+        type="text"/>
+
+      <input
+        class="w-full p-2 mb-4 font-sans rounded-xl transition-all bg-transparent border-2 border-background-100 focus:outline-none focus:border-white text-center focus:placeholder:opacity-40"
+        placeholder="Password"
+        type="password"/>
+
+      <!--      On input focus, make placholder opacity less -->
+      <input
+        class="w-full p-2 mb-4 font-sans rounded-xl transition-all bg-transparent border-2 border-background-100 focus:outline-none focus:border-white text-center focus:placeholder:opacity-40"
+        placeholder="Repeat Password"
+        type="password"/>
+
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-row gap-4">
+          <button
+            class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 border-2 text-white hover:bg-background-100 transition-all"
+            routerLink="/login">
+            I have an account
+          </button>
+          <button
+            class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
+            Register
+          </button>
+        </div>
+        <button
+          class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl bg-gray-300 border-background-100 border-2 text-black hover:bg-gray-100 transition-all"
+          routerLink="/login">
+          <fa-icon [icon]="faGoogle"></fa-icon>
+          Use Google
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
