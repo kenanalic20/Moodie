@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { MoodsComponent } from './components/dashboard/moods/moods.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     StatsComponent,
     CalendarComponent,
     SettingsComponent,
+    MoodsComponent,
   ],
   imports: [BrowserModule, RouterOutlet, AppRoutingModule, FontAwesomeModule],
   providers: [],

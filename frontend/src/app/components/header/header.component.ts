@@ -9,5 +9,5 @@ export class HeaderComponent {
   active = window.location.pathname.split('/')[1];
   isDevelopment = isDev;
   activeClasses =
-    'md:hover:border-opacity-50 md:border-opacity-10 md:border-b-4 transition-all';
+    'hover:border-opacity-50 border-opacity-10 border-b-4 transition-all';
 }
