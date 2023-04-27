@@ -4,20 +4,17 @@
   <div class="max-w-lg flex flex-col place-content-center text-center gap-10">
     <div class="cursor-pointer" routerLink="/">
       <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">Moodie <em>says</em> hi!</h1>
-      <p class="text-s sm:text-2xl mb-4 transition-all">Please log in to continue</p>
+      <p class="text-s font-sans sm:text-2xl mb-4 transition-all">Let's reset your password</p>
     </div>
 
     <div>
-      <input
-        class="w-full p-2 mb-4 font-sans rounded-xl bg-transparent border-2 border-background-100 focus:outline-none focus:border-white text-center focus:placeholder:opacity-40"
-        placeholder="Email"
-        required
-      />
+      <app-input placeholder="Email" type="email"/>
+
       <div class="flex flex-col gap-4">
         <div class="flex gap-4">
           <button
             class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 border-2 text-white hover:bg-background-100 transition-all"
-            routerLink="/login">
+            routerLink="/auth/login">
             Go back
           </button>
           <button

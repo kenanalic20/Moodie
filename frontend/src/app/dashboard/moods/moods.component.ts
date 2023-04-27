@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   faFaceSmile,
   faFaceTired,
@@ -12,7 +12,6 @@ import {
   templateUrl: './moods.component.html',
 })
 export class MoodsComponent {
-  // icons = [faFaceGrin, faFaceSmile, faFaceMeh, faFaceTired, faFaceSadCry];
   icons = [
     {
       icon: faFaceGrin,
