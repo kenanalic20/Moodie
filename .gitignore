@@ -12,6 +12,7 @@ frontend/npm-debug.log
 frontend/arn-error.log
 
 # IDEs and editors
+.idea
 frontend/.idea/
 frontend/.project
 frontend/.classpath
