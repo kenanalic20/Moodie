@@ -8,9 +8,11 @@ import { AppRoutingModule } from './components/app-routing/app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FrontPageComponent } from './components/front-page/front-page.component';
 import { AboutComponent } from './components/about/about.component';
+import { HeaderComponent } from './components/header/header.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, FrontPageComponent, AboutComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, FrontPageComponent, AboutComponent, HeaderComponent, DashboardComponent],
   imports: [BrowserModule, RouterOutlet, AppRoutingModule, FontAwesomeModule],
   providers: [],
   bootstrap: [AppComponent],

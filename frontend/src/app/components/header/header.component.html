@@ -1,0 +1,23 @@
+<div
+  class="fixed transition-all flex-col md:flex-row font-sans gap-8 left-0 right-0 top-0 h-fit flex align-middle justify-center">
+  <div
+    class="{{ active === 'dashboard' && activeClasses }} border-white p-3 flex cursor-pointer place-items-center select-none"
+    routerLink="/dashboard">
+    Dashboard
+  </div>
+  <div
+    class="{{ active === 'stats' && activeClasses }} border-white p-3 flex cursor-pointer place-items-center select-none"
+    routerLink="/stats">
+    Stats
+  </div>
+  <div
+    class="{{ active === 'calendar' && activeClasses }} border-white p-3 flex cursor-pointer place-items-center select-none"
+    routerLink="/calendar">
+    Calendar
+  </div>
+  <div
+    class="{{ active === 'settings' && activeClasses }} border-white p-3 flex cursor-pointer place-items-center select-none"
+    routerLink="/settings">
+    Settings
+  </div>
+</div>
