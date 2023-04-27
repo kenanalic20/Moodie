@@ -12,45 +12,26 @@
         class="w-full p-2 mb-4 font-sans rounded-xl bg-transparent border-2 border-background-100 focus:outline-none focus:border-white text-center focus:placeholder:opacity-40"
         placeholder="Email"
         required
-        type="email"/>
-
-
-      <input
-        class="w-full p-2 mb-4 font-sans rounded-xl bg-transparent border-2 border-background-100 focus:outline-none focus:border-white text-center focus:placeholder:opacity-40"
-        placeholder="Password"
-        type="password"/>
+      />
       <div class="flex flex-col gap-4">
-
         <div class="flex gap-4">
           <button
             class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 border-2 text-white hover:bg-background-100 transition-all"
-            routerLink="/register">
-            I don't have an account
+            routerLink="/login">
+            Go back
           </button>
           <button
             class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
-            Login
+            Reset
           </button>
         </div>
-
-        <button
-          class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl bg-gray-300 border-background-100 border-2 text-black hover:bg-gray-100 transition-all"
-          routerLink="/login">
-          <fa-icon [icon]="faGoogle"></fa-icon>
-          Use Google
-        </button>
-
         <button
           *ngIf="isDevelopment"
           class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl bg-gray-300 border-background-100 border-2 text-black hover:bg-gray-100 transition-all"
           routerLink="/dashboard">
           <strong>DEV</strong> Go to the dashboard
         </button>
-
-
       </div>
-
-      <p class="text-sm mt-4 font-sans">Forgot your password? <a class="text-blue-500" href="/reset">Reset it</a></p>
     </div>
   </div>
 </div>

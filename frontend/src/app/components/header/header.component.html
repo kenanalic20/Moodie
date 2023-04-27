@@ -20,4 +20,10 @@
     routerLink="/settings">
     Settings
   </div>
+  <div
+    *ngIf="isDevelopment"
+    class="border-white p-3 flex cursor-pointer place-items-center select-none"
+    routerLink="/">
+    <p><strong>DEV</strong> Home</p>
+  </div>
 </div>

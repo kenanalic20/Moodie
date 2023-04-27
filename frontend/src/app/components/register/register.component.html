@@ -3,15 +3,16 @@
     <div class="cursor-pointer" routerLink="/">
       <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">Moodie
         <em>says</em> hi!</h1>
-      <p class="text-s sm:text-2xl mb-4 transition-all">Please log in to continue</p>
+      <p class="text-s sm:text-2xl mb-4 transition-all">Let's create your account</p>
     </div>
 
     <div>
 
       <input
         class="w-full p-2 mb-4 font-sans rounded-xl transition-all bg-transparent border-2 border-background-100 focus:outline-none focus:border-white text-center focus:placeholder:opacity-40"
-        placeholder="Username"
-        type="text"/>
+        placeholder="Email"
+        required
+        type="email"/>
 
       <input
         class="w-full p-2 mb-4 font-sans rounded-xl transition-all bg-transparent border-2 border-background-100 focus:outline-none focus:border-white text-center focus:placeholder:opacity-40"
@@ -41,6 +42,12 @@
           routerLink="/login">
           <fa-icon [icon]="faGoogle"></fa-icon>
           Use Google
+        </button>
+        <button
+          *ngIf="isDevelopment"
+          class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl bg-gray-300 border-background-100 border-2 text-black hover:bg-gray-100 transition-all"
+          routerLink="/dashboard">
+          <strong>DEV</strong> Go to the dashboard
         </button>
       </div>
 
