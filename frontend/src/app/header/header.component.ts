@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
-import {isDev} from '../globals';
+import { Component } from '@angular/core';
+import { isDev } from '../globals';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,5 @@ import {isDev} from '../globals';
 export class HeaderComponent {
   active = window.location.pathname.split('/')[1];
   isDevelopment = isDev;
-  activeClasses =
-    'border-opacity-10 border-b-4';
+  codeIcon = faCode;
 }

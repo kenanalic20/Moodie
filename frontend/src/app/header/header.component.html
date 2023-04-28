@@ -1,16 +1,26 @@
 <div
-  class="transition-all flex-row text-l md:text-xl font-sans gap-2 md:gap-8 left-0 right-0 top-0 h-[50px] flex align-middle justify-center">
-  <app-entry [active]="active === 'dashboard'" link="/dashboard" text="Dashboard"/>
+  class="transition-all overflow-y-auto h-fit box-border flex-row text-l md:text-xl font-sans gap-2 md:gap-8 left-0 right-0 top-0 flex align-middle justify-center">
+  <app-entry
+    [active]="active === 'dashboard'"
+    link="/dashboard"
+    text="Dashboard" />
 
-  <app-entry [active]="active === 'stats'" link="/stats" text="Stats"/>
+  <app-entry [active]="active === 'stats'" link="/stats" text="Stats" />
 
-  <app-entry [active]="active === 'calendar'" link="/calendar" text="Calendar"/>
+  <app-entry
+    [active]="active === 'calendar'"
+    link="/calendar"
+    text="Calendar" />
 
-  <app-entry [active]="active === 'settings'" link="/settings" text="Settings"/>
-  <div
+  <app-entry
+    [active]="active === 'settings'"
+    link="/settings"
+    text="Settings" />
+
+  <app-entry
     *ngIf="isDevelopment"
-    class="border-white p-3 flex cursor-pointer place-items-center select-none"
-    routerLink="/">
-    <p><strong>DEV</strong> Home</p>
-  </div>
+    [active]="false"
+    [icon]="codeIcon"
+    link="/"
+    text="Home" />
 </div>

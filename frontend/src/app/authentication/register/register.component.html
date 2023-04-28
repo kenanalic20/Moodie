@@ -1,16 +1,18 @@
 <div class="w-screen h-screen flex items-center justify-center p-5 select-none">
   <div class="max-w-lg flex flex-col place-content-center text-center gap-10">
     <div class="cursor-pointer" routerLink="/">
-      <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">Moodie
-        <em>says</em> hi!</h1>
-      <p class="text-s font-sans sm:text-2xl mb-4 transition-all">Let's create your account</p>
+      <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">
+        Moodie <em>says</em> hi!
+      </h1>
+      <p class="text-s font-sans sm:text-2xl mb-4 transition-all">
+        Let's create your account
+      </p>
     </div>
 
     <div>
-
-      <app-input placeholder="Email" type="email"/>
-      <app-input placeholder="Password" type="password"/>
-      <app-input placeholder="Repeat Password" type="password"/>
+      <app-input placeholder="Email" type="email" />
+      <app-input placeholder="Password" type="password" />
+      <app-input placeholder="Repeat Password" type="password" />
 
       <div class="flex flex-col gap-4">
         <div class="flex flex-row gap-4">
@@ -34,10 +36,9 @@
           *ngIf="isDevelopment"
           class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl bg-gray-300 border-background-100 border-2 text-black hover:bg-gray-100 transition-all"
           routerLink="/dashboard">
-          <strong>DEV</strong> Go to the dashboard
+          <fa-icon [icon]="codeIcon" /> Go to the dashboard
         </button>
       </div>
-
     </div>
   </div>
 </div>

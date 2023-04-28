@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {isDev} from "../../globals";
+import { Component, Input } from '@angular/core';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-entry',
@@ -9,6 +9,6 @@ export class EntryComponent {
   @Input() active!: boolean;
   @Input() link!: string;
   @Input() text!: string;
-  activeClasses = 'border-opacity-10 border-b-4';
-  isDevelopment = isDev;
+  @Input() icon!: IconDefinition | undefined;
+  activeClasses = 'font-bold text-white';
 }

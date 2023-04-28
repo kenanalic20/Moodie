@@ -1,12 +1,19 @@
 <div class="w-full flex flex-col items-center justify-center gap-8 h-fit p-16">
-  <h1 class="text-2xl sm:text-6xl font-bold mb-4 transition-all text-center">How are you?</h1>
+  <h1 class="text-2xl sm:text-6xl font-bold mb-4 transition-all text-center">
+    How are you?
+  </h1>
 
   <div class="h-32 w-1/2 flex gap-8 justify-center align-middle p-4">
-    <div *ngFor="let icon of icons"
-         class="flex flex-col text-center gap-2 transition-all justify-center align-middle cursor-pointer">
-      <fa-icon [icon]="icon.icon" [title]="icon.name"
-               class="text-5xl sm:text-7xl transition-all text-gray-300 hover:text-white"/>
-      <h2 class="font-sans sm:text-xl text-xs text-gray-300">{{icon.name}}</h2>
+    <div
+      *ngFor="let icon of icons"
+      class="flex flex-col text-center gap-2 transition-all justify-center align-middle cursor-pointer">
+      <fa-icon
+        [icon]="icon.icon"
+        [title]="icon.name"
+        class="text-5xl sm:text-7xl transition-all text-gray-300 hover:text-white" />
+      <h2 class="font-sans sm:text-xl text-xs text-gray-300">
+        {{ icon.name }}
+      </h2>
     </div>
   </div>
 </div>

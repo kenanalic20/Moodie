@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "DM Serif Display";
+  font-family: 'DM Serif Display';
   font-style: normal;
-  src: url("assets/DMSerifDisplay-Regular.ttf");
+  src: url('assets/DMSerifDisplay-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
-  src: url("assets/Inter-VariableFont_slnt,wght.ttf");
+  src: url('assets/Inter-VariableFont_slnt,wght.ttf');
 }
 
 body {
-  background-color: theme("colors.background.300");
-  font-family: "DM Serif Display", serif;
-  color: theme("colors.white");
+  background-color: theme('colors.background.300');
+  font-family: 'DM Serif Display', serif;
+  color: theme('colors.white');
 }

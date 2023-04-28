@@ -1,31 +1,22 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {DashboardRoutingModule} from './dashboard-routing.module';
-import {DashboardComponent} from "./dashboard.component";
-import {HeaderComponent} from "../header/header.component";
-import {MoodsComponent} from "./moods/moods.component";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {AuthenticationModule} from "../authentication/authentication.module";
-import {HeaderModule} from "../header/header.module";
-
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from './dashboard.component';
+import { MoodsComponent } from './moods/moods.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthenticationModule } from '../authentication/authentication.module';
+import { HeaderModule } from '../header/header.module';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    MoodsComponent
-  ],
+  declarations: [DashboardComponent, MoodsComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     FontAwesomeModule,
     AuthenticationModule,
-    HeaderModule
+    HeaderModule,
   ],
-  exports: [
-    DashboardComponent,
-    MoodsComponent
-  ]
+  exports: [DashboardComponent, MoodsComponent],
 })
-export class DashboardModule {
-}
+export class DashboardModule {}

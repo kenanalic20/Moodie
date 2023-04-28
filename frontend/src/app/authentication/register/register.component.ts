@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {faGoogle} from '@fortawesome/free-brands-svg-icons';
-import {isDev} from '../../globals';
+import { Component } from '@angular/core';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { isDev } from '../../globals';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register',
@@ -9,4 +10,5 @@ import {isDev} from '../../globals';
 export class RegisterComponent {
   faGoogle = faGoogle;
   isDevelopment = isDev;
+  codeIcon = faCode;
 }
