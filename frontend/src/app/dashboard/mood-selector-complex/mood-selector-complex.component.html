@@ -1,0 +1,25 @@
+<div class="w-full flex flex-col items-center justify-center gap-8 h-fit p-16">
+  <div class="h-32 w-full max-w-[1000px] flex flex-col gap-8 justify-center align-middle p-4">
+    <input
+      class="w-full h-2 bg-gray-200 rounded-lg cursor-pointer dark:bg-gray-700"
+      id="myRange"
+      max="5"
+      min="1"
+      step="0.1"
+      type="range"
+      value="2.5" />
+    <div class="w-full flex justify-between text-xs px-2">
+      <div
+        *ngFor="let icon of icons.reverse()"
+        class="flex flex-col text-center gap-2 transition-all justify-center align-middle">
+        <fa-icon
+          [icon]="icon.icon"
+          [title]="icon.name"
+          class="text-1xl sm:text-3xl transition-all text-gray-300" />
+        <h2 class="font-sans sm:text-sm text-xs text-gray-300">
+          {{ icon.name }}
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>

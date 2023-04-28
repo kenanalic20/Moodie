@@ -8,10 +8,10 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'app-moods',
-  templateUrl: './moods.component.html',
+  selector: 'app-mood-selector-simple',
+  templateUrl: './mood-selector-simple.component.html',
 })
-export class MoodsComponent {
+export class MoodSelectorSimpleComponent {
   icons = [
     {
       icon: faFaceGrin,

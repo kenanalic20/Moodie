@@ -3,13 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { MoodsComponent } from './moods/moods.component';
+import { MoodSelectorSimpleComponent } from './mood-selector-simple/mood-selector-simple.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthenticationModule } from '../authentication/authentication.module';
 import { HeaderModule } from '../header/header.module';
+import { MoodSelectorComplexComponent } from './mood-selector-complex/mood-selector-complex.component';
 
 @NgModule({
-  declarations: [DashboardComponent, MoodsComponent],
+  declarations: [
+    DashboardComponent,
+    MoodSelectorSimpleComponent,
+    MoodSelectorComplexComponent,
+  ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -17,6 +22,6 @@ import { HeaderModule } from '../header/header.module';
     AuthenticationModule,
     HeaderModule,
   ],
-  exports: [DashboardComponent, MoodsComponent],
+  exports: [DashboardComponent, MoodSelectorSimpleComponent],
 })
 export class DashboardModule {}
