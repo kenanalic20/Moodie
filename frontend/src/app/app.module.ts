@@ -11,6 +11,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { HomepageModule } from './homepage/homepage.module';
 import { HeaderModule } from './header/header.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { StatGraphComponent } from './stats/stat-graph/stat-graph.component';
+import { StatActivitiesComponent } from './stats/stat-activities/stat-activities.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     StatsComponent,
     CalendarComponent,
     SettingsComponent,
+    StatGraphComponent,
+    StatActivitiesComponent,
   ],
   imports: [
     BrowserModule,
