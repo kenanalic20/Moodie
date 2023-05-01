@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {
+  faFaceGrin,
+  faFaceMeh,
+  faFaceSadCry,
   faFaceSmile,
   faFaceTired,
-  faFaceMeh,
-  faFaceGrin,
-  faFaceSadCry,
 } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
