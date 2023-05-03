@@ -8,10 +8,10 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'app-mood-selector-simple',
-  templateUrl: './mood-selector-simple.component.html',
+  selector: 'app-day',
+  templateUrl: './day.component.html',
 })
-export class MoodSelectorSimpleComponent {
+export class DayComponent {
   icons = [
     {
       icon: faFaceGrin,
@@ -39,10 +39,4 @@ export class MoodSelectorSimpleComponent {
       value: 1,
     },
   ];
-
-  selected = 2;
-
-  select(value: number) {
-    this.selected = value;
-  }
 }

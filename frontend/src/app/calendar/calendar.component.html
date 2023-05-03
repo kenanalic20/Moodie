@@ -1,1 +1,8 @@
 <app-header></app-header>
+
+<div class="w-full mt-32 h-full flex flex-col flex-grow justify-center items-center">
+  <div
+    class="flex flex-row justify-center flex-grow grow items-starts flex-wrap w-[80vw] w-max-[1000px] p-2">
+    <app-day *ngFor="let day of days"></app-day>
+  </div>
+</div>
