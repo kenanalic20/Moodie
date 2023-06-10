@@ -13,8 +13,8 @@ import { HeaderModule } from './header/header.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { StatGraphComponent } from './stats/stat-graph/stat-graph.component';
 import { StatActivitiesComponent } from './stats/stat-activities/stat-activities.component';
-import {SettingsModule} from "./settings/settings.module";
-import {CalendarModule} from "./calendar/calendar.module";
+import { SettingsModule } from './settings/settings.module';
+import { CalendarModule } from './calendar/calendar.module';
 
 @NgModule({
   declarations: [
@@ -24,23 +24,23 @@ import {CalendarModule} from "./calendar/calendar.module";
     StatGraphComponent,
     StatActivitiesComponent,
   ],
-    imports: [
-        BrowserModule,
-        RouterOutlet,
-        AppRoutingModule,
-        AuthenticationModule,
-        DashboardModule,
-        HomepageModule,
-        HeaderModule,
-        CalendarModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            // Register the ServiceWorker as soon as the application is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: 'registerWhenStable:30000',
-        }),
-        SettingsModule,
-    ],
+  imports: [
+    BrowserModule,
+    RouterOutlet,
+    AppRoutingModule,
+    AuthenticationModule,
+    DashboardModule,
+    HomepageModule,
+    HeaderModule,
+    CalendarModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
+    SettingsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

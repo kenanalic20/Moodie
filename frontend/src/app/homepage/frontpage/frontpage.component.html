@@ -4,21 +4,26 @@
     <em>Hi there!</em> I’m Moodie
   </h1>
   <div class="w-1/2 flex gap-5 text-3xl sm:text-5xl justify-evenly">
-    <a class="transition-all text-gray-200 hover:text-white" href="/about"
+    <a
+      class="transition-all dark:text-gray-200 text-gray-600 hover:text-black dark:hover:text-white"
+      href="/about"
       >What?</a
     >
-    <a class="transition-all text-gray-200 hover:text-white" href="/auth"
+    <a
+      class="transition-all dark:text-gray-200 text-gray-600 hover:text-black dark:hover:text-white"
+      href="/auth"
       >Let's go</a
     >
   </div>
   <div class="flex flex-col align-middle justify-center text-center">
-    <p class="font-sans text-gray-300">
-      Moodie is brought to you by <span class="text-white">Kenan</span> and
-      <span class="text-white">Omar</span>
+    <p class="font-sans dark:text-gray-300 text-gray-600">
+      Moodie is brought to you by
+      <span class="dark:text-white text-black">Kenan</span> and
+      <span class="dark:text-white text-black">Omar</span>
     </p>
-    <p *ngIf="isDevelopment" class="font-sans text-gray-300">
+    <p *ngIf="isDevelopment" class="font-sans dark:text-gray-300 text-gray-600">
       Running in
-      <span class="text-white">
+      <span class="dark:text-white text-black">
         <fa-icon [icon]="codeIcon" class="mr-1 ml-1" />Development
       </span>
       mode

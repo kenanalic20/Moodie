@@ -6,4 +6,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Moodie';
+
+  constructor() {
+    const theme = localStorage.getItem('Theme');
+    if (theme) {
+      document.documentElement.classList.add(theme.toLowerCase());
+    }
+  }
 }

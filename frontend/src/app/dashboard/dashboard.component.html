@@ -4,13 +4,15 @@
   <h1 class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
     How are you?
   </h1>
-  <p class="w-full text-center font-sans p-2 text-lg text-gray-300 select-none">
+  <p
+    class="w-full text-center font-sans p-2 text-lg dark:text-gray-300 text-gray-700 select-none">
     Select a mood that best describes how you're feeling right now.
   </p>
   <app-mood-selector-simple *ngIf="display === 'simple'" />
   <app-mood-selector-complex *ngIf="display === 'complex'" />
 
-  <p class="w-full text-center font-sans text-lg text-gray-300 select-none">
+  <p
+    class="w-full text-center font-sans text-lg dark:text-gray-300 text-gray-700 select-none">
     Too {{ display }}? Let's
     <span (click)="toggleDisplay()" class="text-blue-500 cursor-pointer">
       switch it up.

@@ -40,7 +40,7 @@ export class MoodSelectorSimpleComponent {
     },
   ];
 
-  selected = 2;
+  selected = -1;
 
   select(value: number) {
     this.selected = value;

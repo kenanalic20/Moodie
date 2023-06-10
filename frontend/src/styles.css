@@ -15,7 +15,5 @@
 }
 
 body {
-  background-color: theme('colors.background.300');
   font-family: 'DM Serif Display', serif;
-  color: theme('colors.white');
 }

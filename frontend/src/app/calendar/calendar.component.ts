@@ -11,6 +11,5 @@ export class CalendarComponent {
     new Date().getMonth() + 1,
     0
   ).getDate();
-  days = Array(this.daysInCurrentMonth)
-
+  days = Array(this.daysInCurrentMonth);
 }

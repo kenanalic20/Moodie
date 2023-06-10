@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   faFaceGrin,
   faFaceMeh,
@@ -39,4 +39,17 @@ export class MoodSelectorComplexComponent {
       value: 1,
     },
   ];
+  value = -1;
+
+  setValue(value?: number) {
+    const selector = document.getElementById('moodrange');
+    if (selector) {
+      if (!value) {
+        this.value = parseInt((selector as HTMLInputElement).value);
+      } else {
+        this.value = value;
+        (selector as HTMLInputElement).value = value.toString();
+      }
+    }
+  }
 }

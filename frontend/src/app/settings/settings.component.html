@@ -1,13 +1,15 @@
 <app-header></app-header>
-<div class="w-screen h-screen flex flex-col gap-8 items-center justify-start mt-32">
+<div
+  class="w-screen h-screen flex flex-col gap-8 items-center justify-start mt-32">
   <app-setting
-    settingName="Theme"
-    settingDescription="Change the theme of the application"
+    [onChange]="onThemeChange"
     [settingOptions]="['Light', 'Dark']"
+    settingDescription="Change the theme of the application"
+    settingName="Theme"
     settingValue="Light" />
   <app-setting
-    settingName="Language"
-    settingDescription="Change the language of the application"
     [settingOptions]="['English', 'Bosnian', 'Croatian', 'Serbian']"
+    settingDescription="Change the language of the application"
+    settingName="Language"
     settingValue="English" />
 </div>
