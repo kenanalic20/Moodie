@@ -3,10 +3,10 @@ import { isDev } from '../../globals';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-frontpage',
-  templateUrl: './frontpage.component.html',
+    selector: 'app-frontpage',
+    templateUrl: './frontpage.component.html',
 })
 export class FrontpageComponent {
-  isDevelopment = isDev;
-  codeIcon = faCode;
+    isDevelopment = isDev;
+    codeIcon = faCode;
 }

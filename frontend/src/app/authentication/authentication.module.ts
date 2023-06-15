@@ -9,13 +9,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputComponent } from './input/input.component';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    ResetComponent,
-    RegisterComponent,
-    InputComponent,
-  ],
-  imports: [CommonModule, AuthenticationRoutingModule, FontAwesomeModule],
-  exports: [LoginComponent, ResetComponent, RegisterComponent, InputComponent],
+    declarations: [
+        LoginComponent,
+        ResetComponent,
+        RegisterComponent,
+        InputComponent,
+    ],
+    imports: [CommonModule, AuthenticationRoutingModule, FontAwesomeModule],
+    exports: [
+        LoginComponent,
+        ResetComponent,
+        RegisterComponent,
+        InputComponent,
+    ],
 })
 export class AuthenticationModule {}

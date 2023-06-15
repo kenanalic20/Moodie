@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { MoodSelectorSimpleComponent } from './mood-selector-simple/mood-selector-simple.component';
@@ -11,19 +12,20 @@ import { MoodSelectorComplexComponent } from './mood-selector-complex/mood-selec
 import { MoodInformationModalComponent } from './mood-information-modal/mood-information-modal.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    MoodSelectorSimpleComponent,
-    MoodSelectorComplexComponent,
-    MoodInformationModalComponent,
-  ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    FontAwesomeModule,
-    AuthenticationModule,
-    HeaderModule,
-  ],
-  exports: [DashboardComponent, MoodSelectorSimpleComponent],
+    declarations: [
+        DashboardComponent,
+        MoodSelectorSimpleComponent,
+        MoodSelectorComplexComponent,
+        MoodInformationModalComponent,
+    ],
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        FontAwesomeModule,
+        AuthenticationModule,
+        HeaderModule,
+        ModalModule.forRoot(),
+    ],
+    exports: [DashboardComponent, MoodSelectorSimpleComponent],
 })
 export class DashboardModule {}

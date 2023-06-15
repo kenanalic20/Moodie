@@ -17,31 +17,31 @@ import { SettingsModule } from './settings/settings.module';
 import { CalendarModule } from './calendar/calendar.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    StatsComponent,
-    SettingsComponent,
-    StatGraphComponent,
-    StatActivitiesComponent,
-  ],
-  imports: [
-    BrowserModule,
-    RouterOutlet,
-    AppRoutingModule,
-    AuthenticationModule,
-    DashboardModule,
-    HomepageModule,
-    HeaderModule,
-    CalendarModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
-    SettingsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        StatsComponent,
+        SettingsComponent,
+        StatGraphComponent,
+        StatActivitiesComponent,
+    ],
+    imports: [
+        BrowserModule,
+        RouterOutlet,
+        AppRoutingModule,
+        AuthenticationModule,
+        DashboardModule,
+        HomepageModule,
+        HeaderModule,
+        CalendarModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000',
+        }),
+        SettingsModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

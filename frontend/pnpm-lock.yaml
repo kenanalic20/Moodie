@@ -43,6 +43,9 @@ dependencies:
   '@fortawesome/free-solid-svg-icons':
     specifier: ^6.2.1
     version: 6.2.1
+  ngx-bootstrap:
+    specifier: ^10.2.0
+    version: 10.2.0(@angular/animations@15.2.0)(@angular/common@15.2.0)(@angular/core@15.2.0)(@angular/forms@15.2.0)(rxjs@7.8.0)
   rxjs:
     specifier: ~7.8.0
     version: 7.8.0
@@ -5951,6 +5954,23 @@ packages:
   /neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
+
+  /ngx-bootstrap@10.2.0(@angular/animations@15.2.0)(@angular/common@15.2.0)(@angular/core@15.2.0)(@angular/forms@15.2.0)(rxjs@7.8.0):
+    resolution: {integrity: sha512-bn5wdvH6QQ2JGu4TgUbozdULBFMxZNPNTgO7dRiosx9FRrFvKcgxkGSgU/xoj+4kP1vgh8zwzaiDfvH/Bfb+Aw==}
+    peerDependencies:
+      '@angular/animations': ^15.0.0
+      '@angular/common': ^15.0.0
+      '@angular/core': ^15.0.0
+      '@angular/forms': ^15.0.0
+      rxjs: ^6.5.3 || ^7.6.0
+    dependencies:
+      '@angular/animations': 15.2.0(@angular/core@15.2.0)
+      '@angular/common': 15.2.0(@angular/core@15.2.0)(rxjs@7.8.0)
+      '@angular/core': 15.2.0(rxjs@7.8.0)(zone.js@0.12.0)
+      '@angular/forms': 15.2.0(@angular/common@15.2.0)(@angular/core@15.2.0)(@angular/platform-browser@15.2.0)(rxjs@7.8.0)
+      rxjs: 7.8.0
+      tslib: 2.5.0
+    dev: false
 
   /nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}

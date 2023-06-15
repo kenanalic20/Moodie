@@ -6,8 +6,8 @@ import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  declarations: [HeaderComponent, EntryComponent],
-  imports: [CommonModule, RouterLink, FontAwesomeModule],
-  exports: [HeaderComponent, EntryComponent],
+    declarations: [HeaderComponent, EntryComponent],
+    imports: [CommonModule, RouterLink, FontAwesomeModule],
+    exports: [HeaderComponent, EntryComponent],
 })
 export class HeaderModule {}

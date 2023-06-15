@@ -4,11 +4,11 @@ import { isDev } from '../../globals';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+    selector: 'app-login',
+    templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  faGoogle = faGoogle;
-  isDevelopment = isDev;
-  codeIcon = faCode;
+    faGoogle = faGoogle;
+    isDevelopment = isDev;
+    codeIcon = faCode;
 }

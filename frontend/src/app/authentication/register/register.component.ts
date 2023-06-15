@@ -4,11 +4,11 @@ import { isDev } from '../../globals';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
+    selector: 'app-register',
+    templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-  faGoogle = faGoogle;
-  isDevelopment = isDev;
-  codeIcon = faCode;
+    faGoogle = faGoogle;
+    isDevelopment = isDev;
+    codeIcon = faCode;
 }
