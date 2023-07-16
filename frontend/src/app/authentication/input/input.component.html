@@ -6,7 +6,7 @@
             inputValue.length &&
             inputValue.length < 8
         "
-        class="block mb-2 text-sm font-sans text-left font-bold text-red-700 dark:text-red-500">
+        class="block animate-pulse mb-2 text-sm font-sans text-left font-bold text-red-700 dark:text-red-500">
         Password must be at least 8 characters long
     </label>
     <label
@@ -15,14 +15,14 @@
             inputValue.length &&
             !inputValue.match(emailRegex)
         "
-        class="block mb-2 text-sm font-sans text-left font-bold text-red-700 dark:text-red-500">
+        class="block animate-pulse mb-2 text-sm font-sans text-left font-bold text-red-700 dark:text-red-500">
         Please enter a valid email address
     </label>
     <label
         *ngIf="
             type === 'password' && !validConfirmPassword && inputValue.length
         "
-        class="block mb-2 text-sm font-sans text-left font-bold text-red-700 dark:text-red-500">
+        class="block animate-pulse mb-2 text-sm font-sans text-left font-bold text-red-700 dark:text-red-500">
         Passwords do not match
     </label>
     <input
