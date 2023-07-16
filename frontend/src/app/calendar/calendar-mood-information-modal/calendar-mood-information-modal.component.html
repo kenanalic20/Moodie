@@ -1,27 +1,36 @@
-
-<div class="top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-50 flex justify-center items-center transition-all" (click)="CloseModal()">
-  <div
-    (click)="$event.stopPropagation()"
-    class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-lg sm:p-8 p-1 w-full md:h-fit h-full transition-all md:w-1/2">
-    <div class="flex flex-col w-full h-full justify-between items-center gap-4 p-4">
-      <div class="flex justify-between w-full">
-        <h3 class="font-bold text-lg">Want to add anything else?</h3>
-        <button
-          (click)="CloseModal()"
-          class="dark:text-white text-black close-modal">X</button>
-      </div>
-      <div class="flex flex-col w-full gap-4 md:h-fit h-full justify-center">
-        <div class="flex justify-start gap-2 w-full items-center">
-          Your mood was <span class="font-bold">{{mood.mood}} / 5</span>
+<div
+    class="top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-50 flex justify-center items-center transition-all"
+    (click)="CloseModal()">
+    <div
+        (click)="$event.stopPropagation()"
+        class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-lg sm:p-8 p-1 w-full md:h-fit h-full transition-all md:w-1/2">
+        <div
+            class="flex flex-col w-full h-full justify-between items-center gap-4 p-4">
+            <div class="flex justify-between w-full">
+                <h3 class="font-bold text-lg">Want to add anything else?</h3>
+                <button
+                    (click)="CloseModal()"
+                    class="dark:text-white text-black close-modal">
+                    X
+                </button>
+            </div>
+            <div
+                class="flex flex-col w-full gap-4 md:h-fit h-full justify-center">
+                <div class="flex justify-start gap-2 w-full items-center">
+                    Your mood was
+                    <span class="font-bold">{{ mood.mood }} / 5</span>
+                </div>
+                <div class="flex flex-col w-full items-start">
+                    <h2 class="font-bold">Note</h2>
+                    <p>{{ mood.note }}</p>
+                </div>
+                <div class="flex p-2 justify-center gap-4 w-full items-center">
+                    <img
+                        [src]="mood.image"
+                        class="border-2 border-gray-200 dark:border-neutral-500 rounded-xl"
+                        alt="mood" />
+                </div>
+            </div>
         </div>
-        <div class="flex flex-col w-full items-start">
-          <h2 class="font-bold">Note</h2>
-          <p>{{mood.note}}</p>
-        </div>
-        <div class="flex p-2 justify-center gap-4 w-full items-center">
-          <img [src]="mood.image" class="border-2 border-gray-200 dark:border-neutral-500 rounded-xl " alt="mood"/>
-        </div>
-      </div>
     </div>
-  </div>
-
+</div>

@@ -9,7 +9,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CalendarMoodInformationModalComponent } from './calendar-mood-information-modal/calendar-mood-information-modal.component';
 
 @NgModule({
-    declarations: [CalendarComponent, DayComponent, CalendarMoodInformationModalComponent],
+    declarations: [
+        CalendarComponent,
+        DayComponent,
+        CalendarMoodInformationModalComponent,
+    ],
     imports: [
         CommonModule,
         CalendarRoutingModule,

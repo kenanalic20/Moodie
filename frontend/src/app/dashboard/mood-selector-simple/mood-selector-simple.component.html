@@ -1,26 +1,26 @@
 <div class="w-full flex flex-col items-center justify-center gap-8 h-fit p-16">
-  <div
-    class="h-32 w-full max-w-[1000px] md:w-32 flex gap-8 justify-center align-middle p-4">
     <div
-      (click)="select(icon.value)"
-      *ngFor="let icon of icons.reverse()"
-      class="flex flex-col text-center gap-2 transition-all justify-center align-middle cursor-pointer">
-      <fa-icon
-        [icon]="icon.icon"
-        [title]="icon.name"
-        class="text-5xl sm:text-7xl transition-all dark:text-gray-400 text-gray-500 hover:text-black dark:hover:text-white" />
-      <h2
-        class="font-sans {{
-          this.selected === icon.value && 'font-bold'
-        }} sm:text-xl font-sans text-xs dark:text-gray-300 text-gray-700">
-        {{ icon.name }}
-      </h2>
+        class="h-32 w-full max-w-[1000px] md:w-32 flex gap-8 justify-center align-middle p-4">
+        <div
+            (click)="select(icon.value)"
+            *ngFor="let icon of icons.reverse()"
+            class="flex flex-col text-center gap-2 transition-all justify-center align-middle cursor-pointer">
+            <fa-icon
+                [icon]="icon.icon"
+                [title]="icon.name"
+                class="text-5xl sm:text-7xl transition-all dark:text-gray-400 text-gray-500 hover:text-black dark:hover:text-white" />
+            <h2
+                class="font-sans {{
+                    this.selected === icon.value && 'font-bold'
+                }} sm:text-xl font-sans text-xs dark:text-gray-300 text-gray-700">
+                {{ icon.name }}
+            </h2>
+        </div>
     </div>
-  </div>
-  <button
-    *ngIf="selected !== -1"
-    (click)="OpenModal()"
-    class="font-sans text-lg dark:text-black text-white dark:bg-white bg-gray-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
-    That's it, save.
-  </button>
+    <button
+        *ngIf="selected !== -1"
+        (click)="OpenModal()"
+        class="font-sans text-lg dark:text-black text-white dark:bg-white bg-gray-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
+        That's it, save.
+    </button>
 </div>

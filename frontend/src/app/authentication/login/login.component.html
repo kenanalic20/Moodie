@@ -1,53 +1,53 @@
 <!-- Div using tailwind thats 100% width and height of the screen -->
 
 <div class="w-screen h-screen flex items-center justify-center p-5 select-none">
-  <div class="max-w-lg flex flex-col place-content-center text-center gap-10">
-    <div class="cursor-pointer" routerLink="/">
-      <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">
-        Moodie <em>says</em> hi!
-      </h1>
-      <p class="text-s font-sans sm:text-2xl mb-4 transition-all">
-        Please log in to continue
-      </p>
-    </div>
-
-    <div>
-      <app-input placeholder="Email" type="email" />
-      <app-input placeholder="Password" type="password" />
-
-      <div class="flex flex-col gap-4">
-        <div class="flex gap-4">
-          <button
-            class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 hover:text-white border-2 dark:text-white text-black hover:bg-background-100 transition-all"
-            routerLink="/auth/register">
-            I don't have an account
-          </button>
-          <button
-            class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
-            Login
-          </button>
+    <div class="max-w-lg flex flex-col place-content-center text-center gap-10">
+        <div class="cursor-pointer" routerLink="/">
+            <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">
+                Moodie <em>says</em> hi!
+            </h1>
+            <p class="text-s font-sans sm:text-2xl mb-4 transition-all">
+                Please log in to continue
+            </p>
         </div>
 
-        <button
-          class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-gray-300 bg-gray-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-gray-100 hover:bg-gray-900 transition-all"
-          routerLink="/auth/login">
-          <fa-icon [icon]="faGoogle"></fa-icon>
-          Use Google
-        </button>
+        <div>
+            <app-input placeholder="Email" type="email" />
+            <app-input placeholder="Password" type="password" />
 
-        <button
-          *ngIf="isDevelopment"
-          class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-gray-300 bg-gray-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-gray-100 hover:bg-gray-900 transition-all"
-          routerLink="/dashboard">
-          <fa-icon [icon]="codeIcon" />
-          Go to the dashboard
-        </button>
-      </div>
+            <div class="flex flex-col gap-4">
+                <div class="flex gap-4">
+                    <button
+                        class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 hover:text-white border-2 dark:text-white text-black hover:bg-background-100 transition-all"
+                        routerLink="/auth/register">
+                        I don't have an account
+                    </button>
+                    <button
+                        class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
+                        Login
+                    </button>
+                </div>
 
-      <p class="text-sm mt-4 font-sans">
-        Forgot your password?
-        <a class="text-blue-500" href="/auth/reset">Reset it</a>
-      </p>
+                <button
+                    class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-gray-300 bg-gray-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-gray-100 hover:bg-gray-900 transition-all"
+                    routerLink="/auth/login">
+                    <fa-icon [icon]="faGoogle"></fa-icon>
+                    Use Google
+                </button>
+
+                <button
+                    *ngIf="isDevelopment"
+                    class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-gray-300 bg-gray-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-gray-100 hover:bg-gray-900 transition-all"
+                    routerLink="/dashboard">
+                    <fa-icon [icon]="codeIcon" />
+                    Go to the dashboard
+                </button>
+            </div>
+
+            <p class="text-sm mt-4 font-sans">
+                Forgot your password?
+                <a class="text-blue-500" href="/auth/reset">Reset it</a>
+            </p>
+        </div>
     </div>
-  </div>
 </div>
