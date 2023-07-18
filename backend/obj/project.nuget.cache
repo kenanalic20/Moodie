@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fS1LWL92Ub2xMSGtmQvaX1LMozY1QGgKn0+lpW1+Si91vwARfnGilC16R1GGurC11X9ACOzS59yKbsEjCGU7Xw==",
+  "dgSpecHash": "TOS/mfXwSS4ZQ24tTpTgOGIIDadCyKkPRJRhb48d4+zeJM4PxszMCVApbmaNNrlxx5G80MuAdldgc9q4KCxrew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\kenoa\\source\\repos\\Moodie\\Moodie\\Moodie.csproj",
+  "projectFilePath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kenoa\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\kenoa\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",

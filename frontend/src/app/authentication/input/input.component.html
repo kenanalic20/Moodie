@@ -1,5 +1,20 @@
 <input
   [placeholder]="placeholder"
   [type]="type"
+  [(ngModel)]="email"
+  (ngModelChange)="onEmailChanged()"
   class="w-full p-2 mb-4 font-sans rounded-xl bg-transparent border-2 dark:border-background-100 border-black focus:outline-none dark:focus:border-white focus:border-black text-center focus:placeholder:opacity-40"
-  required />
+  *ngIf="type === 'email'" />
+  <input [placeholder]="placeholder"
+  [type]="type"
+  [(ngModel)]="password"
+  (ngModelChange)="onPasswordChanged()"
+  class="w-full p-2 mb-4 font-sans rounded-xl bg-transparent border-2 dark:border-background-100 border-black focus:outline-none dark:focus:border-white focus:border-black text-center focus:placeholder:opacity-40"
+  *ngIf="type === 'password'" />
+  <input [placeholder]="placeholder"
+  [type]="type"
+  [(ngModel)]="username"
+  (ngModelChange)="onUsernameChanged()"
+  class="w-full p-2 mb-4 font-sans rounded-xl bg-transparent border-2 dark:border-background-100 border-black focus:outline-none dark:focus:border-white focus:border-black text-center focus:placeholder:opacity-40"
+  *ngIf="type === 'text'" />
+  

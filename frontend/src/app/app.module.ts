@@ -15,6 +15,7 @@ import { StatGraphComponent } from './stats/stat-graph/stat-graph.component';
 import { StatActivitiesComponent } from './stats/stat-activities/stat-activities.component';
 import { SettingsModule } from './settings/settings.module';
 import { CalendarModule } from './calendar/calendar.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import { CalendarModule } from './calendar/calendar.module';
             registrationStrategy: 'registerWhenStable:30000',
         }),
         SettingsModule,
+        HttpClientModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

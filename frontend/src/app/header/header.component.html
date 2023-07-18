@@ -23,4 +23,13 @@
     [icon]="codeIcon"
     link="/"
     text="Home" />
+    <app-entry
+    (click)="User()"
+    [active]="active === 'User'"
+    text="User" />
+
+    <app-entry
+    (click)="logOut()"
+    [active]="active === 'logOut'"
+    text="Log Out" />
 </div>
