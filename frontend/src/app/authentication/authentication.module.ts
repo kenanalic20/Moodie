@@ -7,7 +7,7 @@ import { ResetComponent } from './reset/reset.component';
 import { RegisterComponent } from './register/register.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputComponent } from './input/input.component';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
     declarations: [
         LoginComponent,
@@ -15,7 +15,7 @@ import { InputComponent } from './input/input.component';
         RegisterComponent,
         InputComponent,
     ],
-    imports: [CommonModule, AuthenticationRoutingModule, FontAwesomeModule],
+    imports: [CommonModule, AuthenticationRoutingModule, FontAwesomeModule,HttpClientModule],
     exports: [
         LoginComponent,
         ResetComponent,

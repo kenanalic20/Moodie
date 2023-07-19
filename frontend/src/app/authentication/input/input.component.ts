@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 type PasswordInputEvent = CustomEvent<{
     detail: string;
@@ -13,6 +13,8 @@ export class InputComponent implements OnInit {
     @Input() placeholder!: string;
     @Input() isConfirmPassword: boolean = false;
 
+    @Output() valueChange = new EventEmitter<string>();
+    
     inputValue = '';
     passwordInputValue = '';
     validConfirmPassword = true;
@@ -21,6 +23,7 @@ export class InputComponent implements OnInit {
     // If type is password, and not confirm password, dispatch a custom event 'passwordInput' with the input value
     onInput(event: Event) {
         this.inputValue = (event.target as HTMLInputElement).value;
+        this.valueChange.emit(this.inputValue);
         if (this.type === 'password' && !this.isConfirmPassword) {
             const passwordInputEvent = new CustomEvent('passwordInput', {
                 detail: this.inputValue,

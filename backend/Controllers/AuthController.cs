@@ -47,8 +47,14 @@ namespace Moodie.Controllers
             }
             
            var jwt = _jwtService.Generate(user.Id);
-           Response.Cookies.Append("jwt",jwt,new CookieOptions{HttpOnly = true});
-            return Ok(new {message="success"});
+           var cookieOptions = new CookieOptions
+           {
+               HttpOnly = true,
+               Secure = Request.IsHttps, // Set to true for HTTPS requests, false for HTTP requests
+               SameSite = SameSiteMode.None
+           };
+           Response.Cookies.Append("jwt", jwt, cookieOptions);
+           return Ok(new {message="success"});
         }
       [HttpGet("user")]
             

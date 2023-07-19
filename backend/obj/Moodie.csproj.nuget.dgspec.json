@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kenoa\\source\\repos\\Moodie\\Moodie\\Moodie.csproj": {}
+    "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kenoa\\source\\repos\\Moodie\\Moodie\\Moodie.csproj": {
+    "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kenoa\\source\\repos\\Moodie\\Moodie\\Moodie.csproj",
+        "projectUniqueName": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
         "projectName": "Moodie",
-        "projectPath": "C:\\Users\\kenoa\\source\\repos\\Moodie\\Moodie\\Moodie.csproj",
+        "projectPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
         "packagesPath": "C:\\Users\\kenoa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kenoa\\source\\repos\\Moodie\\Moodie\\obj\\",
+        "outputPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -16,6 +16,7 @@
         [active]="active === 'settings'"
         link="/settings"
         text="Settings" />
+        
 
     <app-entry
         *ngIf="isDevelopment"
@@ -23,4 +24,19 @@
         [icon]="codeIcon"
         link="/"
         text="Home" />
+
+    <app-entry
+        *ngIf="isDevelopment"
+        [active]="active === 'User'"
+   
+        
+        (click)="User()"
+        text="User" />  
+    <app-entry
+        *ngIf="isDevelopment"
+        [active]="active === 'Logout'"
+       
+        (click)="logOut()"
+        text="Logout" />
+
 </div>
