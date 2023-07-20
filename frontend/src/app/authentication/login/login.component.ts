@@ -14,7 +14,7 @@ export class LoginComponent {
     faGoogle = faGoogle;
     isDevelopment = isDev;
     codeIcon = faCode;
-    
+    emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     email: string = '';
     password: string = '';
    
@@ -31,8 +31,8 @@ export class LoginComponent {
      
     
       login() {
-        if(  this.password === '' ||  this.email === '') {
-          alert("Please fill all the fields")
+        if(  this.password === '' ||  this.email === '' || !this.email.match(this.emailRegex) ||this.password.length<8) {
+          alert("Invalid Credentials");
           return;
         }
        

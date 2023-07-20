@@ -6,6 +6,7 @@ import { Observable, catchError } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
+  private jwtCookieName = 'jwt';
   constructor(private http:HttpClient) {}
   login(email: string, password: string) {
     const url = `${this.apiUrl}/login`;
@@ -22,10 +23,14 @@ export class AuthService {
   }
   logout():Observable<any> {
     const url = `${this.apiUrl}/logout`;
-    return this.http.post(url, null);
+    return this.http.post(url, null, { withCredentials: true });
   }
   user() {
     const url = `${this.apiUrl}/user`;
     return this.http.get(url, { withCredentials: true });
+  }
+  clearUserCookie() {
+    // Clear user data from local storage or any other storage mechanism
+    document.cookie = `${this.jwtCookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
   }
 }

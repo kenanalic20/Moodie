@@ -20,6 +20,7 @@ export class RegisterComponent {
     email: string = '';
     password: string = '';
     confirmPassword: string = '';
+    emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   
     onUsernameChange(username: any) {
       this.username = username;
@@ -38,12 +39,13 @@ export class RegisterComponent {
     }
   
     register() {
-      if(  this.password === '' || this.confirmPassword === ''|| this.username === '' || this.email === '') {
-        alert('Pleas fill all the fields');
-        if(this.password !== this.confirmPassword) {
-            alert('Password and Confirm Password do not match');
-        }
+      if(  this.password === '' || this.confirmPassword === ''|| this.username === '' || this.email === '' || !this.email.match(this.emailRegex) ||this.password.length<8) {
+        alert('Invalid Credentials');
         return;
+      }
+      if(this.password !== this.confirmPassword) {
+          alert('Password and Confirm Password do not match');
+          return;
       }
      console.log(this.username,this.email,this.password,this.confirmPassword);
       this.authService.register(this.username, this.email, this.password).subscribe((response) => {

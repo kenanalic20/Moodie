@@ -16,6 +16,7 @@ export class HeaderComponent {
     logOut(){
        this.auth.logout().subscribe((msg)=>{
          console.log(msg);
+         this.auth.clearUserCookie();
          this.route.navigate(['/login']);
        })
     }
