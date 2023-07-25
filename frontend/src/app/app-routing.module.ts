@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { StatsComponent } from './stats/stats.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { SettingsComponent } from './settings/settings.component';
-
+import { ExportComponent } from './export/export.component';
 const routes: Routes = [
     {
         path: '',
@@ -18,6 +18,7 @@ const routes: Routes = [
     { path: 'stats', component: StatsComponent },
     { path: 'calendar', component: CalendarComponent },
     { path: 'settings', component: SettingsComponent },
+    {path: 'export', component: ExportComponent},
     {
         path: 'auth',
         loadChildren: () =>

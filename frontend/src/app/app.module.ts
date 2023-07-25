@@ -16,6 +16,8 @@ import { StatActivitiesComponent } from './stats/stat-activities/stat-activities
 import { SettingsModule } from './settings/settings.module';
 import { CalendarModule } from './calendar/calendar.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ExportComponent } from './export/export.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -23,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
         SettingsComponent,
         StatGraphComponent,
         StatActivitiesComponent,
+        ExportComponent,
     ],
     imports: [
         BrowserModule,
@@ -39,7 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000',
         }),
-        SettingsModule,HttpClientModule,
+        SettingsModule,HttpClientModule
         
     ],
     providers: [],

@@ -17,7 +17,11 @@
         link="/settings"
         text="Settings" />
         
-
+        <app-entry
+            *ngIf="isDevelopment"
+            [active]="active === 'export'"
+            link="/export" 
+            text="Export" />  
     <app-entry
         *ngIf="isDevelopment"
         [active]="false"
