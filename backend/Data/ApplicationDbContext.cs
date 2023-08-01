@@ -9,7 +9,7 @@ namespace Moodie.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-
+        public DbSet<Mood> Moods { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,7 +20,13 @@ namespace Moodie.Data
                 entity.HasIndex(e => e.Email).IsUnique();
                 entity.Property(e => e.Password).IsRequired();
             });
+            modelBuilder.Entity<Mood>()
+                .HasOne(m => m.User) 
+                .WithMany(u => u.Moods) 
+                .HasForeignKey(m => m.UserId) 
+                .OnDelete(DeleteBehavior.Restrict);
         }
+
 
 
     }

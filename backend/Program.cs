@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Moodie.Data;
 using Swashbuckle.AspNetCore.SwaggerUI;
-
+using Moodie.Helper;
 namespace auth
 {
     public class Program
@@ -39,6 +39,7 @@ public class Startup
         services.AddControllers();
         services.AddScoped<IUserRepo, UserRepo>();
         services.AddScoped<JWTService>();
+        services.AddScoped<AverageMood>();
     
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

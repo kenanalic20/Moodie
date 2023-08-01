@@ -1,0 +1,19 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Migrations;
+namespace auth.Models
+{
+    public class Mood
+    {
+        public int Id { get; set; }
+        public int MoodValue { get; set; }
+        public double AverageMood { get; set; }
+        public DateTime Date { get; set; }
+
+        [ForeignKey("UserId")] 
+        public int UserId { get; set; }
+        public User User { get; set; }
+    }
+}

@@ -9,7 +9,7 @@ namespace auth.Models
         public string Username { get; set; }
         public string Email { get; set; }
        [JsonIgnore] public string Password { get; set; }
-        
+       [JsonIgnore] public List<Mood> Moods { get; set; }
     }
 }
 
