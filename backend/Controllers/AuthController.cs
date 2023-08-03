@@ -2,7 +2,7 @@
 using auth.Helper;
 using auth.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Migrations;
+
 using Moodie.Data;
 
 namespace Moodie.Controllers

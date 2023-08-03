@@ -22,7 +22,7 @@ namespace Moodie.Helper
             {
                 var mood = context.Moods.Find(userId);
                 //get users moodvalue
-                mood.AverageMood = mood.MoodValue;
+                mood.AverageMood =0;
                 context.SaveChanges();
             }
         }

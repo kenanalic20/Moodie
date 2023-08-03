@@ -178,3 +178,14 @@ C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\refint\Moodie.dll
 C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\Moodie.pdb
 C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\Moodie.genruntimeconfig.cache
 C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\ref\Moodie.dll
+C:\Users\kenoa\Desktop\Github\Moodie\backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\kenoa\Desktop\Github\Moodie\backend\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\kenoa\Desktop\Github\Moodie\backend\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\kenoa\Desktop\Github\Moodie\backend\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\kenoa\Desktop\Github\Moodie\backend\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\kenoa\Desktop\Github\Moodie\backend\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\staticwebassets\msbuild.Moodie.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\staticwebassets\msbuild.build.Moodie.props
+C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Moodie.props
+C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Moodie.props
+C:\Users\kenoa\Desktop\Github\Moodie\backend\obj\Debug\net6.0\staticwebassets.pack.json
