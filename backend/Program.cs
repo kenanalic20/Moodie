@@ -43,6 +43,7 @@ public class Startup
   
         services.AddControllers();
         services.AddScoped<IUserRepo, UserRepo>();
+        services.AddScoped<IMoodRepo, MoodRepo>();
         services.AddScoped<JWTService>();
         services.AddScoped<AverageMood>();
     

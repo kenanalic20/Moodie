@@ -69,7 +69,7 @@ namespace Moodie.Controllers
               return Ok(user);
           }catch (Exception e)
           {
-              return Unauthorized();
+              return Unauthorized("Invalid or expired credentials.");
           }
           
       }

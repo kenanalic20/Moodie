@@ -9,11 +9,11 @@ namespace auth.Models
     {
         public int Id { get; set; }
         public int MoodValue { get; set; }
-        public double AverageMood { get; set; }
+        
         public DateTime Date { get; set; }
 
         [ForeignKey("UserId")] 
         public int UserId { get; set; }
-        public User User { get; set; }
+        [JsonIgnore]  public User User { get; set; }
     }
 }

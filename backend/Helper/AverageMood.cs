@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using auth.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Moodie.Helper
 {
@@ -10,21 +11,23 @@ namespace Moodie.Helper
     {
         public void UpdateAverageMood(ApplicationDbContext context, int userId)
         {
-            var userMoods = context.Moods.Where(m => m.UserId == userId).ToList();
-            if (userMoods.Count > 0)
-            {
-                double averageMood = userMoods.Average(m => m.MoodValue);
-                var mood = context.Moods.Find(userId);
-                mood.AverageMood = averageMood;
-                context.SaveChanges();
-            }
-            else
-            {
-                var mood = context.Moods.Find(userId);
-                //get users moodvalue
-                mood.AverageMood =0;
-                context.SaveChanges();
-            }
+            // public void UpdateAverageMood(ApplicationDbContext context, int userId)
+            // {
+            //     var user = context.Users.Include(u => u.Moods).FirstOrDefault(u => u.Id == userId);
+            //
+            //     if (user == null || user.Moods.Count == 0)
+            //     {
+            //         // No moods for the user, set the average mood to 0 or any other default value
+            //         user.AverageMood = 0;
+            //     }
+            //     else
+            //     {
+            //         double averageMood = user.Moods.Average(m => m.MoodValue);
+            //         user.AverageMood = averageMood;
+            //     }
+            //
+            //     context.SaveChanges();
+            // }
         }
     }
 }
