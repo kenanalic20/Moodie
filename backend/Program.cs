@@ -36,23 +36,7 @@ public class Startup
         
     public void ConfigureServices(IServiceCollection services)
     {
-services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                // Set the key used to sign the JWT token
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is a secure key")),
-                // Validate the signature of the token
-                ValidateIssuerSigningKey = true,
-                // Disable token expiration validation
-                ValidateLifetime = false,
-                // Disable issuer validation
-                ValidateIssuer = false,
-                // Disable audience validation
-                ValidateAudience = false
-            };
-        });
+
         services.AddCors();
         services.AddDbContext<ApplicationDbContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
