@@ -8,13 +8,15 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { MoodInformationModalComponent } from '../mood-information-modal/mood-information-modal.component';
+import {MoodService} from "../../services/mood.service";
 
 @Component({
     selector: 'app-mood-selector-complex',
     templateUrl: './mood-selector-complex.component.html',
 })
 export class MoodSelectorComplexComponent {
-    constructor(private modalService: BsModalService) {}
+
+    constructor(private modalService: BsModalService,private moodService:MoodService) {}
 
     icons = [
         {
@@ -65,5 +67,11 @@ export class MoodSelectorComplexComponent {
     }
     CloseModal() {
         this.modalRef.hide();
+    }
+    addMood(){
+        this.moodService.addMood(this.value).subscribe((res) => {
+            console.log(res);
+            alert("Mood added successfully");
+        });
     }
 }

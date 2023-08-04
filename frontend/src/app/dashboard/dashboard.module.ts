@@ -10,7 +10,6 @@ import { AuthenticationModule } from '../authentication/authentication.module';
 import { HeaderModule } from '../header/header.module';
 import { MoodSelectorComplexComponent } from './mood-selector-complex/mood-selector-complex.component';
 import { MoodInformationModalComponent } from './mood-information-modal/mood-information-modal.component';
-
 @NgModule({
     declarations: [
         DashboardComponent,

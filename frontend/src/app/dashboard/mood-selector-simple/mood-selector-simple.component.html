@@ -19,7 +19,7 @@
     </div>
     <button
         *ngIf="selected !== -1"
-        (click)="OpenModal()"
+        (click)="OpenModal(); addMood()"
         class="font-sans text-lg dark:text-black text-white dark:bg-white bg-gray-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
         That's it, save.
     </button>

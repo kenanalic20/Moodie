@@ -8,7 +8,7 @@ namespace auth.Models
     public class Mood
     {
         public int Id { get; set; }
-        public int MoodValue { get; set; }
+        public double MoodValue { get; set; }
         
         public DateTime Date { get; set; }
 

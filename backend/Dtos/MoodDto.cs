@@ -2,7 +2,7 @@
 {
     public class MoodDto
     {
-        public int MoodValue { get; set; }
+        public double MoodValue { get; set; }
     }
 }
 
