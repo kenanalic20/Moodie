@@ -46,6 +46,7 @@ public class Startup
         services.AddScoped<IMoodRepo, MoodRepo>();
         services.AddScoped<JWTService>();
         services.AddScoped<AverageMood>();
+        services.AddScoped<INotesRepo, NotesRepo>();
     
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

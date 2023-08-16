@@ -2,7 +2,6 @@
 using auth.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Data;
-using Moodie.Helper;
 using Dtos.MoodDto;
 using Microsoft.IdentityModel.Tokens;
 
@@ -64,6 +63,7 @@ namespace Moodie.Controllers
                 var jwt = Request.Cookies["jwt"];
                 var token = _jwtService.Verify(jwt);
                 int userId = int.Parse(token.Issuer);
+                
                 var moods = _repositoryMood.GetByUserId(userId);
                 return Ok(moods);
             }

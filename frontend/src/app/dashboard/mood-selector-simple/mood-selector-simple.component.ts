@@ -64,6 +64,7 @@ export class MoodSelectorSimpleComponent {
             console.log(res);
             alert("Mood added successfully");
         });
+
     }
 
 

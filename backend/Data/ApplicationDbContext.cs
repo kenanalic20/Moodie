@@ -11,6 +11,7 @@ namespace Moodie.Data
         }
         public DbSet<Mood> Moods { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Notes> Notes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,14 @@ namespace Moodie.Data
                 .WithMany(u => u.Moods) 
                 .HasForeignKey(m => m.UserId) 
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Notes>(entity=>
+            {
+                entity.HasOne(n => n.User)
+                    .WithMany(u => u.Notes)
+                    .HasForeignKey(n => n.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+                
         }
 
 

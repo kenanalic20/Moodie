@@ -10,6 +10,7 @@ import { AuthenticationModule } from '../authentication/authentication.module';
 import { HeaderModule } from '../header/header.module';
 import { MoodSelectorComplexComponent } from './mood-selector-complex/mood-selector-complex.component';
 import { MoodInformationModalComponent } from './mood-information-modal/mood-information-modal.component';
+import {FormsModule} from "@angular/forms";
 @NgModule({
     declarations: [
         DashboardComponent,
@@ -17,14 +18,15 @@ import { MoodInformationModalComponent } from './mood-information-modal/mood-inf
         MoodSelectorComplexComponent,
         MoodInformationModalComponent,
     ],
-    imports: [
-        CommonModule,
-        DashboardRoutingModule,
-        FontAwesomeModule,
-        AuthenticationModule,
-        HeaderModule,
-        ModalModule.forRoot(),
-    ],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    FontAwesomeModule,
+    AuthenticationModule,
+    HeaderModule,
+    ModalModule.forRoot(),
+    FormsModule,
+  ],
     exports: [DashboardComponent, MoodSelectorSimpleComponent],
 })
 export class DashboardModule {}

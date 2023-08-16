@@ -17,7 +17,10 @@ namespace Moodie.Data
         }
         public Mood GetById(int id)
         {
-            return _context.Moods.FirstOrDefault(u => u.Id == id);
+          
+             return _context.Moods.FirstOrDefault(u => u.Id == id);
+            
+           
         }
         
         public List<Mood> GetByUserId(int userId)
