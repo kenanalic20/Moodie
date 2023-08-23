@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@angular/animations':
     specifier: ^15.2.0
@@ -46,6 +50,9 @@ dependencies:
   ngx-bootstrap:
     specifier: ^10.2.0
     version: 10.2.0(@angular/animations@15.2.0)(@angular/common@15.2.0)(@angular/core@15.2.0)(@angular/forms@15.2.0)(rxjs@7.8.0)
+  ngx-toastr:
+    specifier: ^17.0.2
+    version: 17.0.2(@angular/common@15.2.0)(@angular/core@15.2.0)(@angular/platform-browser@15.2.0)
   rxjs:
     specifier: ~7.8.0
     version: 7.8.0
@@ -3712,6 +3719,7 @@ packages:
 
   /debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    requiresBuild: true
     peerDependencies:
       supports-color: '*'
     peerDependenciesMeta:
@@ -5972,6 +5980,19 @@ packages:
       tslib: 2.5.0
     dev: false
 
+  /ngx-toastr@17.0.2(@angular/common@15.2.0)(@angular/core@15.2.0)(@angular/platform-browser@15.2.0):
+    resolution: {integrity: sha512-KehiPx6bkbiUyJbabf0ZA04+ASumS8r/y4wPsUOMI9OrBvBcfq27UQmWuQKoVR8E+9y4Pq7eZkSg2kvxNvpxTA==}
+    peerDependencies:
+      '@angular/common': '>=16.0.0-0'
+      '@angular/core': '>=16.0.0-0'
+      '@angular/platform-browser': '>=16.0.0-0'
+    dependencies:
+      '@angular/common': 15.2.0(@angular/core@15.2.0)(rxjs@7.8.0)
+      '@angular/core': 15.2.0(rxjs@7.8.0)(zone.js@0.12.0)
+      '@angular/platform-browser': 15.2.0(@angular/animations@15.2.0)(@angular/common@15.2.0)(@angular/core@15.2.0)
+      tslib: 2.5.0
+    dev: false
+
   /nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}
     os: ['!win32']
@@ -6441,6 +6462,7 @@ packages:
   /pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -6688,6 +6710,7 @@ packages:
 
   /prr@1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -7020,6 +7043,7 @@ packages:
 
   /sax@1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -7056,6 +7080,7 @@ packages:
   /semver@5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
+    requiresBuild: true
     dev: true
     optional: true
 

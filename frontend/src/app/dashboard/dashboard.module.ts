@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -11,12 +11,15 @@ import { HeaderModule } from '../header/header.module';
 import { MoodSelectorComplexComponent } from './mood-selector-complex/mood-selector-complex.component';
 import { MoodInformationModalComponent } from './mood-information-modal/mood-information-modal.component';
 import {FormsModule} from "@angular/forms";
+import { SafeUrlPipe } from '../pipes/safe-url.pipe';
+
 @NgModule({
     declarations: [
         DashboardComponent,
         MoodSelectorSimpleComponent,
         MoodSelectorComplexComponent,
         MoodInformationModalComponent,
+        SafeUrlPipe
     ],
   imports: [
     CommonModule,
@@ -26,6 +29,7 @@ import {FormsModule} from "@angular/forms";
     HeaderModule,
     ModalModule.forRoot(),
     FormsModule,
+    NgOptimizedImage,
   ],
     exports: [DashboardComponent, MoodSelectorSimpleComponent],
 })

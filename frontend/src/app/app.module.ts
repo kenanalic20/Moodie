@@ -17,6 +17,8 @@ import { SettingsModule } from './settings/settings.module';
 import { CalendarModule } from './calendar/calendar.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ExportComponent } from './export/export.component';
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -42,8 +44,10 @@ import { ExportComponent } from './export/export.component';
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000',
         }),
-        SettingsModule,HttpClientModule
-        
+        SettingsModule,HttpClientModule,
+        ToastrModule.forRoot(),
+        BrowserAnimationsModule,
+
     ],
     providers: [],
     bootstrap: [AppComponent],

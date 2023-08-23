@@ -3,6 +3,7 @@ import { isDev } from '../globals';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent {
     active = window.location.pathname.split('/')[1];
     isDevelopment = isDev;
     codeIcon = faCode;
-    constructor(private auth:AuthService,private route:Router) {}
+    constructor(private auth:AuthService,private route:Router, private toastr: ToastrService) {}
     logOut(){
        this.auth.logout().subscribe((msg)=>{
          console.log(msg);
@@ -22,7 +23,9 @@ export class HeaderComponent {
     }
     User(){
         this.auth.user().subscribe((data)=>{
-            console.log(data);
+          const user = data as unknown as {username:string,email:string};
+
+          this.toastr.success(`Welcome ${user.username}`, 'This is you!');
         })
     }
 }

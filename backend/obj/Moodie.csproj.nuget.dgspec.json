@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj": {}
+    "C:\\Users\\omznc\\WebstormProjects\\Moodie\\backend\\Moodie.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj": {
+    "C:\\Users\\omznc\\WebstormProjects\\Moodie\\backend\\Moodie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
+        "projectUniqueName": "C:\\Users\\omznc\\WebstormProjects\\Moodie\\backend\\Moodie.csproj",
         "projectName": "Moodie",
-        "projectPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
-        "packagesPath": "C:\\Users\\kenoa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\obj\\",
+        "projectPath": "C:\\Users\\omznc\\WebstormProjects\\Moodie\\backend\\Moodie.csproj",
+        "packagesPath": "C:\\Users\\omznc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\omznc\\WebstormProjects\\Moodie\\backend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\kenoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\omznc\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.307\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -77,11 +70,11 @@
               "target": "Package",
               "version": "[5.0.12, )"
             },
-            "Microsoft.EntityFrameworkCore.Relational": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.12, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[5.0.12, )"
             },
@@ -123,7 +116,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

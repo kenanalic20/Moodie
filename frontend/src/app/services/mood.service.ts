@@ -12,7 +12,7 @@ export class MoodService {
   }
   addMood(moodValue :number){
     const url = `${this.apiUrl}/add-mood`;
-   const body = {moodValue }
+    const body = {moodValue }
     return this.http.post(url, body,{withCredentials:true});
   }
   getMoods(){

@@ -9,13 +9,14 @@ import {
 import { MoodInformationModalComponent } from '../mood-information-modal/mood-information-modal.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import {MoodService} from "../../services/mood.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-mood-selector-simple',
     templateUrl: './mood-selector-simple.component.html',
 })
 export class MoodSelectorSimpleComponent {
-    constructor(private modalService: BsModalService,private moodService:MoodService) {}
+    constructor(private modalService: BsModalService,private moodService:MoodService, private toastr: ToastrService) {}
 
     icons = [
         {
@@ -62,7 +63,7 @@ export class MoodSelectorSimpleComponent {
     addMood(){
         this.moodService.addMood(this.selected).subscribe((res) => {
             console.log(res);
-            alert("Mood added successfully");
+          this.toastr.success('Mood added successfully', 'Success');
         });
 
     }

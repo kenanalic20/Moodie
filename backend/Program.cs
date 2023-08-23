@@ -38,8 +38,10 @@ public class Startup
     {
 
         services.AddCors();
-        services.AddDbContext<ApplicationDbContext>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+
   
         services.AddControllers();
         services.AddScoped<IUserRepo, UserRepo>();
