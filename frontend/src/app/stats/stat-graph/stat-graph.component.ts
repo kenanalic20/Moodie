@@ -48,7 +48,7 @@ export class StatGraphComponent {
     }
     calculateHeight(element: ElementRef, dayName: string) {
         element.nativeElement.innerText = this.calculateAverageMood(dayName).toFixed(2).toString();
-        element.nativeElement.style.height = `${this.calculateAverageMood(dayName) * 20}px`;
+        element.nativeElement.style.height = `${this.calculateAverageMood(dayName) * 24}px`;
     }
     getDayNameFromDate(dateString: string) {
         const date = new Date(dateString);
