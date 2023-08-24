@@ -1,0 +1,77 @@
+<app-header></app-header>
+<div class="w-full mt-32 flex flex-col gap-8">
+  <div class="flex flex-col justify-center items-center ">
+    <h1 class="text-4xl text sm:text-6xl font-bold mb-4 transition-all text-center">
+        Goals
+    </h1>
+    <p
+        class="w-full text-center p-2 font-sans text-lg dark:text-gray-300 text-gray-700 select-none">
+        Let's achieve something great
+    </p>
+  </div>
+  <div class="flex flex-col p-4">
+        <div class="flex sm:flex-row flex-col justify-center gap-4 items-start">
+            <div class="sm:w-fit w-full w-max-[1000px] p-8 rounded-xl border-2 border-gray-200">
+                <div class="flex flex-col justify-center items-center">
+                    <div class="flex flex-col">
+                      <h2 class="text-2xl font-bold mb-4">Daily Goals</h2>
+                      <div class="flex flex-col" id="goals-holder">
+
+                        <div class="flex items-center mb-2 inline-flex justify-between">
+                          <div class="inline-flex">
+                            <input type="checkbox" class="mr-2" checked>
+                            <p>Drink 8 glasses of water</p>
+                          </div>
+                          <p class="cursor-pointer" (click)="deleteEntry($event)">X</p>
+                        </div>
+
+                        <div class="flex items-center mb-2 inline-flex justify-between">
+                            <div class="inline-flex">
+                              <input type="checkbox" class="mr-2" checked>
+                              <p>Exercise</p>
+                            </div>
+                            <p class="cursor-pointer" (click)="deleteEntry($event)">X</p>
+                          </div>
+                          <div class="flex items-center mb-2 inline-flex justify-between">
+                            <div class="inline-flex">
+                              <input type="checkbox" class="mr-2" checked>
+                              <p>Read</p>
+                            </div>
+                            <p class="cursor-pointer" (click)="deleteEntry($event)">X</p>
+                          </div>
+                      </div>
+                        <input type="text" class="w-full border-2 border-gray-200 text-black rounded-xl p-2" placeholder="Add Goal"
+                               (keyup.enter)="addGoal($event)">
+                    </div>
+                </div>
+        </div>
+          <div class="sm:w-fit w-full w-max-[1000px] p-8 rounded-xl border-2 border-gray-200">
+            <div class="flex flex-col justify-center items-center">
+              <div class="flex flex-col">
+                <h2 class="text-2xl font-bold mb-4">Career Goals</h2>
+                <div class="flex flex-col" id="goals-holder">
+
+                                         <div class="flex items-center mb-2 inline-flex justify-between">
+                          <div class="inline-flex">
+                            <input type="checkbox" class="mr-2" checked>
+                            <p>Do a side project</p>
+                          </div>
+                          <p class="cursor-pointer" (click)="deleteEntry($event)">X</p>
+                        </div>
+
+                        <div class="flex items-center mb-2 inline-flex justify-between">
+                            <div class="inline-flex">
+                              <input type="checkbox" class="mr-2" checked>
+                              <p>Learn a new skill</p>
+                            </div>
+                            <p class="cursor-pointer" (click)="deleteEntry($event)">X</p>
+                          </div>
+
+                </div>
+                <input type="text" class="w-full border-2 border-gray-200 rounded-xl p-2" placeholder="Add Goal"
+                       (keyup.enter)="addGoal($event)">
+              </div>
+            </div>
+          </div>
+    </div>
+</div>

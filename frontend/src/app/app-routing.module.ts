@@ -4,6 +4,8 @@ import { StatsComponent } from './stats/stats.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ExportComponent } from './export/export.component';
+import { GoalsComponent } from "./goals/goals.component";
+
 const routes: Routes = [
     {
         path: '',
@@ -26,6 +28,7 @@ const routes: Routes = [
                 m => m.AuthenticationModule
             ),
     },
+    { path: 'goals', component: GoalsComponent },
 ];
 
 @NgModule({

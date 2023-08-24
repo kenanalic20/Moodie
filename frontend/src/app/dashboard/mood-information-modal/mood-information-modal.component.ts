@@ -19,6 +19,7 @@ export class MoodInformationModalComponent implements OnDestroy {
   title = '';
   description = '';
   imageUrl: string | null = null;
+    activity: any;
 
   onImageSelected(event: Event) {
     const inputElement = event.target as HTMLInputElement;

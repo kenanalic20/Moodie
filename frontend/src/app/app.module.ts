@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExportComponent } from './export/export.component';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { GoalsComponent } from './goals/goals.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         StatGraphComponent,
         StatActivitiesComponent,
         ExportComponent,
+        GoalsComponent,
     ],
     imports: [
         BrowserModule,

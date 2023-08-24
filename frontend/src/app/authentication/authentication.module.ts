@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputComponent } from './input/input.component';
 import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
     declarations: [
         LoginComponent,

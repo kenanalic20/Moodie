@@ -16,30 +16,36 @@
         [active]="active === 'settings'"
         link="/settings"
         text="Settings" />
-        
+
         <app-entry
             *ngIf="isDevelopment"
             [active]="active === 'export'"
-            link="/export" 
-            text="Export" />  
-    <app-entry
+            link="/export"
+            text="Export" />
+  <app-entry
+    [active]="active === 'goals'"
+    link="/goals"
+    text="Goals" />
+  <app-entry
         *ngIf="isDevelopment"
         [active]="false"
         [icon]="codeIcon"
         link="/"
         text="Home" />
 
+
     <app-entry
         *ngIf="isDevelopment"
         [active]="active === 'User'"
-   
-        
+
+
         (click)="User()"
-        text="User" />  
+        text="User" />
+
     <app-entry
         *ngIf="isDevelopment"
         [active]="active === 'Logout'"
-       
+
         (click)="logOut()"
         text="Logout" />
 
