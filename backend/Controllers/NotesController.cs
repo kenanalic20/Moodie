@@ -83,8 +83,6 @@ namespace Moodie.Controllers
                 var notes = _repositoryNotes.GetByUserId(userId);
                 
                 return Ok(notes );
-               
-
             }
             catch (SecurityTokenException ex)
             {

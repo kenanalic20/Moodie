@@ -1,4 +1,5 @@
 
+using System.Reflection;
 using auth.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -42,7 +43,12 @@ public class Startup
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
-  
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
+
+          
+        });
         services.AddControllers();
         services.AddScoped<IUserRepo, UserRepo>();
         services.AddScoped<IMoodRepo, MoodRepo>();
@@ -53,6 +59,8 @@ public class Startup
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+       
+
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -65,6 +73,12 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+        });
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name v1");
+            c.RoutePrefix = "swagger"; // Change this to your desired URL prefix
         });
     }
 
