@@ -17,6 +17,7 @@ namespace Moodie.Data
         public DbSet<Mood> Moods { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Notes> Notes { get; set; }
+        public DbSet<UserInfo> UserInfo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,7 +39,9 @@ namespace Moodie.Data
                     .HasForeignKey(n => n.UserId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
-                
+            
+
+
         }
 
 

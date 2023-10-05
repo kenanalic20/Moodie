@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace auth.Models
 
@@ -14,7 +15,7 @@ namespace auth.Models
         
         [ForeignKey("UserId")]
         public int UserId { get; set; }
-        public User User { get; set; }
+       [JsonIgnore] public User User { get; set; }
     }
 }
 
