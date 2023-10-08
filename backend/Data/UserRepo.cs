@@ -11,6 +11,7 @@ namespace Moodie.Data
         }
         public User Create(User user)
         {
+            
             _context.Users.Add(user);
            user.Id=_context.SaveChanges();
             return user;

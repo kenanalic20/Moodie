@@ -5,8 +5,8 @@ namespace Moodie.Data;
 
 public interface IUserInfoRepo
 {
-    UserInfo Create(UserInfo userInfo);
+    UserInfo Create(UserInfo userInfo,int userId);
     List<UserInfo> GetByUserId(int userId);
-    UserInfo Update(UserInfo userInfo);
-    void Delete(int userInfoId);
+  
+    void Delete(int userId);
 }

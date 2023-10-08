@@ -12,11 +12,25 @@ namespace Moodie.Data
             _context = context;
         }
 
-        public UserInfo Create(UserInfo userInfo)
+        public UserInfo Create(UserInfo userInfo,int userId)
         {
-            _context.UserInfo.Add(userInfo);
-            userInfo.Id = _context.SaveChanges();
-            return userInfo;
+            var existingUserInfo = _context.UserInfo.FirstOrDefault(u => u.UserId == userId);
+            if (existingUserInfo != null)
+            {
+                existingUserInfo.FirstName = userInfo.FirstName;
+                existingUserInfo.LastName = userInfo.LastName;
+                existingUserInfo.Gender = userInfo.Gender;
+                existingUserInfo.Birthday = userInfo.Birthday;
+                _context.UserInfo.Update(existingUserInfo);
+                _context.SaveChanges();
+                return existingUserInfo;
+            }
+            else
+            {
+                _context.UserInfo.Add(userInfo);
+                _context.SaveChanges();
+                return userInfo;
+            }
         }
 
         public List<UserInfo> GetByUserId(int userId)
@@ -26,21 +40,15 @@ namespace Moodie.Data
             
         }
 
-        public UserInfo Update(UserInfo userInfo)
-        {
-           //write logic for update
-           _context.UserInfo.Update(userInfo);
-           userInfo.Id = _context.SaveChanges();
-           return userInfo;
-        }
+        
 
-        public void Delete(int userInfoId)
+        public void Delete(int userId)
         {
-            var userInfoToDelete = _context.UserInfo.Find(userInfoId);
+            var existingUserInfo = _context.UserInfo.FirstOrDefault(u => u.UserId == userId);
     
-            if (userInfoToDelete != null)
+            if (existingUserInfo != null)
             {
-                _context.UserInfo.Remove(userInfoToDelete);
+                _context.UserInfo.Remove(existingUserInfo);
                 _context.SaveChanges();
             }
         }
