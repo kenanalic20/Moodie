@@ -18,6 +18,9 @@ namespace Moodie.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Notes> Notes { get; set; }
         public DbSet<UserInfo> UserInfo { get; set; }
+        public DbSet<Goal> Goal { get; set; }
+        public DbSet<GoalType> GoalType { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

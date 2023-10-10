@@ -26,7 +26,7 @@ namespace Moodie.Controllers
             _jwtService = jwtService;
         }
 
-        [HttpPost("add-mood")]
+        [HttpPost("mood")]
         public IActionResult AddMood(MoodDto moodDto)
         {
             try
@@ -54,7 +54,7 @@ namespace Moodie.Controllers
             }
         }
 
-        [HttpGet("get-mood")]
+        [HttpGet("mood")]
         public IActionResult GetMoods()
         {
             try

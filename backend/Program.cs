@@ -56,6 +56,7 @@ public class Startup
         services.AddScoped<AverageMood>();
         services.AddScoped<INotesRepo, NotesRepo>();
         services.AddScoped<IUserInfoRepo, UserInfoRepo>();
+        services.AddScoped<IGoalRepo, GoalRepo>();
     
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

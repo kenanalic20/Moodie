@@ -7,7 +7,7 @@ using Moodie.Dtos;
 
 namespace Moodie.Controllers
 {
-    [Route("api")]
+    [Route("/api")]
     [ApiController]
     public class UserInfoController : Controller
     {
@@ -23,7 +23,7 @@ namespace Moodie.Controllers
             _repositoryUserInfo = repositoryUserInfo;
         }
 
-        [HttpPut("add-userInfo")]
+        [HttpPut("user-info")]
         public IActionResult AddUserInfo(UserInfoDto uidto)
         {
             try
@@ -51,7 +51,7 @@ namespace Moodie.Controllers
             }
         }
 
-        [HttpGet("get-userInfo")]
+        [HttpGet("user-info")]
         public IActionResult GetUserInfo()
         {
             try
@@ -68,7 +68,7 @@ namespace Moodie.Controllers
             }
         }
 
-        [HttpDelete("delete-userInfo")]
+        [HttpDelete("user-info")]
         public IActionResult DeleteUserInfo()
         {
             try

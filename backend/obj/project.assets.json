@@ -4234,25 +4234,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kenoa\\.nuget\\packages\\": {}
+    "C:\\Users\\omznc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
+      "projectUniqueName": "C:\\Users\\omznc\\WebstormProjects\\Moodie\\backend\\Moodie.csproj",
       "projectName": "Moodie",
-      "projectPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
-      "packagesPath": "C:\\Users\\kenoa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\obj\\",
+      "projectPath": "C:\\Users\\omznc\\WebstormProjects\\Moodie\\backend\\Moodie.csproj",
+      "packagesPath": "C:\\Users\\omznc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\omznc\\WebstormProjects\\Moodie\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kenoa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\omznc\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files\\dotnet\\sdk\\7.0.308\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4349,7 +4348,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.308\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

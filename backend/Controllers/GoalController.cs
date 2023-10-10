@@ -12,25 +12,23 @@ namespace Moodie.Controllers
 {
     [Route("api")]
     [ApiController]
-    public class NotesController : Controller
+    public class GoalController : Controller
     {
-        
-
         private readonly IUserRepo _repositoryUser;
-        private readonly INotesRepo _repositoryNotes;
+        private readonly IGoalRepo _repositoryGoal;
         private readonly JWTService _jwtService;
 
-        public NotesController( IUserRepo repositoryUser,
-            JWTService jwtService, INotesRepo repositoryNotes)
+        public GoalController( IUserRepo repositoryUser,
+            JWTService jwtService, IGoalRepo repositoryGoal)
         {
            
             _repositoryUser = repositoryUser;
-            _repositoryNotes = repositoryNotes;
+            _repositoryGoal = repositoryGoal;
             _jwtService = jwtService;
         }
 
-        [HttpPost("notes")]
-        public IActionResult AddNotes([FromForm] NotesDto notesDto)
+        [HttpPost("goal")]
+        public IActionResult AddGoal([FromForm] GoalDto GoalDto)
         {
             try
             {
@@ -39,24 +37,9 @@ namespace Moodie.Controllers
                 int userId = int.Parse(token.Issuer);
                 var user = _repositoryUser.GetById(userId);
                 byte[] imageData = null;
-                if (notesDto.Image != null)
-                {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        notesDto.Image.CopyTo(memoryStream);
-                        imageData = memoryStream.ToArray();
-                    }
-                }
-                    var notes = new Notes
-                    {
-                        Title = notesDto.Title,
-                        Image =imageData,
-                        Description = notesDto.Description,
-                        Date = DateTime.Now,
-                        UserId = userId,
-                        User = user
-                    };
-                  return Created("success", _repositoryNotes.Create(notes));
+                // TODO
+                var goal = new Goal();
+                return Created("success", _repositoryGoal.Create(goal));
                 
                  
             }
@@ -71,8 +54,8 @@ namespace Moodie.Controllers
           
         }
 
-        [HttpGet("notes")]
-        public IActionResult GetNotes()
+        [HttpGet("goal")]
+        public IActionResult GetGoal()
         {
             try
             {
@@ -80,9 +63,9 @@ namespace Moodie.Controllers
                 var token = _jwtService.Verify(jwt);
                 int userId = int.Parse(token.Issuer);
              
-                var notes = _repositoryNotes.GetByUserId(userId);
+                var Goal = _repositoryGoal.GetByUserId(userId);
                 
-                return Ok(notes );
+                return Ok(Goal );
             }
             catch (SecurityTokenException ex)
             {
@@ -95,6 +78,5 @@ namespace Moodie.Controllers
             
         }
 
-        
     }
 }
