@@ -11,14 +11,37 @@ public class UserImageRepo: IUserImageRepo
         _context = context;
     }
 
-    public UserImage Create(UserImage userImage)
+    public UserImage Create(UserImage userImage,int userInfoId)
     {
-        _context.UserImages.Add(userImage);
-        _context.SaveChanges();
-        return userImage;
+        var existingUserImage = _context.UserImages.FirstOrDefault(userImage => userImage.UserInfoId == userInfoId);
+        if (existingUserImage != null)
+        {
+           existingUserImage.Status = userImage.Status;
+           existingUserImage.Image = userImage.Image;
+           
+            _context.UserImages.Update(existingUserImage);
+            _context.SaveChanges();
+            return existingUserImage;
+        }
+        else
+        {
+            _context.UserImages.Add(userImage);
+            _context.SaveChanges();
+            return userImage;
+        }
     }
     
     
+    public UserImage Delete(int userInfoId)
+    {
+        var existingUserImage = _context.UserImages.FirstOrDefault(userImage => userImage.UserInfoId == userInfoId);
+        if (existingUserImage != null)
+        {
+            _context.UserImages.Remove(existingUserImage);
+            _context.SaveChanges();
+        }
+        return existingUserImage;
+    }
     
     public UserImage GetByUserInfoId(int userInfoId)
     {
