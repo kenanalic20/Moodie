@@ -21,6 +21,8 @@ namespace Moodie.Data
         public DbSet<Goal> Goal { get; set; }
         public DbSet<GoalType> GoalType { get; set; }
         public DbSet<Settings> Settings { get; set; }
+        public DbSet<UserImage> UserImages { get; set; }
+        public DbSet<UserLocation> UserLocations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moodie.Data;
 
 namespace Moodie.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231017183924_UserImageTabela")]
+    partial class UserImageTabela
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,16 +61,11 @@ namespace Moodie.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GoalID")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GoalID");
 
                     b.ToTable("GoalType");
                 });
@@ -234,34 +231,6 @@ namespace Moodie.Migrations
                     b.ToTable("UserInfo");
                 });
 
-            modelBuilder.Entity("auth.Models.UserLocation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("City")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Continent")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("State")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("UserInfoId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserInfoId");
-
-                    b.ToTable("UserLocations");
-                });
-
             modelBuilder.Entity("auth.Models.Goal", b =>
                 {
                     b.HasOne("auth.Models.User", "User")
@@ -271,17 +240,6 @@ namespace Moodie.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("auth.Models.GoalType", b =>
-                {
-                    b.HasOne("auth.Models.Goal", "Goal")
-                        .WithMany()
-                        .HasForeignKey("GoalID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Goal");
                 });
 
             modelBuilder.Entity("auth.Models.Mood", b =>
@@ -337,17 +295,6 @@ namespace Moodie.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("auth.Models.UserLocation", b =>
-                {
-                    b.HasOne("auth.Models.UserInfo", "UserInfo")
-                        .WithMany()
-                        .HasForeignKey("UserInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserInfo");
                 });
 
             modelBuilder.Entity("auth.Models.User", b =>
