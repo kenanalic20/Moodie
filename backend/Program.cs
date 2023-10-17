@@ -57,7 +57,8 @@ public class Startup
         services.AddScoped<INotesRepo, NotesRepo>();
         services.AddScoped<IUserInfoRepo, UserInfoRepo>();
         services.AddScoped<IGoalRepo, GoalRepo>();
-    
+        services.AddScoped<IUserImageRepo, UserImageRepo>();
+
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {

@@ -33,10 +33,10 @@ namespace Moodie.Data
             }
         }
 
-        public List<UserInfo> GetByUserId(int userId)
+        public UserInfo GetByUserId(int userId)
         {
 
-            return _context.UserInfo.Where(u => u.UserId == userId).ToList();
+            return _context.UserInfo.Where(u => u.UserId == userId).FirstOrDefault();
             
         }
 
