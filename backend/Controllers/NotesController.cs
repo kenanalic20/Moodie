@@ -94,6 +94,30 @@ namespace Moodie.Controllers
             }
             
         }
+        
+        //Trebat ce popravit brise notes jedan po jedan za sad
+        [HttpDelete("notes")]
+        public IActionResult DeleteNotes()
+        {
+            try
+            {
+                var jwt = Request.Cookies["jwt"];
+                var token = _jwtService.Verify(jwt);
+                int userId = int.Parse(token.Issuer);
+                _repositoryNotes.Delete(userId);
+                return Ok();
+            }
+            catch (SecurityTokenException ex)
+            {
+                return Unauthorized("Invalid or expired token.");
+            }
+            catch (Exception e) // Catch any other unexpected exception
+            {
+                return StatusCode(500, "An error occurred.");
+            }
+            
+        }
+        
 
         
     }

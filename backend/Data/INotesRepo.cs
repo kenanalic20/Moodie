@@ -7,6 +7,7 @@ namespace Moodie.Data
         Notes Create(Notes notes);
         Notes GetById(int id);
         List<Notes> GetByUserId(int userId);
+        Notes Delete(int userId);
      
     }
 }
