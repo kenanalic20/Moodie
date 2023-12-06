@@ -57,15 +57,33 @@ namespace Moodie.Controllers
                 return Unauthorized("Invalid credentials");
             }
             
-           var jwt = _jwtService.Generate(user.Id);
-           var cookieOptions = new CookieOptions
-           {
-               HttpOnly = true,
-               Secure = Request.IsHttps, // Set to true for HTTPS requests, false for HTTP requests
-               SameSite = SameSiteMode.None
-           };
-           Response.Cookies.Append("jwt", jwt, cookieOptions);
-           return Ok(new {message="success"});
+            if (user.EmailTwoStepToken?.Length == 0)
+            {
+                var code = new Random().Next(100000, 999999);
+                _emailService.SendTwoFactorCode(user.Email,code.ToString());
+                
+                user.EmailTwoStepToken = code.ToString();
+                _repository.Update(user);
+                return Ok(new {message="Check your email for two factor code"});
+            }
+            
+            if (Dto.TwoStepCode != user.EmailTwoStepToken)
+            {
+                return Unauthorized("Invalid two factor code");
+            }
+            
+            var jwt = _jwtService.Generate(user.Id);
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = Request.IsHttps, // Set to true for HTTPS requests, false for HTTP requests
+                SameSite = SameSiteMode.None
+            };
+            Response.Cookies.Append("jwt", jwt, cookieOptions);
+           
+            user.EmailTwoStepToken = null;
+            _repository.Update(user);
+            return Ok(new {message="success"});
         }
       [HttpGet("user")]
             
