@@ -1,4 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,4 +27,59 @@ namespace auth.Helper
             return (JwtSecurityToken) validatedToken;
         }
     }
+    
+    
+    // Use GMails SMTP server to send emails
+    
+    public class EmailService
+    {
+        public void SendVerificationEmail(string email, string token)
+        {
+            if (!IsValidEmail(email))
+            {
+                // Handle the case where the email is invalid
+                Console.WriteLine("Invalid email address format.");
+                return;
+            }
+
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("moodieappfit@gmail.com", "xowmecvcskwbcifa"),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network
+            };
+
+            var message = new MailMessage("moodieappfit@gmail.com", email)
+            {
+                Subject = "Email verification",
+                Body = $"<a href='http://localhost:8000/api/verifyEmail?token={token}'>Verify email</a>",
+                IsBodyHtml = true
+            };
+
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that might occur during sending
+                Console.WriteLine($"Error sending email: {ex.Message}");
+            }
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var mailAddress = new MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+    }
+
 }

@@ -24,6 +24,17 @@ namespace Moodie.Data
         {
             return _context.Users.FirstOrDefault(u => u.Id == id);
         }
+        
+        public User GetByEmailToken(string token)
+        {
+            return _context.Users.FirstOrDefault(u => u.EmailToken == token);
+        }
+        
+        public void Update(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
     }
 }
 

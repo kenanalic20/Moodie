@@ -53,6 +53,7 @@ public class Startup
         services.AddScoped<IUserRepo, UserRepo>();
         services.AddScoped<IMoodRepo, MoodRepo>();
         services.AddScoped<JWTService>();
+        services.AddScoped<EmailService>();
         services.AddScoped<AverageMood>();
         services.AddScoped<INotesRepo, NotesRepo>();
         services.AddScoped<IUserInfoRepo, UserInfoRepo>();

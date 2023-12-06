@@ -13,10 +13,13 @@ namespace Moodie.Controllers
     {
         private readonly IUserRepo _repository;
         private readonly JWTService _jwtService;
-        public AuthController(IUserRepo repository,JWTService jwtService)
+        private readonly EmailService _emailService;
+        
+        public AuthController(IUserRepo repository,JWTService jwtService,EmailService emailService)
         {
             _repository = repository;
             _jwtService = jwtService;
+            _emailService = emailService;
         }
 
         [HttpPost("register")]
@@ -26,12 +29,20 @@ namespace Moodie.Controllers
             {
                 Username = Dto.Username,
                 Email = Dto.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(Dto.Password)
+                Password = BCrypt.Net.BCrypt.HashPassword(Dto.Password),
+                EmailToken = Guid.NewGuid().ToString()
             };
-           
+            
+            var exists = _repository.GetByEmail(user.Email);
+            if (exists != null)
+            {
+                return BadRequest("Email already exists");
+            }
+            
+            _emailService.SendVerificationEmail(user.Email,user.EmailToken);
             return Created("success",_repository.Create(user));
         }
-        [HttpPost("login")]
+       [HttpPost("login")]
       public IActionResult Login(LoginDto Dto)
         {
             var user = _repository.GetByEmail(Dto.Email);
@@ -78,6 +89,27 @@ namespace Moodie.Controllers
       {
           Response.Cookies.Delete("jwt");
           return Ok(new {message="success"});
+      }
+      
+      [HttpGet("verifyEmail")]
+      public IActionResult VerifyEmail(string token)
+      {
+          var user = _repository.GetByEmailToken(token);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+            
+            if (user.IsVerifiedEmail)
+            {
+                return BadRequest("Email already verified");
+            }
+            
+            user.IsVerifiedEmail = true;
+            
+            _repository.Update(user);
+            
+            return Redirect("http://localhost:3000/emailVerified");
       }
     }
 
