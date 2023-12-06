@@ -1,11 +1,10 @@
 ﻿using auth.Models;
 
-namespace Moodie.Data
+namespace Moodie.Data;
+
+public interface IMoodRepo
 {
-    public interface IMoodRepo
-    {
-        Mood Create(Mood mood);
-        Mood GetById(int id);
-        List<Mood> GetByUserId(int userId);
-    }
+    Mood Create(Mood mood);
+    Mood GetById(int id);
+    List<Mood> GetByUserId(int userId);
 }

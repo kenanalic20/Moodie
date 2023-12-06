@@ -1,13 +1,11 @@
 ﻿using auth.Models;
 
-namespace Moodie.Data
+namespace Moodie.Data;
+
+public interface INotesRepo
 {
-    public interface INotesRepo
-    {
-        Notes Create(Notes notes);
-        Notes GetById(int id);
-        List<Notes> GetByUserId(int userId);
-        Notes Delete(int userId);
-     
-    }
+    Notes Create(Notes notes);
+    Notes GetById(int id);
+    List<Notes> GetByUserId(int userId);
+    Notes Delete(int userId);
 }

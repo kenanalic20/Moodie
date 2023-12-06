@@ -1,59 +1,49 @@
 ﻿using auth.Models;
 
-namespace Moodie.Data
+namespace Moodie.Data;
+
+public class UserInfoRepo : IUserInfoRepo
 {
+    private readonly ApplicationDbContext _context;
 
-    public class UserInfoRepo : IUserInfoRepo
+    public UserInfoRepo(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public UserInfoRepo(ApplicationDbContext context)
+    public UserInfo Create(UserInfo userInfo, int userId)
+    {
+        var existingUserInfo = _context.UserInfo.FirstOrDefault(u => u.UserId == userId);
+        if (existingUserInfo != null)
         {
-            _context = context;
+            existingUserInfo.FirstName = userInfo.FirstName;
+            existingUserInfo.LastName = userInfo.LastName;
+            existingUserInfo.Gender = userInfo.Gender;
+            existingUserInfo.Birthday = userInfo.Birthday;
+            _context.UserInfo.Update(existingUserInfo);
+            _context.SaveChanges();
+            return existingUserInfo;
         }
 
-        public UserInfo Create(UserInfo userInfo,int userId)
+        _context.UserInfo.Add(userInfo);
+        _context.SaveChanges();
+        return userInfo;
+    }
+
+    public UserInfo GetByUserId(int userId)
+    {
+        return _context.UserInfo.Where(u => u.UserId == userId).FirstOrDefault();
+    }
+
+
+    public void Delete(int userId)
+    {
+        var existingUserInfo = _context.UserInfo.FirstOrDefault(u => u.UserId == userId);
+
+        if (existingUserInfo != null)
         {
-            var existingUserInfo = _context.UserInfo.FirstOrDefault(u => u.UserId == userId);
-            if (existingUserInfo != null)
-            {
-                existingUserInfo.FirstName = userInfo.FirstName;
-                existingUserInfo.LastName = userInfo.LastName;
-                existingUserInfo.Gender = userInfo.Gender;
-                existingUserInfo.Birthday = userInfo.Birthday;
-                _context.UserInfo.Update(existingUserInfo);
-                _context.SaveChanges();
-                return existingUserInfo;
-            }
-            else
-            {
-                _context.UserInfo.Add(userInfo);
-                _context.SaveChanges();
-                return userInfo;
-            }
-        }
-
-        public UserInfo GetByUserId(int userId)
-        {
-
-            return _context.UserInfo.Where(u => u.UserId == userId).FirstOrDefault();
-            
-        }
-
-        
-
-        public void Delete(int userId)
-        {
-            var existingUserInfo = _context.UserInfo.FirstOrDefault(u => u.UserId == userId);
-    
-            if (existingUserInfo != null)
-            {
-                _context.UserInfo.Remove(existingUserInfo);
-                _context.SaveChanges();
-            }
+            _context.UserInfo.Remove(existingUserInfo);
+            _context.SaveChanges();
         }
     }
 }
-
-
-
