@@ -18,6 +18,10 @@ export class LoginComponent {
     emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     email: string = '';
     password: string = '';
+    verificationCode: string = '';
+    hide = true;
+    hideLogin=false;
+    hideVerification=true;
 
 
 
@@ -28,20 +32,36 @@ export class LoginComponent {
       onPasswordChange(password: any) {
         this.password = password;
       }
+      onVerificationCodeChange(verificationCode: any) {
+        this.verificationCode = verificationCode;
+      }
 
 
 
       login() {
-        if(  this.password === '' ||  this.email === '' || !this.email.match(this.emailRegex) ||this.password.length<8) {
+        if (this.password === '' || this.email === '' || !this.email.match(this.emailRegex) || this.password.length < 8) {
           this.toastr.error('Please enter valid credentials', 'Error')
+          console.log(this.email, this.password, this.verificationCode);
           return;
         }
 
         this.authService.login(this.email, this.password).subscribe((response) => {
           console.log(response);
-          this.toastr.success('Logged in successfully', 'Success')
+          this.toastr.success('Check your email', 'Success')
+          this.hide = false;
+          this.hideLogin=true;
+          this.hideVerification=false;
+        });
+      }
+      submitVerificationCode() {
+        if (this.verificationCode === '') {
+          this.toastr.error('Please enter valid verification code', 'Error')
+          return;
+        }
+        this.authService.login(this.email, this.password, this.verificationCode).subscribe((response) => {
+          console.log(response);
+          this.toastr.success('Logged in', 'Success')
           this.router.navigate(['/dashboard']);
         });
       }
-
 }

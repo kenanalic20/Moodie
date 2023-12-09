@@ -9,9 +9,9 @@ export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
   private jwtCookieName = 'jwt';
   constructor(private http:HttpClient,private toastr: ToastrService) { }
-  login(email: string, password: string) {
+  login(email: string, password: string,twoStepCode?:string) {
     const url = `${this.apiUrl}/login`;
-    const body = { email, password };
+    const body = { email, password ,twoStepCode};
     return  this.http.post(url, body,{withCredentials:true}).pipe(catchError((error:HttpResponse<any>)=>{
       this.toastr.error(error.statusText, 'Error');
       throw error;

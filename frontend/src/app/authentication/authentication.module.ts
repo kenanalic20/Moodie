@@ -9,12 +9,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputComponent } from './input/input.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
     declarations: [
         LoginComponent,
         ResetComponent,
         RegisterComponent,
         InputComponent,
+
     ],
     imports: [CommonModule, AuthenticationRoutingModule, FontAwesomeModule,HttpClientModule],
     exports: [
