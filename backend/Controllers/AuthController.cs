@@ -48,7 +48,7 @@ public class AuthController : Controller
 
         if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password)) return Unauthorized("Invalid credentials");
 
-        if (user.EmailTwoStepToken?.Length == 0)
+        if (user.EmailTwoStepToken?.Length == null)
         {
             var code = new Random().Next(100000, 999999);
             _emailService.SendTwoFactorCode(user.Email, code.ToString());
