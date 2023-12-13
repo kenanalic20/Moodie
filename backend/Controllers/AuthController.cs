@@ -44,19 +44,12 @@ public class AuthController : Controller
     public IActionResult Login(LoginDto Dto)
     {
         var user = _repository.GetByEmail(Dto.Email);
-
-<<<<<<< HEAD
+        
         if (user == null) return NotFound("Invalid credentials");
 
         if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password)) return Unauthorized("Invalid credentials");
 
         if (user.EmailTwoStepToken?.Length == null)
-=======
-        if (user == null)
->>>>>>> a5293ad8f4162d638b112542c0d0f0e02bac8eb4
-        {
-            return NotFound("Invalid credentials");
-        }
         // Verification code is valid, proceed with login
         if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password))
         {
