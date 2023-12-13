@@ -3,6 +3,7 @@ using auth.Helper;
 using auth.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Data;
+using Moodie.Helper;
 
 namespace Moodie.Controllers;
 
@@ -44,34 +45,59 @@ public class AuthController : Controller
     {
         var user = _repository.GetByEmail(Dto.Email);
 
+<<<<<<< HEAD
         if (user == null) return NotFound("Invalid credentials");
 
         if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password)) return Unauthorized("Invalid credentials");
 
         if (user.EmailTwoStepToken?.Length == null)
+=======
+        if (user == null)
+>>>>>>> a5293ad8f4162d638b112542c0d0f0e02bac8eb4
         {
+            return NotFound("Invalid credentials");
+        }
+        // Verification code is valid, proceed with login
+        if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password))
+        {
+            return Unauthorized("Invalid credentials");
+        }
+
+        if (string.IsNullOrEmpty(Dto.TwoStepCode))
+        {
+            // First step: Send verification code to email
             var code = new Random().Next(100000, 999999);
             _emailService.SendTwoFactorCode(user.Email, code.ToString());
 
+            // Store the verification code in the user record
             user.EmailTwoStepToken = code.ToString();
             _repository.Update(user);
-            return Ok(new { message = "Check your email for two factor code" });
+
+            return Ok(new { message = "Verification code sent to your email" });
         }
 
-        if (Dto.TwoStepCode != user.EmailTwoStepToken) return Unauthorized("Invalid two factor code");
+        // Second step: Verify the verification code
+        if (user.EmailTwoStepToken == null || Dto.TwoStepCode != user.EmailTwoStepToken)
+        {
+            return Unauthorized("Invalid verification code");
+        }
 
+
+        // Generate JWT and set as a cookie
         var jwt = _jwtService.Generate(user.Id);
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Secure = Request.IsHttps, // Set to true for HTTPS requests, false for HTTP requests
+            Secure = Request.IsHttps,
             SameSite = SameSiteMode.None
         };
         Response.Cookies.Append("jwt", jwt, cookieOptions);
 
+        // Clear the verification code in the user record
         user.EmailTwoStepToken = null;
         _repository.Update(user);
-        return Ok(new { message = "success" });
+
+        return Ok(new { message = "Login successful" });
     }
 
     [HttpGet("user")]

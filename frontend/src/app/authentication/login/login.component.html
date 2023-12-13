@@ -14,7 +14,7 @@
         <div>
             <app-input placeholder="Email" type="email" (valueChange)="onEmailChange($event)"/>
             <app-input placeholder="Password" type="password"    (valueChange)="onPasswordChange($event)"/>
-
+          <app-input [hidden]="hide" placeholder="Verification Code" type="text"    (valueChange)="onVerificationCodeChange($event)"/>
             <div class="flex flex-col gap-4">
                 <div class="flex gap-4">
                     <button
@@ -22,10 +22,14 @@
                         routerLink="/auth/register">
                         I don't have an account
                     </button>
-                    <button (click)="login()"
+                    <button [hidden]="hideLogin" (click)="login()"
                         class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
                         Login
                     </button>
+                  <button [hidden]="hideVerification" (click)="submitVerificationCode()"
+                          class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
+                    Verify
+                  </button>
                 </div>
 
                 <button

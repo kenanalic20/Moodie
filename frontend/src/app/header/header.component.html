@@ -35,7 +35,6 @@
 
 
     <app-entry
-        *ngIf="isDevelopment"
         [active]="active === 'User'"
 
 
@@ -43,7 +42,7 @@
         text="User" />
 
     <app-entry
-        *ngIf="isDevelopment"
+
         [active]="active === 'Logout'"
 
         (click)="logOut()"
