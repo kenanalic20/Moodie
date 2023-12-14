@@ -18,6 +18,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Settings> Settings { get; set; }
     public DbSet<UserImage> UserImages { get; set; }
     public DbSet<UserLocation> UserLocations { get; set; }
+    public DbSet<Activity> Activity { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

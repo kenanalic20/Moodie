@@ -27,4 +27,9 @@ public class MoodRepo : IMoodRepo
     {
         return _context.Moods.Where(u => u.UserId == userId).ToList();
     }
+    
+    public List<Activity> GetAllActivities()
+    {
+        return _context.Activity.ToList();
+    }
 }

@@ -35,13 +35,23 @@ public class MoodController : Controller
             var token = _jwtService.Verify(jwt);
             var userId = int.Parse(token.Issuer);
             var user = _repositoryUser.GetById(userId);
+
+            Activity activity = null;
+            if (moodDto.ActivityId != null)
+            {
+                activity = _context.Activity.Find(moodDto.ActivityId);
+            }
             var mood = new Mood
             {
                 MoodValue = moodDto.MoodValue,
                 Date = DateTime.Now,
                 User = user,
-                UserId = userId
+                UserId = userId,
             };
+            if (activity == null) return Created("success", _repositoryMood.Create(mood));
+            
+            mood.Activity = activity;
+            mood.ActivityId = activity.Id;
             return Created("success", _repositoryMood.Create(mood));
         }
         catch (SecurityTokenException ex) // Catch the specific exception type
@@ -66,6 +76,29 @@ public class MoodController : Controller
 
             var moods = _repositoryMood.GetByUserId(userId);
             return Ok(moods);
+        }
+        catch (SecurityTokenException ex) // Catch the specific exception type
+        {
+            return Unauthorized("Invalid or expired token.");
+        }
+        catch (Exception e) // Catch any other unexpected exception
+        {
+            return StatusCode(500, "An error occurred.");
+        }
+    }
+    
+    [HttpGet("mood/activities")]
+    public IActionResult GetActivities()
+    {
+        try
+        {
+            //get users moods from db based on userid
+            var jwt = Request.Cookies["jwt"];
+            var token = _jwtService.Verify(jwt);
+            var userId = int.Parse(token.Issuer);
+
+            var activities = _repositoryMood.GetAllActivities();
+            return Ok(activities);
         }
         catch (SecurityTokenException ex) // Catch the specific exception type
         {
