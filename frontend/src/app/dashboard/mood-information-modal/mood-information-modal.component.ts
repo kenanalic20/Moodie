@@ -15,9 +15,13 @@ export class MoodInformationModalComponent implements OnDestroy {
   ) {}
 
   @Input() mood = 0;
+  activityInput:boolean=false;
   selectedImage: File | null = null;
-  title = '';
-  description = '';
+  title:string = '';
+  description:string = '';
+  activityTitle:string='';
+  activityDescription:string='';
+
   imageUrl: string | null = null;
     activity: any;
 
@@ -36,11 +40,13 @@ export class MoodInformationModalComponent implements OnDestroy {
       this.imageUrl = null;
     }
   }
-
+ 
   CloseModal() {
     this.bsModalRef.hide();
   }
+  saveActivity(){
 
+  }
   setNotes() {
     this.notesService.addNotes(this.title, this.selectedImage, this.description).subscribe((data: any) => {
       console.log(data);
@@ -53,7 +59,9 @@ export class MoodInformationModalComponent implements OnDestroy {
 
     this.toastr.success('Note added successfully', 'Success');
   }
-
+ showActivityInput(){
+  this.activityInput=!this.activityInput;
+ }
   ngOnDestroy(): void {
     if (this.imageUrl) {
       URL.revokeObjectURL(this.imageUrl);

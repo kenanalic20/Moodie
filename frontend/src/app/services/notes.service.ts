@@ -8,7 +8,7 @@ export class NotesService {
   private apiUrl = 'http://localhost:8000/api';
   constructor(private http:HttpClient) { }
   addNotes(Title: string, Image:File|null, Description: string) {
-    const url = `${this.apiUrl}/add-notes`;
+    const url = `${this.apiUrl}/notes`;
 
       const formData = new FormData();
       formData.append('Title', Title);
@@ -20,7 +20,7 @@ export class NotesService {
 
   }
   getNotes(){
-    const url = `${this.apiUrl}/get-notes`;
+    const url = `${this.apiUrl}/notes`;
     return this.http.get(url,{withCredentials:true});
   }
 

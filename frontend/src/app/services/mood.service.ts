@@ -11,12 +11,12 @@ export class MoodService {
   constructor( private http:HttpClient) {
   }
   addMood(moodValue :number){
-    const url = `${this.apiUrl}/add-mood`;
+    const url = `${this.apiUrl}/mood`;
     const body = {moodValue }
     return this.http.post(url, body,{withCredentials:true});
   }
   getMoods(){
-    const url = `${this.apiUrl}/get-mood`;
+    const url = `${this.apiUrl}/mood`;
     return this.http.get(url,{withCredentials:true});
   }
 

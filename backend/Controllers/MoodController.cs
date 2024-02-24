@@ -87,26 +87,5 @@ public class MoodController : Controller
         }
     }
     
-    [HttpGet("mood/activities")]
-    public IActionResult GetActivities()
-    {
-        try
-        {
-            //get users moods from db based on userid
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-
-            var activities = _repositoryMood.GetAllActivities();
-            return Ok(activities);
-        }
-        catch (SecurityTokenException ex) // Catch the specific exception type
-        {
-            return Unauthorized("Invalid or expired token.");
-        }
-        catch (Exception e) // Catch any other unexpected exception
-        {
-            return StatusCode(500, "An error occurred.");
-        }
-    }
+    
 }
