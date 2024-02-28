@@ -1,17 +1,19 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import {NotesService} from "../../services/notes.service";
+import { ActivityService } from 'src/app/services/activity.service';
 import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-mood-information-modal',
   templateUrl: './mood-information-modal.component.html',
 })
-export class MoodInformationModalComponent implements OnDestroy {
+export class MoodInformationModalComponent implements OnDestroy,OnInit {
   constructor(
     public bsModalRef: BsModalRef,
     private notesService: NotesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private activityService:ActivityService
   ) {}
 
   @Input() mood = 0;
@@ -21,6 +23,8 @@ export class MoodInformationModalComponent implements OnDestroy {
   description:string = '';
   activityTitle:string='';
   activityDescription:string='';
+
+  activities:any=[];
 
   imageUrl: string | null = null;
     activity: any;
@@ -45,7 +49,19 @@ export class MoodInformationModalComponent implements OnDestroy {
     this.bsModalRef.hide();
   }
   saveActivity(){
+    if(this.activityTitle==''){
+      this.toastr.error("Add title to activity","Failure");
+    }
+    else{
+      this.activityService.addActivity(this.activityTitle,this.activityDescription).subscribe(res=>{
+       this.toastr.success('Activity added successfully', 'Success')
+       this.showActivityInput();
+       this.activityService.getActivitiesByUserId().subscribe(res=>{
+        this.activities=res;
+      });
 
+      });
+    }
   }
   setNotes() {
     this.notesService.addNotes(this.title, this.selectedImage, this.description).subscribe((data: any) => {
@@ -67,4 +83,10 @@ export class MoodInformationModalComponent implements OnDestroy {
       URL.revokeObjectURL(this.imageUrl);
     }
   }
+ ngOnInit(): void {
+    this.activityService.getActivitiesByUserId().subscribe(res=>{
+      this.activities=res;
+    });
+ }
+
 }

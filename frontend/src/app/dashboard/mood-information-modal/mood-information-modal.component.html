@@ -35,14 +35,17 @@
                 <!-- <input [(ngModel)]="activity" #activityInput
                        class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2"
                        placeholder="What were you doing?"> -->
-                    <select class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center">
-                        <option value="" disabled selected>Select activity</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <button (click)="showActivityInput()" class="border bg-white dark:bg-neutral-700 rounded-lg  min-h-[50px] p-2 m-1">
-                        Add
-                    </button>
+                    <!-- <select class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center">
+                        <option class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center"  value="" disabled selected>Select activity</option>
+                        <option *ngFor="let a of activities" class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center">{{a.name}}</option> 
+                        
+                    </select> -->
+                    <div class="flex flex-wrap border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center">
+                      <div class="border bg-white dark:bg-neutral-700 rounded-lg min-w-[50px] max-w-full min-h-[50px] h-fit m-1  p-2 items-center" *ngFor="let a of activities">{{a.name}}</div>
+                      <button (click)="showActivityInput()" class="border bg-white dark:bg-neutral-700 rounded-lg min-w-[50px]  min-h-[50px] p-2 m-1">
+                          +
+                      </button>
+                    </div>
                     
                     </div>
                     <div *ngIf="activityInput" class="flex-row rounded-md justify-between w-full items-center p-2 border">

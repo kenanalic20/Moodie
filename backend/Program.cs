@@ -54,6 +54,7 @@ public class Startup
         services.AddScoped<IGoalRepo, GoalRepo>();
         services.AddScoped<IUserImageRepo, UserImageRepo>();
         services.AddScoped<ISettingsRepo, SettingsRepo>();
+        services.AddScoped<IActivityRepo,ActivityRepo>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

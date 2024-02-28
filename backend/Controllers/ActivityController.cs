@@ -9,21 +9,52 @@ using Moodie.Data;
 namespace Moodie.Controllers;
 [Route("api")]
 [ApiController]
-public class ActivityController:Controller{
+public class ActivityController : Controller
+{
     private readonly ApplicationDbContext _context;
     private readonly JWTService _jwtService;
-    private readonly IMoodRepo _repositoryMood;
     private readonly IUserRepo _repositoryUser;
+    private readonly IActivityRepo _activityRepo;
     public ActivityController(ApplicationDbContext context, IUserRepo repositoryUser,
-        JWTService jwtService, IMoodRepo repositoryMood){
-            _context=context;
-            _jwtService=jwtService;
-            _repositoryMood=repositoryMood;
-            _repositoryUser=repositoryUser;
+        JWTService jwtService, IActivityRepo activityRepo)
+    {
+        _context = context;
+        _jwtService = jwtService;
+        _activityRepo = activityRepo;
+        _repositoryUser = repositoryUser;
+    }
+    [HttpPost("mood/activities")]
+    public IActionResult AddActivities(ActivityDto a)
+    {
+        try
+        {
+            var jwt = Request.Cookies["jwt"];
+            var token = _jwtService.Verify(jwt);
+            var userId = int.Parse(token.Issuer);
+            var user = _repositoryUser.GetById(userId);
+            if(a.Name==null){
+                return BadRequest();
+            }
+            var activity = new Activity
+            {
+                Name=a.Name,
+                Description = a.Description,
+                UserId = userId
+            };
+            return Created("success", _activityRepo.Create(activity));
+        }
+        catch (SecurityTokenException ex)
+        {
+            return Unauthorized("Invalid or expired token.");
+        }
+        catch (Exception e) // Catch any other unexpected exception
+        {
+            return StatusCode(500, "An error occurred.");
         }
 
-[HttpGet("mood/activities")]
-    public IActionResult GetActivities()
+    }
+    [HttpGet("mood/activities")]
+    public IActionResult GetActivitiesByUserId()
     {
         try
         {
@@ -31,9 +62,9 @@ public class ActivityController:Controller{
             var jwt = Request.Cookies["jwt"];
             var token = _jwtService.Verify(jwt);
             var userId = int.Parse(token.Issuer);
-
-            var activities = _repositoryMood.GetAllActivities();
+            var activities=_activityRepo.GetByUserId(userId);
             return Ok(activities);
+            
         }
         catch (SecurityTokenException ex) // Catch the specific exception type
         {

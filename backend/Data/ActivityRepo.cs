@@ -6,5 +6,15 @@ public class ActivityRepo:IActivityRepo{
  public ActivityRepo(ApplicationDbContext context){
     _context=context;
  }
+ public Activity Create(Activity activity){
+   _context.Activity.Add(activity);
+   _context.SaveChanges();
+   return activity;
+ }
+ public List<Activity> GetByUserId(int UserId){
+    var data=_context.Activity.Where(a=>a.UserId==UserId).ToList();
+    return data;
+ }
+
  
 }
