@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -21,5 +21,9 @@ export class ActivityService {
   getActivitiesByUserId(){
     const url = `${this.apiUrl}/mood/activities`;
     return this.http.get(url,{withCredentials:true});
+  }
+  deleteActivity(id:number){
+    const url = `${this.apiUrl}/mood/activities/${id}`;
+    return this.http.delete(url,{withCredentials:true});
   }
 }

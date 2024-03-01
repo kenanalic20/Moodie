@@ -40,9 +40,11 @@
                         <option *ngFor="let a of activities" class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center">{{a.name}}</option> 
                         
                     </select> -->
-                    <div class="flex flex-wrap border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center">
-                      <div class="border bg-white dark:bg-neutral-700 rounded-lg min-w-[50px] max-w-full min-h-[50px] h-fit m-1  p-2 items-center" *ngFor="let a of activities">{{a.name}}</div>
-                      <button (click)="showActivityInput()" class="border bg-white dark:bg-neutral-700 rounded-lg min-w-[50px]  min-h-[50px] p-2 m-1">
+                    <div class="flex flex-wrap  w-full min-h-[50px] h-fit  p-2 items-center">
+                      <div class="border flex justify-between  bg-white dark:bg-neutral-700 rounded-full min-w-[50px] max-w-full min-h-[50px] h-fit m-1  p-2 items-center" *ngFor="let a of activities">
+                        <div class="text-center mr-2">{{a.name}}</div><button (click)="removeActivity(a.id)" class="ml-2 pr-2 cursor-pointer text-center">x</button>
+                    </div>
+                      <button (click)="showActivityInput()" class="border bg-white dark:bg-neutral-700 rounded-full min-w-[50px]  min-h-[50px] p-2 m-1">
                           +
                       </button>
                     </div>

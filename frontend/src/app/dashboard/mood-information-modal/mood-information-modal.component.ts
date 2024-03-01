@@ -59,7 +59,6 @@ export class MoodInformationModalComponent implements OnDestroy,OnInit {
        this.activityService.getActivitiesByUserId().subscribe(res=>{
         this.activities=res;
       });
-
       });
     }
   }
@@ -78,15 +77,25 @@ export class MoodInformationModalComponent implements OnDestroy,OnInit {
  showActivityInput(){
   this.activityInput=!this.activityInput;
  }
+ removeActivity(id:number){
+  this.activityService.deleteActivity(id).subscribe(res=>{
+    
+    this.getActivities();
+  });
+
+ }
   ngOnDestroy(): void {
     if (this.imageUrl) {
       URL.revokeObjectURL(this.imageUrl);
     }
   }
- ngOnInit(): void {
+  getActivities(){
     this.activityService.getActivitiesByUserId().subscribe(res=>{
       this.activities=res;
     });
+  }
+ ngOnInit(): void {
+   this.getActivities();
  }
 
 }

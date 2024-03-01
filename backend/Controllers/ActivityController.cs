@@ -75,4 +75,12 @@ public class ActivityController : Controller
             return StatusCode(500, "An error occurred.");
         }
     }
+    [HttpDelete("mood/activities/{id}")]
+    public IActionResult DeleteActivity(int id){
+      
+        _activityRepo.Delete(id);
+       return Ok(id);
+         
+    }
+
 }
