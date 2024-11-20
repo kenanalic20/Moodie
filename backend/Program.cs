@@ -55,6 +55,7 @@ public class Startup
         });
         services.AddControllers();
         services.AddScoped<IUserRepo, UserRepo>();
+        services.AddScoped<IHabitRepo, HabitRepo>();  // Add this line
         services.AddScoped<IMoodRepo, MoodRepo>();
         services.AddScoped<JWTService>();
         services.AddScoped<EmailService>();
@@ -65,6 +66,7 @@ public class Startup
         services.AddScoped<IUserImageRepo, UserImageRepo>();
         services.AddScoped<ISettingsRepo, SettingsRepo>();
         services.AddScoped<IActivityRepo,ActivityRepo>();
+        services.AddScoped<IHabitRepo, HabitRepo>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

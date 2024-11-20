@@ -76,6 +76,35 @@ public class EmailService
         }
     }
 
+    public void SendHabitMissedEmail(string email, string habitName)
+    {
+        if (!IsValidEmail(email)) return;
+
+        var client = new SmtpClient("smtp.gmail.com", 587)
+        {
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential("moodieappfit@gmail.com", "xowmecvcskwbcifa"),
+            EnableSsl = true,
+            DeliveryMethod = SmtpDeliveryMethod.Network
+        };
+
+        var message = new MailMessage("moodieappfit@gmail.com", email)
+        {
+            Subject = "Habit Streak Reset",
+            Body = $"You missed your daily check-in for habit: {habitName}. Your streak has been reset to 0.",
+            IsBodyHtml = true
+        };
+
+        try
+        {
+            client.Send(message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error sending email: {ex.Message}");
+        }
+    }
+
     private bool IsValidEmail(string email)
     {
         // Regular expression pattern for email validation

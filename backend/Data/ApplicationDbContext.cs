@@ -19,6 +19,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<UserImage> UserImages { get; set; }
     public DbSet<UserLocation> UserLocations { get; set; }
     public DbSet<Activity> Activity { get; set; }
+    public DbSet<Habit> Habits { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -45,6 +46,18 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(n => n.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
-       
+        modelBuilder.Entity<Habit>()
+            .HasOne(h => h.User)
+            .WithMany(u => u.Habits)
+            .HasForeignKey(h => h.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Habit>(entity =>
+        {
+            entity.ToTable("Habits");
+            entity.HasKey(e => e.Id);
+            entity.HasOne(h => h.User)
+                  .WithMany(u => u.Habits)
+                  .HasForeignKey(h => h.UserId);
+        });
     }
 }

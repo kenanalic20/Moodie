@@ -13,4 +13,5 @@ public class User
     [JsonIgnore] public string Password { get; set; }
     [JsonIgnore] public List<Mood> Moods { get; set; }
     [JsonIgnore] public List<Notes> Notes { get; set; }
+    [JsonIgnore] public List<Habit> Habits { get; set; }
 }
