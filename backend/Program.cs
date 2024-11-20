@@ -34,7 +34,17 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddCors();
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder
+                    .WithOrigins("http://localhost:4200") // Your Angular app URL
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+        });
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
@@ -50,7 +60,7 @@ public class Startup
         services.AddScoped<EmailService>();
         services.AddScoped<AverageMood>();
         services.AddScoped<INotesRepo, NotesRepo>();
-        services.AddScoped<IUserInfoRepo, UserInfoRepo>();
+        services.AddScoped<IUserInfoRepo, UserInfoRepo>();  // Add this line
         services.AddScoped<IGoalRepo, GoalRepo>();
         services.AddScoped<IUserImageRepo, UserImageRepo>();
         services.AddScoped<ISettingsRepo, SettingsRepo>();
@@ -62,8 +72,7 @@ public class Startup
         if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
         app.UseHttpsRedirection();
         app.UseRouting();
-        app.UseCors(options =>
-            options.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:4200"));
+        app.UseCors();
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

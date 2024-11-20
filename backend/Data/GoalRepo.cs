@@ -34,4 +34,14 @@ public class GoalRepo : IGoalRepo
         _context.SaveChanges();
         return Goal;
     }
+
+    public void Delete(int id)
+    {
+        var goal = _context.Goal.Find(id);
+        if (goal != null)
+        {
+            _context.Goal.Remove(goal);
+            _context.SaveChanges();
+        }
+    }
 }

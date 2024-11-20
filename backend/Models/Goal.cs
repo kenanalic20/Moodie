@@ -10,10 +10,8 @@ public class Goal
     public string Description { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-
-    [ForeignKey("GoalType")] public int GoalType { get; set; }
-
+    public string GoalType { get; set; }
+    public bool Completed { get; set; }
     [ForeignKey("UserId")] public int UserId { get; set; }
-
     [JsonIgnore] public User User { get; set; }
 }

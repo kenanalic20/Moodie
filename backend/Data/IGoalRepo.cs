@@ -8,4 +8,5 @@ public interface IGoalRepo
     Goal GetById(int id);
     List<Goal> GetByUserId(int userId);
     Goal Update(Goal goal);
+    void Delete(int id);
 }

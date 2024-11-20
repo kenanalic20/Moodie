@@ -4234,25 +4234,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kenoa\\.nuget\\packages\\": {}
+    "C:\\Users\\omar\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
+      "projectUniqueName": "A:\\personal\\Moodie\\backend\\Moodie.csproj",
       "projectName": "Moodie",
-      "projectPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
-      "packagesPath": "C:\\Users\\kenoa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\obj\\",
+      "projectPath": "A:\\personal\\Moodie\\backend\\Moodie.csproj",
+      "packagesPath": "C:\\Users\\omar\\.nuget\\packages\\",
+      "outputPath": "A:\\personal\\Moodie\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kenoa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\omar\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files\\dotnet\\sdk\\7.0.313\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4265,6 +4264,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -4349,7 +4353,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.313\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

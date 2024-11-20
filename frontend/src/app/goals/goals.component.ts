@@ -1,37 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { GoalService } from "../services/goal.service";
+import { Goal } from "../models/goal";
 
 @Component({
-  selector: 'app-goals',
-  templateUrl: './goals.component.html',
+	selector: "app-goals",
+	templateUrl: "./goals.component.html",
 })
-export class GoalsComponent {
+export class GoalsComponent implements OnInit {
+	goals: Goal[] = [];
 
-  deleteEntry($event: any) {
-    // delete the parent of the parent of the button clicked
-    const parent = $event.target.parentElement;
-    parent.remove();
-  }
+	constructor(private goalService: GoalService) {}
 
-  addGoal($event: any) {
-  // get #goals-holder div from parent, then add a new goal to it
-  const parent = $event.target.parentElement;
-  const goalsHolder = parent.querySelector('#goals-holder');
-    // create div
-    const element = `
-    <div class="flex items-center mb-2 inline-flex justify-between">
-    <div class="inline-flex">
-      <input type="checkbox" class="mr-2" checked>
-      <p>${
-        $event.target.value
-      }</p>
-    </div>
-    <p class="cursor-pointer" (click)="deleteEntry($event)">X</p>
-  </div>
-  `
+	ngOnInit() {
+		this.loadGoals();
+	}
 
-    // add div to #goals-holder
-    goalsHolder.innerHTML += element;
+	loadGoals() {
+		this.goalService.getGoals().subscribe((goals) => {
+			this.goals = goals;
+		});
+	}
 
-    // clear input
-    $event.target.value = '';
-  }}
+	deleteEntry(goalId: number) {
+		this.goalService.deleteGoal(goalId).subscribe(() => {
+			this.loadGoals();
+		});
+	}
+
+	addGoal(nameInput: HTMLInputElement, descriptionInput: HTMLTextAreaElement, goalType: string) {
+		if (!nameInput.value.trim()) return;
+
+		const newGoal: Goal = {
+			name: nameInput.value,
+			description: descriptionInput.value,
+			goalType: goalType,
+			startDate: new Date().toISOString(),
+			endDate: new Date().toISOString(),
+		};
+
+		this.goalService.createGoal(newGoal).subscribe(() => {
+			nameInput.value = "";
+			descriptionInput.value = "";
+			this.loadGoals();
+		});
+	}
+
+	completeGoal(goal: Goal) {
+		goal.completed = !goal.completed;
+		this.goalService.updateGoal(goal).subscribe(() => {
+			this.loadGoals();
+		});
+	}
+}

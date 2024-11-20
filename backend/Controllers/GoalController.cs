@@ -7,7 +7,7 @@ using Moodie.Dtos;
 
 namespace Moodie.Controllers;
 
-[Route("api")]
+[Route("api/goal")]  // Changed from [Route("api")]
 [ApiController]
 public class GoalController : Controller
 {
@@ -23,18 +23,26 @@ public class GoalController : Controller
         _jwtService = jwtService;
     }
 
-    [HttpPost("goal")]
-    public IActionResult AddGoal([FromForm] GoalDto GoalDto)
+    [HttpPost]  // Changed from [HttpPost("goal")]
+    public IActionResult AddGoal([FromBody] GoalDto goalDto)
     {
         try
         {
             var jwt = Request.Cookies["jwt"];
             var token = _jwtService.Verify(jwt);
             var userId = int.Parse(token.Issuer);
-            var user = _repositoryUser.GetById(userId);
-            byte[] imageData = null;
-            // TODO
-            var goal = new Goal();
+
+            var goal = new Goal
+            {
+                Name = goalDto.Name,
+                Description = goalDto.Description,
+                GoalType = goalDto.GoalType,
+                StartDate = DateTime.Parse(goalDto.StartDate),
+                EndDate = DateTime.Parse(goalDto.EndDate),
+                Completed = goalDto.Completed,  // Add this line
+                UserId = userId
+            };
+
             return Created("success", _repositoryGoal.Create(goal));
         }
         catch (SecurityTokenException ex)
@@ -47,7 +55,7 @@ public class GoalController : Controller
         }
     }
 
-    [HttpGet("goal")]
+    [HttpGet]  // Changed from [HttpGet("goal")]
     public IActionResult GetGoal()
     {
         try
@@ -67,6 +75,56 @@ public class GoalController : Controller
         catch (Exception e) // Catch any other unexpected exception
         {
             return StatusCode(500, "An error occurred.");
+        }
+    }
+
+    [HttpDelete("{id:int}")]  // Changed from [HttpDelete("goal/{id:int}")]
+    public IActionResult DeleteGoal([FromRoute] int id)
+    {
+        try
+        {
+            var jwt = Request.Cookies["jwt"];
+            var token = _jwtService.Verify(jwt);
+            var userId = int.Parse(token.Issuer);
+
+            var goal = _repositoryGoal.GetById(id);
+            if (goal == null || goal.UserId != userId)
+                return NotFound();
+
+            _repositoryGoal.Delete(id);
+            return Ok();
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpPut("{id:int}")]  // Changed from [HttpPut("goal/{id:int}")]
+    public IActionResult UpdateGoal([FromRoute] int id, [FromBody] GoalDto goalDto)
+    {
+        try
+        {
+            var jwt = Request.Cookies["jwt"];
+            var token = _jwtService.Verify(jwt);
+            var userId = int.Parse(token.Issuer);
+
+            var goal = _repositoryGoal.GetById(id);
+            if (goal == null || goal.UserId != userId)
+                return NotFound();
+
+            goal.Name = goalDto.Name;
+            goal.Description = goalDto.Description;
+            goal.GoalType = goalDto.GoalType;
+            goal.StartDate = DateTime.Parse(goalDto.StartDate);
+            goal.EndDate = DateTime.Parse(goalDto.EndDate);
+            goal.Completed = goalDto.Completed;
+
+            return Ok(_repositoryGoal.Update(goal));
+        }
+        catch (Exception)
+        {
+            return BadRequest();
         }
     }
 }
