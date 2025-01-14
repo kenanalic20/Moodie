@@ -1,4 +1,4 @@
-﻿namespace auth.Dtos;
+﻿namespace Moodie.Dtos;
 
 public class LoginDto
 {

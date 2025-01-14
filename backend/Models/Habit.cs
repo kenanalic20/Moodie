@@ -1,7 +1,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace auth.Models;
+namespace Moodie.Models;
 
 public class Habit
 {

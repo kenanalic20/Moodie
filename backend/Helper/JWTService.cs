@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.IdentityModel.Tokens;
 
-namespace auth.Helper;
+namespace Moodie.Helper;
 
 public class JWTService
 {

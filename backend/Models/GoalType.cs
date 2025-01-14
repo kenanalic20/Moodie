@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace auth.Models;
+namespace Moodie.Models;
 
 public class GoalType
 {

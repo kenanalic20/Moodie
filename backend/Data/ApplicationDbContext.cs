@@ -1,4 +1,4 @@
-﻿using auth.Models;
+﻿using Moodie.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Moodie.Data;

@@ -1,10 +1,9 @@
-using auth.Helper;
+using Moodie.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Moodie.Data;
-using Moodie.Helper;
 
-namespace auth
+namespace Moodie
 {
     public class Program
     {

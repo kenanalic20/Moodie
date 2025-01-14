@@ -1,5 +1,5 @@
 
-using auth.Models;
+using Moodie.Models;
 using Moodie.Data;
 using Moodie.Helper;
 

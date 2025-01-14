@@ -1,4 +1,4 @@
-﻿using auth.Models;
+﻿using Moodie.Models;
 
 namespace Dtos.MoodDto;
 

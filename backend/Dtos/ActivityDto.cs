@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
-namespace auth.Models;
+namespace Moodie.Models;
 
 public class ActivityDto
 {

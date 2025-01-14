@@ -1,5 +1,5 @@
-﻿using auth.Helper;
-using auth.Models;
+﻿using Moodie.Helper;
+using Moodie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Data;
 using Moodie.Dtos;
