@@ -3,7 +3,6 @@ using Moodie.Helper;
 using Moodie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Data;
-using Moodie.Helper;
 
 namespace Moodie.Controllers;
 
@@ -15,11 +14,14 @@ public class AuthController : Controller
     private readonly JWTService _jwtService;
     private readonly IUserRepo _repository;
 
+    private readonly AuthHelper _authHelper;
+
     public AuthController(IUserRepo repository, JWTService jwtService, EmailService emailService)
     {
         _repository = repository;
         _jwtService = jwtService;
         _emailService = emailService;
+        _authHelper = new AuthHelper(jwtService);
     }
 
     [HttpPost("register")]
@@ -96,18 +98,13 @@ public class AuthController : Controller
     [HttpGet("user")]
     public IActionResult User()
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            var user = _repository.GetById(userId);
-            return Ok(user);
-        }
-        catch (Exception e)
-        {
-            return Unauthorized("Invalid or expired credentials.");
-        }
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        
+        if(userId == 0) return Unauthorized("Invalid or expired token.");
+       
+        var user = _repository.GetById(userId);
+
+        return Ok(user);    
     }
 
     [HttpPost("logout")]
@@ -129,6 +126,6 @@ public class AuthController : Controller
 
         _repository.Update(user);
 
-        return Redirect("http://localhost:3000/emailVerified");
+        return Redirect("http://localhost:4200/emailVerified");
     }
 }

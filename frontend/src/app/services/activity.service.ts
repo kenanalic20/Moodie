@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ActivityService {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'https://localhost:8001/api';
 
   constructor( private http:HttpClient) {
   }

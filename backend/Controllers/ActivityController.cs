@@ -12,75 +12,59 @@ namespace Moodie.Controllers;
 public class ActivityController : Controller
 {
     private readonly ApplicationDbContext _context;
-    private readonly JWTService _jwtService;
     private readonly IUserRepo _repositoryUser;
     private readonly IActivityRepo _activityRepo;
+    private readonly AuthHelper _authHelper;
     public ActivityController(ApplicationDbContext context, IUserRepo repositoryUser,
-        JWTService jwtService, IActivityRepo activityRepo)
+        AuthHelper authHelper, IActivityRepo activityRepo)
     {
         _context = context;
-        _jwtService = jwtService;
         _activityRepo = activityRepo;
         _repositoryUser = repositoryUser;
+        _authHelper = authHelper;
+
     }
+
     [HttpPost("mood/activities")]
     public IActionResult AddActivities(ActivityDto a)
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            var user = _repositoryUser.GetById(userId);
-            if(a.Name==null){
-                return BadRequest();
-            }
-            var activity = new Activity
-            {
-                Name=a.Name,
-                Description = a.Description,
-                UserId = userId
-            };
-            return Created("success", _activityRepo.Create(activity));
-        }
-        catch (SecurityTokenException ex)
-        {
-            return Unauthorized("Invalid or expired token.");
-        }
-        catch (Exception e) // Catch any other unexpected exception
-        {
-            return StatusCode(500, "An error occurred.");
+      
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        
+        if(userId == 0) return Unauthorized("Invalid or expired token.");
+        
+        if(a.Name==null){
+            return BadRequest();
         }
 
+        var activity = new Activity
+        {
+            Name=a.Name,
+            Description = a.Description,
+            UserId = userId
+        };
+
+        return Created("success", _activityRepo.Create(activity));
     }
+
     [HttpGet("mood/activities")]
     public IActionResult GetActivitiesByUserId()
     {
-        try
-        {
-            //get users moods from db based on userid
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            var activities=_activityRepo.GetByUserId(userId);
-            return Ok(activities);
-            
-        }
-        catch (SecurityTokenException ex) // Catch the specific exception type
-        {
-            return Unauthorized("Invalid or expired token.");
-        }
-        catch (Exception e) // Catch any other unexpected exception
-        {
-            return StatusCode(500, "An error occurred.");
-        }
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+    
+        if(userId == 0) return Unauthorized("Invalid or expired token.");
+
+        var activities=_activityRepo.GetByUserId(userId);
+
+        return Ok(activities);
     }
+
     [HttpDelete("mood/activities/{id}")]
     public IActionResult DeleteActivity(int id){
       
         _activityRepo.Delete(id);
-       return Ok(id);
-         
+
+        return Ok(id); 
     }
 
 }

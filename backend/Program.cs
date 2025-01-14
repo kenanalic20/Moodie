@@ -2,6 +2,7 @@ using Moodie.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Moodie.Data;
+using Moodie.Middleware;
 
 namespace Moodie
 {
@@ -57,6 +58,7 @@ public class Startup
         services.AddScoped<IHabitRepo, HabitRepo>();  // Add this line
         services.AddScoped<IMoodRepo, MoodRepo>();
         services.AddScoped<JWTService>();
+        services.AddScoped<AuthHelper>();
         services.AddScoped<EmailService>();
         services.AddScoped<AverageMood>();
         services.AddScoped<INotesRepo, NotesRepo>();
@@ -70,7 +72,8 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+        app.UseMiddleware<ExceptionMiddleware>();
+        // if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseCors();

@@ -7,7 +7,7 @@ import { Goal } from "../models/goal";
 	providedIn: "root",
 })
 export class GoalService {
-	private apiUrl = "http://localhost:8000/api/goal";
+	private apiUrl = "https://localhost:8001/api/goal";
 	private headers = new HttpHeaders().set("Content-Type", "application/json");
 
 	constructor(private http: HttpClient) {}

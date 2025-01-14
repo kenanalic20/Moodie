@@ -11,100 +11,67 @@ namespace Moodie.Controllers;
 [ApiController]
 public class NotesController : Controller
 {
-    private readonly JWTService _jwtService;
     private readonly INotesRepo _repositoryNotes;
-
-
     private readonly IUserRepo _repositoryUser;
+    private readonly AuthHelper _authHelper;
 
     public NotesController(IUserRepo repositoryUser,
-        JWTService jwtService, INotesRepo repositoryNotes)
+        AuthHelper authHelper, INotesRepo repositoryNotes)
     {
         _repositoryUser = repositoryUser;
         _repositoryNotes = repositoryNotes;
-        _jwtService = jwtService;
+        _authHelper = authHelper;
     }
 
     [HttpPost("notes")]
     public IActionResult AddNotes([FromForm] NotesDto notesDto)
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            var user = _repositoryUser.GetById(userId);
-            byte[] imageData = null;
-            if (notesDto.Image != null)
-                using (var memoryStream = new MemoryStream())
-                {
-                    notesDto.Image.CopyTo(memoryStream);
-                    imageData = memoryStream.ToArray();
-                }
-
-            var notes = new Notes
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        
+        if (userId == 0) return Unauthorized("Invalid or expired token.");
+        
+        var user = _repositoryUser.GetById(userId);
+        byte[] imageData = null;
+        if (notesDto.Image != null)
+            using (var memoryStream = new MemoryStream())
             {
-                Title = notesDto.Title,
-                Image = imageData,
-                Description = notesDto.Description,
-                Date = DateTime.Now,
-                UserId = userId,
-                User = user
-            };
-            return Created("success", _repositoryNotes.Create(notes));
-        }
-        catch (SecurityTokenException ex)
+                notesDto.Image.CopyTo(memoryStream);
+                imageData = memoryStream.ToArray();
+            }
+
+        var notes = new Notes
         {
-            return Unauthorized("Invalid or expired token.");
-        }
-        catch (Exception e) // Catch any other unexpected exception
-        {
-            return StatusCode(500, "An error occurred.");
-        }
+            Title = notesDto.Title,
+            Image = imageData,
+            Description = notesDto.Description,
+            Date = DateTime.Now,
+            UserId = userId,
+            User = user
+        };
+        return Created("success", _repositoryNotes.Create(notes));
     }
 
     [HttpGet("notes")]
     public IActionResult GetNotes()
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        
+        if (userId == 0) return Unauthorized("Invalid or expired token.");
 
-            var notes = _repositoryNotes.GetByUserId(userId);
+        var notes = _repositoryNotes.GetByUserId(userId);
 
-            return Ok(notes);
-        }
-        catch (SecurityTokenException ex)
-        {
-            return Unauthorized("Invalid or expired token.");
-        }
-        catch (Exception e) // Catch any other unexpected exception
-        {
-            return StatusCode(500, "An error occurred.");
-        }
+        return Ok(notes); 
     }
 
     //Trebat ce popravit brise notes jedan po jedan za sad
     [HttpDelete("notes")]
     public IActionResult DeleteNotes()
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            _repositoryNotes.Delete(userId);
-            return Ok();
-        }
-        catch (SecurityTokenException ex)
-        {
-            return Unauthorized("Invalid or expired token.");
-        }
-        catch (Exception e) // Catch any other unexpected exception
-        {
-            return StatusCode(500, "An error occurred.");
-        }
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        
+        if (userId == 0) return Unauthorized("Invalid or expired token.");
+       
+        _repositoryNotes.Delete(userId);
+        return Ok(); 
     }
 }

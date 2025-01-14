@@ -6,7 +6,7 @@ import { ToastrService } from "ngx-toastr";
 	providedIn: "root",
 })
 export class AuthService {
-	private apiUrl = "http://localhost:8000/api";
+	private apiUrl = "https://localhost:8001/api";
 	private jwtCookieName = "jwt";
 	constructor(
 		private http: HttpClient,

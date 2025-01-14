@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class MoodService {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'https://localhost:8001/api';
 
   constructor( private http:HttpClient) {
   }
