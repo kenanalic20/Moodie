@@ -100,8 +100,6 @@ public class AuthController : Controller
     {
         if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
-       
         var user = _repository.GetById(userId);
 
         return Ok(user);    
@@ -125,7 +123,7 @@ public class AuthController : Controller
         user.IsVerifiedEmail = true;
 
         _repository.Update(user);
-
+        //will need to change this
         return Redirect("http://localhost:4200/emailVerified");
     }
 }

@@ -28,8 +28,6 @@ public class GoalController : Controller
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
        
-        if (userId == 0) return Unauthorized("Invalid or expired token.");
-       
         var goal = new Goal
         {
             Name = goalDto.Name,
@@ -49,8 +47,6 @@ public class GoalController : Controller
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
     
-        if (userId == 0) return Unauthorized("Invalid or expired token.");
-
         var Goal = _repositoryGoal.GetByUserId(userId);
 
         return Ok(Goal); 
@@ -61,8 +57,6 @@ public class GoalController : Controller
     {
        
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-
-        if (userId == 0) return Unauthorized("Invalid or expired token.");
 
         var goal = _repositoryGoal.GetById(id);
 
@@ -78,8 +72,6 @@ public class GoalController : Controller
     public IActionResult UpdateGoal([FromRoute] int id, [FromBody] GoalDto goalDto)
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-
-        if (userId == 0) return Unauthorized("Invalid or expired token.");
 
         var goal = _repositoryGoal.GetById(id);
 

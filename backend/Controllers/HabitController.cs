@@ -27,8 +27,6 @@ public class HabitController : Controller
         
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
-
         var habit = new Habit
         {
             Name = dto.Name,
@@ -49,8 +47,6 @@ public class HabitController : Controller
       
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
-
         return Ok(_habitRepo.GetByUserId(userId));
     }
 
@@ -58,8 +54,6 @@ public class HabitController : Controller
     public IActionResult Update(int id, HabitDto dto)
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
 
         var habit = _habitRepo.GetById(id);
 
@@ -78,8 +72,6 @@ public class HabitController : Controller
         
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
-
         var habit = _habitRepo.GetById(id);
 
         if (habit == null || habit.UserId != userId)return NotFound();
@@ -92,8 +84,6 @@ public class HabitController : Controller
     public IActionResult CheckIn(int id)
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
 
         var habit = _habitRepo.GetById(id);
 

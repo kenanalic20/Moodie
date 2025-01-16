@@ -28,8 +28,6 @@ public class NotesController : Controller
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
-        if (userId == 0) return Unauthorized("Invalid or expired token.");
-        
         var user = _repositoryUser.GetById(userId);
         byte[] imageData = null;
         if (notesDto.Image != null)
@@ -56,8 +54,6 @@ public class NotesController : Controller
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
-        if (userId == 0) return Unauthorized("Invalid or expired token.");
-
         var notes = _repositoryNotes.GetByUserId(userId);
 
         return Ok(notes); 
@@ -69,8 +65,6 @@ public class NotesController : Controller
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
-        if (userId == 0) return Unauthorized("Invalid or expired token.");
-       
         _repositoryNotes.Delete(userId);
         return Ok(); 
     }

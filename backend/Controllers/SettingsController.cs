@@ -10,74 +10,48 @@ namespace Moodie.Controllers;
 [ApiController]
 public class SettingsController : Controller
 {
-    private readonly JWTService _jwtService;
     private readonly ISettingsRepo _repositorySettings;
     private readonly IUserRepo _repositoryUser;
+    private readonly AuthHelper _authHelper;
 
-    public SettingsController(IUserRepo repositoryUser, JWTService jwtService, ISettingsRepo repositorySettings)
+    public SettingsController(IUserRepo repositoryUser, ISettingsRepo repositorySettings, AuthHelper authHelper)
     {
         _repositoryUser = repositoryUser;
-        _jwtService = jwtService;
+        _authHelper = authHelper;
         _repositorySettings = repositorySettings;
     }
 
     [HttpPut("Settings")]
     public IActionResult AddSettings(SettingsDto settingsDto)
     {
-        try
+        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        
+        var user = _repositoryUser.GetById(userId);
+        var settings = new Settings
         {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            var user = _repositoryUser.GetById(userId);
-            var settings = new Settings
-            {
-                DarkMode = settingsDto.DarkMode,
-                Language = settingsDto.Language,
-                ReducedMotion = settingsDto.ReducedMotion,
-                UserId = userId,
-                User = user
-            };
-            return Created("success", _repositorySettings.Create(settings, userId));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+            DarkMode = settingsDto.DarkMode,
+            Language = settingsDto.Language,
+            ReducedMotion = settingsDto.ReducedMotion,
+            UserId = userId,
+            User = user
+        };
+
+        return Created("success", _repositorySettings.Create(settings, userId));
     }
 
     [HttpGet("Settings")]
     public IActionResult GetSettings()
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            return Ok(_repositorySettings.GetByUserId(userId));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+
+        return Ok(_repositorySettings.GetByUserId(userId));
     }
 
     [HttpDelete("Settings")]
     public IActionResult DeleteSettings()
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            return Ok(_repositorySettings.Delete(userId));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        
+        return Ok(_repositorySettings.Delete(userId));
     }
 }

@@ -31,8 +31,6 @@ public class ActivityController : Controller
       
         if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
-        
         if(a.Name==null){
             return BadRequest();
         }
@@ -52,8 +50,6 @@ public class ActivityController : Controller
     {
         if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
     
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
-
         var activities=_activityRepo.GetByUserId(userId);
 
         return Ok(activities);

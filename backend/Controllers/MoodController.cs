@@ -30,9 +30,6 @@ public class MoodController : Controller
     {  
         if(!_authHelper.IsUserLoggedIn(Request,out var userId)) return Unauthorized("Invalid or expired token.");
 
-
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
-
         var user = _repositoryUser.GetById(userId);
 
         Activity activity = null;
@@ -60,8 +57,6 @@ public class MoodController : Controller
     {
         if(!_authHelper.IsUserLoggedIn(Request,out var userId)) return Unauthorized("Invalid or expired token.");
         
-        if(userId == 0) return Unauthorized("Invalid or expired token.");
-
         var moods = _repositoryMood.GetByUserId(userId);
 
         return Ok(moods);

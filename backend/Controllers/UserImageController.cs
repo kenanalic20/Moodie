@@ -10,83 +10,62 @@ namespace Moodie.Controllers;
 [ApiController]
 public class UserImageController : Controller
 {
-    private readonly JWTService _jwtService;
     private readonly IUserImageRepo _repositoryUserImage;
     private readonly IUserInfoRepo _repositoryUserInfo;
+    private readonly AuthHelper _authHelper;
 
-    public UserImageController(JWTService jwtService,
-        IUserImageRepo repositoryUserImage, IUserInfoRepo repositoryUserInfo)
+    public UserImageController(
+        IUserImageRepo repositoryUserImage, IUserInfoRepo repositoryUserInfo, AuthHelper authHelper)
     {
-        _jwtService = jwtService;
         _repositoryUserImage = repositoryUserImage;
         _repositoryUserInfo = repositoryUserInfo;
+        _authHelper = authHelper;
     }
 
     [HttpPut("UserImage")]
     public IActionResult AddUserImage([FromForm] UserImageDto userImageDto)
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
+       if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-            var userInfo = _repositoryUserInfo.GetByUserId(userId);
-            byte[] imageData = null;
-            if (userImageDto.Image != null)
-                using (var memoryStream = new MemoryStream())
-                {
-                    userImageDto.Image.CopyTo(memoryStream);
-                    imageData = memoryStream.ToArray();
-                }
-
-            var userImage = new UserImage
+        var userInfo = _repositoryUserInfo.GetByUserId(userId);
+        byte[] imageData = null;
+        if (userImageDto.Image != null)
+            using (var memoryStream = new MemoryStream())
             {
-                Status = userImageDto.Status,
-                Image = imageData,
-                Date = DateTime.Now,
-                UserInfoId = userInfo.Id
-            };
-            return Created("success", _repositoryUserImage.Create(userImage, userInfo.Id));
-        }
-        catch (Exception e)
+                userImageDto.Image.CopyTo(memoryStream);
+                imageData = memoryStream.ToArray();
+            }
+
+        var userImage = new UserImage
         {
-            return BadRequest(e.Message);
-        }
+            Status = userImageDto.Status,
+            Image = imageData,
+            Date = DateTime.Now,
+            UserInfoId = userInfo.Id
+        };
+
+        return Created("success", _repositoryUserImage.Create(userImage, userInfo.Id));
     }
 
     [HttpGet("UserImage")]
     public IActionResult GetUserImage()
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            var userInfo = _repositoryUserInfo.GetByUserId(userId);
-            return Ok(_repositoryUserImage.GetByUserInfoId(userInfo.Id));
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+
+        var userInfo = _repositoryUserInfo.GetByUserId(userId);
+
+        return Ok(_repositoryUserImage.GetByUserInfoId(userInfo.Id));
     }
 
     [HttpDelete("UserImage")]
     public IActionResult DeleteUserImage()
     {
-        try
-        {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
-            var userId = int.Parse(token.Issuer);
-            var userInfo = _repositoryUserInfo.GetByUserId(userId);
-            _repositoryUserImage.Delete(userInfo.Id);
-            return Ok("success");
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        
+        var userInfo = _repositoryUserInfo.GetByUserId(userId);
+
+        _repositoryUserImage.Delete(userInfo.Id);
+
+        return Ok("success");
     }
 }
