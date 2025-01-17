@@ -5,22 +5,24 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ExportComponent } from './export/export.component';
 import { GoalsComponent } from "./goals/goals.component";
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
     {
         path: '',
         loadChildren: () =>
-            import('./homepage/homepage.module').then(m => m.HomepageModule),
+            import('./homepage/homepage.module').then(m => m.HomepageModule)
     },
     {
         path: 'dashboard',
         loadChildren: () =>
             import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+        canActivate: [AuthGuard]
     },
-    { path: 'stats', component: StatsComponent },
-    { path: 'calendar', component: CalendarComponent },
-    { path: 'settings', component: SettingsComponent },
-    {path: 'export', component: ExportComponent},
+    { path: 'stats', component: StatsComponent, canActivate: [AuthGuard] },
+    { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
+    { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+    {path: 'export', component: ExportComponent, canActivate: [AuthGuard]},
     {
         path: 'auth',
         loadChildren: () =>
@@ -28,7 +30,7 @@ const routes: Routes = [
                 m => m.AuthenticationModule
             ),
     },
-    { path: 'goals', component: GoalsComponent },
+    { path: 'goals', component: GoalsComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
