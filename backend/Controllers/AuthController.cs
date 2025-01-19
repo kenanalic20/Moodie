@@ -16,12 +16,12 @@ public class AuthController : Controller
 
     private readonly AuthHelper _authHelper;
 
-    public AuthController(IUserRepo repository, JWTService jwtService, EmailService emailService)
+    public AuthController(IUserRepo repository, JWTService jwtService, EmailService emailService, AuthHelper authHelper)
     {
         _repository = repository;
         _jwtService = jwtService;
         _emailService = emailService;
-        _authHelper = new AuthHelper(jwtService);
+        _authHelper = authHelper;
     }
 
     [HttpPost("register")]

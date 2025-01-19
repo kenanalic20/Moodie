@@ -9,11 +9,15 @@ namespace Moodie.Helper;
 
 public class JWTService
 {
-    private readonly string secureKey = "this is a secure key";
+    private readonly string _secureKey;
+    public JWTService(IConfiguration configuration)
+    {
+        _secureKey = configuration["JwtSettings:SecureKey"];
+    }
 
     public string Generate(int id)
     {
-        var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
+        var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secureKey));
         var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
         var header = new JwtHeader(credentials);
         var payload = new JwtPayload(id.ToString(), null, null, null, DateTime.Today.AddDays(1));
@@ -24,7 +28,7 @@ public class JWTService
     public JwtSecurityToken Verify(string jwt)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(secureKey);
+        var key = Encoding.ASCII.GetBytes(_secureKey);
         tokenHandler.ValidateToken(jwt,
             new TokenValidationParameters
             {
