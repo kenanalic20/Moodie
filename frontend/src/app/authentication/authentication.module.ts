@@ -8,6 +8,8 @@ import { RegisterComponent } from './register/register.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputComponent } from './input/input.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -16,9 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
         ResetComponent,
         RegisterComponent,
         InputComponent,
-
     ],
-    imports: [CommonModule, AuthenticationRoutingModule, FontAwesomeModule,HttpClientModule],
+    imports: [CommonModule, AuthenticationRoutingModule, FontAwesomeModule,HttpClientModule,SharedModule,TranslateModule],
     exports: [
         LoginComponent,
         ResetComponent,

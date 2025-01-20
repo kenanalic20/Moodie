@@ -22,6 +22,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { GoalsComponent } from "./goals/goals.component";
 import { GoalFilterPipe } from "./pipes/goal-filter.pipe";
 
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { LanguageSwitcherComponent } from "./language-switcher/language-switcher.component";
+import { SharedModule } from "./shared/shared.module";
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -31,7 +36,7 @@ import { GoalFilterPipe } from "./pipes/goal-filter.pipe";
 		StatActivitiesComponent,
 		ExportComponent,
 		GoalsComponent,
-		GoalFilterPipe,
+		GoalFilterPipe
 	],
 	imports: [
 		BrowserModule,
@@ -52,13 +57,26 @@ import { GoalFilterPipe } from "./pipes/goal-filter.pipe";
 		HttpClientModule,
 		ToastrModule.forRoot(),
 		BrowserAnimationsModule,
+		TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+		// SharedModule
 	],
 	providers: [
 		{
 			provide: "API_URL",
 			useValue: "http://localhost:5000/api",
 		},
+		provideHttpClient(withInterceptorsFromDi()),
 	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+    return new TranslateHttpLoader(http);
+}
