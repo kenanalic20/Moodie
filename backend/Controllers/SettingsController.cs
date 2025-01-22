@@ -30,7 +30,7 @@ public class SettingsController : Controller
         var settings = new Settings
         {
             DarkMode = settingsDto.DarkMode,
-            Language = settingsDto.Language,
+            LanguageId = settingsDto.LanguageId,
             ReducedMotion = settingsDto.ReducedMotion,
             UserId = userId,
             User = user

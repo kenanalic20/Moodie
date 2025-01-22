@@ -1,13 +1,14 @@
 <!-- Div using tailwind thats 100% width and height of the screen -->
 
 <div class="w-screen h-screen flex items-center justify-center p-5 select-none">
+    <app-language-switcher></app-language-switcher>
     <div class="max-w-lg flex flex-col place-content-center text-center gap-10">
         <div class="cursor-pointer" routerLink="/">
             <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">
-                Moodie <em>says</em> hi!
+                Moodie <em>{{'says'|translate}}</em> {{'hi'|translate}}!
             </h1>
             <p class="text-s font-sans sm:text-2xl mb-4 transition-all">
-                Let's reset your password
+                {{"Let's reset your password"|translate}}
             </p>
         </div>
 
@@ -19,11 +20,11 @@
                     <button
                         class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 border-2 dark:text-white text-black hover:text-white hover:bg-background-100 transition-all"
                         routerLink="/auth/login">
-                        Go back
+                        {{'Go back'|translate}}
                     </button>
                     <button
                         class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
-                        Reset
+                        {{'Reset'|translate}}
                     </button>
                 </div>
 

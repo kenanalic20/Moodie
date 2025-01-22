@@ -64,7 +64,6 @@ import { SharedModule } from "./shared/shared.module";
                 deps: [HttpClient]
             }
         }),
-		// SharedModule
 	],
 	providers: [
 		{

@@ -20,6 +20,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<UserLocation> UserLocations { get; set; }
     public DbSet<Activity> Activity { get; set; }
     public DbSet<Habit> Habits { get; set; }
+    public DbSet<Language> Languages { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -59,5 +60,21 @@ public class ApplicationDbContext : DbContext
                   .WithMany(u => u.Habits)
                   .HasForeignKey(h => h.UserId);
         });
+        modelBuilder.Entity<Language>().HasData(
+            new Language
+            {
+                Id = 1,
+                Name = "English",
+                Code = "en",
+                Region = "US"
+            },
+            new Language
+            {
+                Id = 2,
+                Name = "Bosnian",
+                Code = "bs",
+                Region = "BA"
+            }
+        );
     }
 }

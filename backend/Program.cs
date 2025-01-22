@@ -68,6 +68,7 @@ public class Startup
         services.AddScoped<ISettingsRepo, SettingsRepo>();
         services.AddScoped<IActivityRepo,ActivityRepo>();
         services.AddScoped<IHabitRepo, HabitRepo>();
+        services.AddScoped<ILanguageRepo, LanguageRepo>();  // Add this line
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

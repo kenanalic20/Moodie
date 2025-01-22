@@ -12,4 +12,7 @@ export class SettingsComponent {
         document.documentElement.classList.remove('light');
         document.documentElement.classList.add(value);
     };
+    onLanguageChange: (value: string) => void = (value: string) => {
+        console.log(`Language changed to ${value}!`);
+    }
 }

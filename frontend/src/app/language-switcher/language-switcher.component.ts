@@ -8,6 +8,7 @@ export class LanguageSwitcherComponent {
   constructor(private translate: TranslateService) {}
 
   switchLanguage(language: string) {
+    localStorage.setItem('Language', language);
     this.translate.use(language);
   }
 }

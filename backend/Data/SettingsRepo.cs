@@ -16,7 +16,7 @@ public class SettingsRepo : ISettingsRepo
         var existingSettings = _context.Settings.FirstOrDefault(s => s.UserId == userId);
         if (existingSettings != null)
         {
-            existingSettings.Language = settings.Language;
+            existingSettings.LanguageId = settings.LanguageId;
             existingSettings.DarkMode = settings.DarkMode;
             existingSettings.ReducedMotion = settings.ReducedMotion;
             _context.Settings.Update(existingSettings);
