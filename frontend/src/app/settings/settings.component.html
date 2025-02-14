@@ -5,21 +5,23 @@
         <h1 class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
         {{'Settings' | translate}}
     </h1>
-    <p
-        class="w-full text-center p-2 font-sans text-lg dark:text-gray-300 text-gray-700 select-none">
+    <div class="w-full text-center p-2 font-sans text-lg dark:text-gray-300 text-gray-700 select-none">
         {{'Change things up'|translate}}
-    </p>
+    </div>
     </div>
     <app-setting
         [onChange]="onThemeChange"
-        [settingOptions]="['Light', 'Dark']"
+        [settingOptions]="[{ label: 'Light', value: 'light' }, { label: 'Dark', value: 'dark' }]"
         settingDescription="Change the theme of the application"
         settingName="Theme"
-        settingValue="Light" />
+        [settingValue]="currentTheme">
+    </app-setting>
+        
     <app-setting
-        [onChange]="onLanguageChange"
-        [settingOptions]="['en', 'bs']"
-        settingDescription="Change the language of the application"
         settingName="Language"
-        settingValue="English" />
+        [onChange]="onLanguageChange"
+        [settingOptions]="languageOptions"
+        settingDescription="Change the language of the application"
+        [settingValue]="currentLanguage">
+    </app-setting>
 </div>

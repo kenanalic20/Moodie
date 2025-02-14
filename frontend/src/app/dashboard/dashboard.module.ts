@@ -12,6 +12,7 @@ import { MoodSelectorComplexComponent } from './mood-selector-complex/mood-selec
 import { MoodInformationModalComponent } from './mood-information-modal/mood-information-modal.component';
 import {FormsModule} from "@angular/forms";
 import { SafeUrlPipe } from '../pipes/safe-url.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { SafeUrlPipe } from '../pipes/safe-url.pipe';
     ModalModule.forRoot(),
     FormsModule,
     NgOptimizedImage,
+    TranslateModule
   ],
     exports: [DashboardComponent, MoodSelectorSimpleComponent],
 })

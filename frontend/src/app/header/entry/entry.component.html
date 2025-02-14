@@ -4,5 +4,5 @@
         active ? 'font-bold' : 'font-light'
     }} dark:text-gray-300 transition-all border-white p-3 flex cursor-pointer place-items-center select-none text-gray-600 hover:text-black dark:hover:text-white">
     <fa-icon *ngIf="icon" [icon]="icon" class="mr-4"></fa-icon>
-    {{ text }}
+    {{ text | translate }}
 </div>

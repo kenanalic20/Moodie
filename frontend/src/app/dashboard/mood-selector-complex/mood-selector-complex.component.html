@@ -21,7 +21,7 @@
                     class="text-xl sm:text-3xl transition-all dark:text-gray-400 text-gray-500 hover:text-black dark:hover:text-white" />
                 <h2
                     class="sm:text-xl font-sans text-xs dark:text-gray-300 text-gray-700">
-                    {{ icon.name }}
+                    {{ icon.name | translate}}
                 </h2>
             </div>
         </div>
@@ -30,6 +30,6 @@
         *ngIf="value !== -1"
         (click)="OpenModal();addMood()"
         class="font-sans text-lg dark:text-black text-white dark:bg-white bg-gray-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
-        That's it, save.
+        {{"That's it, save." | translate}}
     </button>
 </div>

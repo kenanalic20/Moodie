@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable, catchError } from "rxjs";
 import { ToastrService } from "ngx-toastr";
+import { map } from "rxjs/operators";
+import { of } from "rxjs";
 @Injectable({
 	providedIn: "root",
 })
@@ -39,4 +41,10 @@ export class AuthService {
 		// Clear user data from local storage or any other storage mechanism
 		document.cookie = `${this.jwtCookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 	}
+	isAuthenticated(): Observable<boolean> {
+		return this.user().pipe(
+		  map((data) => !!data),
+		  catchError(() => of(false))
+		);
+	  }
 }

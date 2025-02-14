@@ -2,20 +2,20 @@
 
 <div class="mt-32">
     <h1 class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
-        How are you?
+        {{'How are you?' | translate}}
     </h1>
     <p
         class="w-full text-center font-sans p-2 text-lg dark:text-gray-300 text-gray-700 select-none">
-        Select a mood that best describes how you're feeling right now.
+        {{"Select a mood that best describes how you're feeling right now." | translate}}
     </p>
     <app-mood-selector-simple *ngIf="display === 'simple'" />
     <app-mood-selector-complex *ngIf="display === 'complex'" />
 
     <p
         class="w-full text-center font-sans text-lg dark:text-gray-300 text-gray-700 select-none">
-        Too {{ display }}? Let's
+        {{'Too'|translate}} {{ display |translate}}? {{"Let's"|translate}}&nbsp;
         <span (click)="toggleDisplay()" class="text-blue-500 cursor-pointer">
-            switch it up.
+            {{'switch it up.'|translate}}
         </span>
     </p>
 </div>

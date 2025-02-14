@@ -35,6 +35,12 @@ public class ApplicationDbContext : DbContext
             entity.HasIndex(e => e.Email).IsUnique();
             entity.Property(e => e.Password).IsRequired();
         });
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Settings)
+            .WithOne(s => s.User)
+            .HasForeignKey<Settings>(s => s.UserId);
+
         modelBuilder.Entity<Mood>()
             .HasOne(m => m.User)
             .WithMany(u => u.Moods)
