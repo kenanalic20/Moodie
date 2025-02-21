@@ -6,4 +6,5 @@ public class MoodDto
 {
     public double MoodValue { get; set; }
     public int? ActivityId { get; set; }
+    public DateTime? Date { get; set; }
 }

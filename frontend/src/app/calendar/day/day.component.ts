@@ -1,74 +1,65 @@
-import { Component, Input } from '@angular/core';
-import {
-    faFaceGrin,
-    faFaceMeh,
-    faFaceSadCry,
-    faFaceSmile,
-    faFaceTired,
-} from '@fortawesome/free-regular-svg-icons';
-import { Day, Mood } from '../../types';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { CalendarMoodInformationModalComponent } from '../calendar-mood-information-modal/calendar-mood-information-modal.component';
+import { Component, Input } from "@angular/core";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { Router } from "@angular/router";
+import { Day } from "../../types";
+import { CalendarMoodInformationModalComponent } from "../calendar-mood-information-modal/calendar-mood-information-modal.component";
+
+type MoodValue = 1 | 2 | 3 | 4 | 5;
+type MoodEmojis = { [K in MoodValue]: string };
 
 @Component({
-    selector: 'app-day',
-    templateUrl: './day.component.html',
+	selector: "app-day",
+	templateUrl: "./day.component.html",
 })
 export class DayComponent {
-    constructor(private modalService: BsModalService) {}
+	constructor(
+		private modalService: BsModalService,
+		private router: Router,
+	) {}
 
-    @Input() day: Day = { dayOfMonth: 0, dayName: '', isLast: false };
-    icons = [
-        {
-            icon: faFaceGrin,
-            name: 'Great',
-            value: 5,
-        },
-        {
-            icon: faFaceSmile,
-            name: 'Good',
-            value: 4,
-        },
-        {
-            icon: faFaceMeh,
-            name: 'Okay',
-            value: 3,
-        },
-        {
-            icon: faFaceTired,
-            name: 'Bad',
-            value: 2,
-        },
-        {
-            icon: faFaceSadCry,
-            name: 'Awful',
-            value: 1,
-        },
-    ];
+	@Input() day: Day = { dayOfMonth: 0, dayName: "", isLast: false };
 
-    modalRef: any;
+	emojis = {
+		noMood: "👀",
+		mood: {
+			1: "😭",
+			2: "😔",
+			3: "😐",
+			4: "😊",
+			5: "🥳",
+		} as MoodEmojis,
+	};
 
-    GetIcon() {
-        const icon = this.icons.find(
-            icon =>
-                icon.value === parseInt(this.day.mood?.mood.toString() || '1')
-        )?.icon;
+	modalRef: any;
 
-        if (icon === undefined) {
-            return faFaceSadCry;
-        }
+	getAverageMood(): number {
+		if (!this.day.moods?.length) return 0;
+		const sum = this.day.moods.reduce((acc, mood) => acc + mood.moodValue, 0);
+		return Math.round(sum / this.day.moods.length);
+	}
 
-        return icon;
-    }
+	getEmoji(): string {
+		const avgMood = this.getAverageMood();
+		return avgMood ? this.emojis.mood[avgMood as MoodValue] : this.emojis.noMood;
+	}
 
-    OpenModal() {
-        this.modalRef = this.modalService.show(
-            CalendarMoodInformationModalComponent
-        );
-        this.modalRef.content.mood = this.day.mood;
-    }
+	OpenModal() {
+		this.modalRef = this.modalService.show(CalendarMoodInformationModalComponent);
+		this.modalRef.content.moods = this.day.moods || [];
+	}
 
-    parseInt(mood: Mood) {
-        return parseInt(mood.mood.toString());
-    }
+	GetMoodCount() {
+		return this.day.moods?.length || 0;
+	}
+
+	handleDayClick() {
+		if (this.GetMoodCount() > 0) {
+			this.OpenModal();
+		} else {
+			const selectedDate = new Date(new Date().getFullYear(), new Date().getMonth(), this.day.dayOfMonth);
+			this.router.navigate(["/dashboard"], {
+				queryParams: { date: selectedDate.toISOString() },
+			});
+		}
+	}
 }

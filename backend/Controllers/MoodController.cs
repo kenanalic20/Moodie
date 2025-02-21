@@ -39,7 +39,7 @@ public class MoodController : Controller
         var mood = new Mood
         {
             MoodValue = moodDto.MoodValue,
-            Date = DateTime.Now,
+            Date = moodDto.Date ?? DateTime.Now,
             User = user,
             UserId = userId,
         };

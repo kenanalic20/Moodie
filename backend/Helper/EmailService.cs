@@ -26,7 +26,7 @@ public class EmailService
         var message = new MailMessage("moodieappfit@gmail.com", email)
         {
             Subject = "Email verification",
-            Body = $"<a href='http://localhost:8000/api/verifyEmail?token={token}'>Verify email</a>",
+            Body = $"<a href='https://localhost:8000/api/verifyEmail?token={token}'>Verify email</a>",
             IsBodyHtml = true
         };
 

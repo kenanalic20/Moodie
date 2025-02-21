@@ -1,72 +1,76 @@
-import { Component } from '@angular/core';
-import {
-    faFaceGrin,
-    faFaceMeh,
-    faFaceSadCry,
-    faFaceSmile,
-    faFaceTired,
-} from '@fortawesome/free-regular-svg-icons';
-import { MoodInformationModalComponent } from '../mood-information-modal/mood-information-modal.component';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import {MoodService} from "../../services/mood.service";
-import {ToastrService} from "ngx-toastr";
+import { Component, Input } from "@angular/core";
+import { MoodInformationModalComponent } from "../mood-information-modal/mood-information-modal.component";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { MoodService } from "../../services/mood.service";
+import { ToastrService } from "ngx-toastr";
+
+interface MoodIcon {
+	emoji: string;
+	name: string;
+	value: number;
+}
 
 @Component({
-    selector: 'app-mood-selector-simple',
-    templateUrl: './mood-selector-simple.component.html',
+	selector: "app-mood-selector-simple",
+	templateUrl: "./mood-selector-simple.component.html",
 })
 export class MoodSelectorSimpleComponent {
-    constructor(private modalService: BsModalService,private moodService:MoodService, private toastr: ToastrService) {}
+	@Input() selectedDate?: Date;
 
-    icons = [
-        {
-            icon: faFaceGrin,
-            name: 'Great',
-            value: 5,
-        },
-        {
-            icon: faFaceSmile,
-            name: 'Good',
-            value: 4,
-        },
-        {
-            icon: faFaceMeh,
-            name: 'Okay',
-            value: 3,
-        },
-        {
-            icon: faFaceTired,
-            name: 'Bad',
-            value: 2,
-        },
-        {
-            icon: faFaceSadCry,
-            name: 'Awful',
-            value: 1,
-        },
-    ];
+	constructor(
+		private modalService: BsModalService,
+		private moodService: MoodService,
+		private toastr: ToastrService,
+	) {}
 
-    modalRef: any;
-    selected = -1;
+	icons: MoodIcon[] = [
+		{
+			emoji: "🥳",
+			name: "Great",
+			value: 5,
+		},
+		{
+			emoji: "😊",
+			name: "Good",
+			value: 4,
+		},
+		{
+			emoji: "😐",
+			name: "Okay",
+			value: 3,
+		},
+		{
+			emoji: "😔",
+			name: "Bad",
+			value: 2,
+		},
+		{
+			emoji: "😭",
+			name: "Awful",
+			value: 1,
+		},
+	];
 
-    select(value: number) {
-        this.selected = value;
+	modalRef: any;
+	selected = -1;
 
-    }
+	select(value: number) {
+		this.selected = value;
+	}
 
-    OpenModal() {
-
-        this.modalRef = this.modalService.show(MoodInformationModalComponent);
-        this.modalRef.content.mood = this.selected;
-
-    }
-    addMood(){
-        this.moodService.addMood(this.selected).subscribe((res) => {
-            console.log(res);
-          this.toastr.success('Mood added successfully', 'Success');
-        });
-
-    }
-
-
+	OpenModal() {
+		this.modalRef = this.modalService.show(MoodInformationModalComponent);
+		this.modalRef.content.mood = this.selected;
+	}
+	addMood() {
+		this.moodService
+			.addMood({
+				moodValue: this.selected,
+				date: this.selectedDate || new Date(),
+			})
+			.subscribe((res) => {
+				console.log(res);
+				this.toastr.success("Mood added successfully", "Success");
+			});
+	}
 }

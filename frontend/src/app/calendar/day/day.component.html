@@ -1,11 +1,13 @@
 <div
-    (click)="day.mood && OpenModal()"
-    [title]="day.mood ? 'Click to see your mood' : 'No mood recorded'"
-    class="flex flex-col p-4 flex-grow justify-evenly items-center h-32 min-w-[8rem] rounded-xl dark:hover:bg-neutral-500 hover:bg-gray-200 cursor-pointer transition-all w-auto">
-    <fa-icon [icon]="GetIcon()" class="text-5xl" *ngIf="day.mood" />
-    <fa-icon
-        [icon]="icons[0].icon"
-        class="text-5xl opacity-25"
-        *ngIf="!day.mood" />
+    (click)="handleDayClick()"
+    [title]="GetMoodCount() > 0 ? 'Click to see your moods' : 'Click to add mood'"
+    class="flex flex-col p-4 flex-grow justify-evenly items-center h-32 min-w-[8rem] rounded-xl dark:hover:bg-neutral-500 hover:bg-gray-200 cursor-pointer transition-all w-auto relative">
+    <span class="text-5xl" role="img" [attr.aria-label]="GetMoodCount() > 0 ? 'Mood emoji' : 'No mood recorded'">
+        {{getEmoji()}}
+    </span>
     <h2 class="font-sans">{{ day.dayOfMonth }} | {{ day.dayName }}</h2>
+    <span *ngIf="GetMoodCount() > 1" 
+        class="absolute top-2 right-2 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
+        {{GetMoodCount()}}
+    </span>
 </div>
