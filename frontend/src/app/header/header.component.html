@@ -5,7 +5,10 @@
         link="/dashboard"
         text="Dashboard" />
 
-    <app-entry [active]="active === 'stats'" link="/stats" text="Stats" />
+    <app-entry 
+        [active]="active === 'stats'" 
+        link="/stats" 
+        text="Stats" />
 
     <app-entry
         [active]="active === 'calendar'"
@@ -17,34 +20,21 @@
         link="/settings"
         text="Settings" />
 
-        <app-entry
-            *ngIf="isDevelopment"
-            [active]="active === 'export'"
-            link="/export"
-            text="Export" />
-  <app-entry
-    [active]="active === 'goals'"
-    link="/goals"
-    text="Goals" />
-  <app-entry
-        *ngIf="isDevelopment"
-        [active]="false"
-        [icon]="codeIcon"
-        link="/"
-        text="Home" />
-
-
+    <app-entry
+        [active]="active === 'export'"
+        link="/export"
+        text="Export" />
+    <app-entry
+        [active]="active === 'goals'"
+        link="/goals"
+        text="Goals" />
     <app-entry
         [active]="active === 'User'"
-
-
         (click)="User()"
         text="User" />
 
     <app-entry
-
         [active]="active === 'Logout'"
-
         (click)="logOut()"
         text="Logout" />
 

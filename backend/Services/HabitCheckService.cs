@@ -1,6 +1,5 @@
 
-using Moodie.Models;
-using Moodie.Data;
+using Moodie.Interfaces;
 using Moodie.Helper;
 
 namespace Moodie.Services;

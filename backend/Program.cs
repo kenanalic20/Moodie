@@ -2,6 +2,8 @@ using Moodie.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Moodie.Data;
+using Moodie.Interfaces;
+using Moodie.Repositories;
 using Moodie.Middleware;
 
 namespace Moodie

@@ -1,6 +1,9 @@
 ﻿using Moodie.Models;
+using Moodie.Interfaces;
+using Moodie.Data;
 
-namespace Moodie.Data;
+
+namespace Moodie.Repositories;
 
 public class SettingsRepo : ISettingsRepo
 {

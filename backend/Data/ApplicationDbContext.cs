@@ -1,6 +1,7 @@
 ﻿using Moodie.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Moodie.Data;
 
 public class ApplicationDbContext : DbContext

@@ -1,4 +1,6 @@
 using Moodie.Models;
+using Moodie.Interfaces;
+
 
 namespace Moodie.Data;
 public class ActivityRepo : IActivityRepo

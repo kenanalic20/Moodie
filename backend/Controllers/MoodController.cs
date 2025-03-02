@@ -3,6 +3,7 @@ using Moodie.Models;
 using Dtos.MoodDto;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Data;
+using Moodie.Interfaces;
 
 
 namespace Moodie.Controllers;

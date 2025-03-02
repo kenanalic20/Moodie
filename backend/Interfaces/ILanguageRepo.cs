@@ -1,6 +1,6 @@
 using Moodie.Models;
 
-namespace Moodie.Data;
+namespace Moodie.Interfaces;
 
 public interface ILanguageRepo
 {

@@ -1,8 +1,12 @@
 
 using Moodie.Models;
 using Microsoft.EntityFrameworkCore;
+using Moodie.Interfaces;
+using Moodie.Data;
 
-namespace Moodie.Data;
+
+
+namespace Moodie.Repositories;
 
 public class HabitRepo : IHabitRepo
 {

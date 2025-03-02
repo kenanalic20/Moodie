@@ -1,7 +1,8 @@
 using Moodie.Helper;
 using Moodie.Models;
 using Microsoft.AspNetCore.Mvc;
-using Moodie.Data;
+using Moodie.Interfaces;
+
 using Moodie.Dtos;
 
 namespace Moodie.Controllers;
