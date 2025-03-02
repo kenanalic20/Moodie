@@ -14,5 +14,6 @@ public class User
     [JsonIgnore] public List<Mood> Moods { get; set; }
     [JsonIgnore] public List<Notes> Notes { get; set; }
     [JsonIgnore] public List<Habit> Habits { get; set; }
+    [JsonIgnore] public List<UserAchievement> Achievements { get; set; }
     [JsonIgnore] public Settings Settings {get; set;}
 }
