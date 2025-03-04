@@ -1,6 +1,6 @@
 ﻿using Moodie.Helper;
 using Moodie.Models;
-using Dtos.MoodDto;
+using Moodie.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Data;
 using Moodie.Interfaces;
@@ -33,10 +33,6 @@ public class MoodController : Controller
 
         var user = _repositoryUser.GetById(userId);
 
-        Activity activity = null;
-
-        if (moodDto.ActivityId != null) activity = _context.Activity.Find(moodDto.ActivityId);
-        
         var mood = new Mood
         {
             MoodValue = moodDto.MoodValue,
@@ -44,11 +40,6 @@ public class MoodController : Controller
             User = user,
             UserId = userId,
         };
-
-        if (activity == null) return Created("success", _repositoryMood.Create(mood));
-        
-        mood.Activity = activity;
-        mood.ActivityId = activity.Id;
 
         return Created("success", _repositoryMood.Create(mood));
     }

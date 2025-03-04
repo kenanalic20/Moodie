@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moodie.Data;
 
 namespace Moodie.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250304041126_AddMoodActivityRelationship")]
+    partial class AddMoodActivityRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,6 +71,10 @@ namespace Moodie.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MoodId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Activity");
                 });
@@ -430,6 +436,21 @@ namespace Moodie.Migrations
                     b.HasIndex("UserInfoId");
 
                     b.ToTable("UserLocations");
+                });
+
+            modelBuilder.Entity("Moodie.Models.Activity", b =>
+                {
+                    b.HasOne("Moodie.Models.Mood", "Mood")
+                        .WithMany()
+                        .HasForeignKey("MoodId");
+
+                    b.HasOne("Moodie.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Mood");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Moodie.Models.Goal", b =>

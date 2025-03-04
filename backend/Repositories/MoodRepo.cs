@@ -15,6 +15,11 @@ public class MoodRepo : IMoodRepo
         _context = context;
     }
 
+    public double GetAverageMoodValue(int userId)
+    {
+        return _context.Moods.Where(u => u.UserId == userId).Select(m=>m.MoodValue).Average();
+    }
+
     public Mood Create(Mood mood)
     {
         _context.Moods.Add(mood);
@@ -24,7 +29,7 @@ public class MoodRepo : IMoodRepo
 
     public Mood GetById(int id)
     {
-        return _context.Moods.FirstOrDefault(u => u.Id == id);
+        return _context.Moods.Find(id);
     }
 
     public List<Mood> GetByUserId(int userId)
