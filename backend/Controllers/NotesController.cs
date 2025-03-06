@@ -3,6 +3,7 @@ using Moodie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Dtos;
 using Moodie.Interfaces;
+using IdentityServer4.Models;
 
 namespace Moodie.Controllers;
 
@@ -28,7 +29,18 @@ public class NotesController : Controller
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
         var user = _repositoryUser.GetById(userId);
+
+        if(string.IsNullOrEmpty(notesDto.Title)) {
+            return BadRequest("Title is required");
+        }
+
+        if(string.IsNullOrEmpty(notesDto.Description)) {
+            return BadRequest("Description is required");
+        }
+        
         byte[] imageData = null;
+
+
         if (notesDto.Image != null)
             using (var memoryStream = new MemoryStream())
             {

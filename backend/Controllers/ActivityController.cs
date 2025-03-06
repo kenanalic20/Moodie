@@ -30,21 +30,28 @@ public class ActivityController : Controller
         
         var activities = _repositoryActivity.GetByUserId(userId);
 
-        if(a.Name==null){
-            return BadRequest();
-        }
+        var existingActivity = _repositoryActivity.GetById(a.Id, activities);
         
+        if(existingActivity!=null && a.Id!=0) {
+            existingActivity.MoodId = a.MoodId;
+            existingActivity.Mood = _repositoryMood.GetById(a.MoodId);
+        
+            return Created("success", _repositoryActivity.Update(existingActivity));
+        }
+
         if(activities.Count>=10){ //this can be added in settings for example disable activity limit or change the limit
             return BadRequest("You can only have 10 activities");
+        }
+
+        if(string.IsNullOrEmpty(a.Name)){
+            return BadRequest("Name is required");
         }
 
         var activity = new Activity
         {
             Name=a.Name,
             Description = a.Description,
-            MoodId = a.MoodId,
             UserId = userId,
-            Mood = _repositoryMood.GetById(a.MoodId)
         };
 
         return Created("success", _repositoryActivity.Create(activity));
@@ -64,7 +71,7 @@ public class ActivityController : Controller
         return Ok(activities);
     }
 
-    [HttpGet("mood/best-activities")]
+    [HttpGet("mood/activities/best")]
     public IActionResult GetBestActivities()
     {
         if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
@@ -80,7 +87,7 @@ public class ActivityController : Controller
         return Ok(activities);
     }
 
-    [HttpGet("mood/worst-activities")]
+    [HttpGet("mood/activities/worst")]
     public IActionResult GetWorstActivities()
     {
         if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");

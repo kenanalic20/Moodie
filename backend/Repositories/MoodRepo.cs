@@ -23,12 +23,15 @@ public class MoodRepo : IMoodRepo
     public Mood Create(Mood mood)
     {
         _context.Moods.Add(mood);
-        mood.Id = _context.SaveChanges();
+        _context.SaveChanges();
+        
         return mood;
     }
 
-    public Mood GetById(int id)
+    public Mood GetById(int? id)
     {
+        if (id == null) return null;
+
         return _context.Moods.Find(id);
     }
 

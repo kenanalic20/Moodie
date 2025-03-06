@@ -47,6 +47,7 @@ public class ApplicationDbContext : DbContext
             .WithMany(u => u.Moods)
             .HasForeignKey(m => m.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+        
         modelBuilder.Entity<Notes>(entity =>
         {
             entity.HasOne(n => n.User)

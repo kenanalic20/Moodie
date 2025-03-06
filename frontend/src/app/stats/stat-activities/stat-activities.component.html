@@ -1,23 +1,41 @@
-<div
-    class="mt-16 flex flex-col md:flex-row md:gap-0 gap-4 justify-evenly items-center">
-    <div>
-        <h2 class="text-2xl md:text-3xl text-center font-sans">
+<div class="mt-16 flex flex-col md:flex-row md:gap-8 gap-4 justify-evenly items-start">
+    <div class="w-full md:w-1/2 max-w-md max-md:ml-auto max-md:mr-auto">
+        <h2 class="text-2xl md:text-3xl text-center mb-4">
             Best Mood Activities
         </h2>
-        <ul class="mt-2 text-center font-sans flex flex-col gap-2">
-          <li>Hanging out</li>
-            <li>Hiking</li>
-            <li>Swimming</li>
-        </ul>
+        <div class="mt-2 text-center flex flex-col gap-3">
+            <div *ngIf="isLoading" class="p-3">
+                Loading...
+            </div>
+            <div *ngIf="!isLoading && !hasActivities" class="p-3 text-gray-500">
+                Please add some activities to see your stats
+            </div>
+            <ul *ngIf="!isLoading && bestMoodActivities.length > 0" class="flex flex-col gap-3">
+                <li *ngFor="let activity of bestMoodActivities" (click)="openModal(activity)" 
+                    class="hover:cursor-pointer hover:text-gray-400 transition-all">
+                    {{activity.name}}
+                </li>
+            </ul>
+        </div>
     </div>
-    <div>
-        <h2 class="text-2xl md:text-3xl text-center font-sans">
+    
+    <div class="w-full md:w-1/2 max-w-md max-md:ml-auto max-md:mr-auto">
+        <h2 class="text-2xl md:text-3xl text-center mb-4">
             Worst Mood Activities
         </h2>
-        <ul class="mt-2 text-center font-sans flex flex-col gap-2">
-          <li>Programming</li>
-          <li>Studying</li>
-            <li>Working</li>
-        </ul>
+        <div class="mt-2 text-center flex flex-col gap-3">
+            <div *ngIf="isLoading" class="p-3">
+                Loading...
+            </div>
+            <div *ngIf="!isLoading && !hasActivities" class="p-3 text-gray-500">
+                Please add some activities to see your stats
+            </div>
+            <ul *ngIf="!isLoading && worstMoodActivities.length > 0" class="flex flex-col gap-3">
+                <li *ngFor="let activity of worstMoodActivities" 
+                    class="hover:cursor-pointer hover:text-gray-400 transition-all">
+                    {{activity.name}}
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

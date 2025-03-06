@@ -12,7 +12,7 @@ public class Activity
   [ForeignKey("UserId")] public int? UserId { get; set; }
 
   [ForeignKey("MoodId")] public int? MoodId { get; set; }
-  public Mood Mood { get; set; }
+  public Mood? Mood { get; set; }
   
 
 }

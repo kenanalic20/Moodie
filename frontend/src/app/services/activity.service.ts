@@ -9,7 +9,8 @@ export class ActivityService {
 
   constructor( private http:HttpClient) {
   }
-  addActivity(Name :string,Description:string){
+
+  addActivity(Name? :string, Description?: string){
     const url = `${this.apiUrl}/mood/activities`;
     const body = {
       Name,
@@ -18,10 +19,31 @@ export class ActivityService {
     console.log(body);
     return this.http.post(url, body,{withCredentials:true});
   }
+
+  updateActivity(MoodId?:number,ActivityId?:number){ 
+    const url = `${this.apiUrl}/mood/activities`;
+    const body = {
+      id: ActivityId,
+      moodId: MoodId
+    }
+    return this.http.post(url,body, { withCredentials: true });
+  }
+
   getActivitiesByUserId(){
     const url = `${this.apiUrl}/mood/activities`;
     return this.http.get(url,{withCredentials:true});
   }
+
+  getBestMoodActivities(){
+    const url = `${this.apiUrl}/mood/activities/best`;
+    return this.http.get(url,{withCredentials:true});
+  }
+
+  getWorstMoodActivities(){
+    const url = `${this.apiUrl}/mood/activities/worst`;
+    return this.http.get(url,{withCredentials:true});  
+  }
+
   deleteActivity(id:number){
     const url = `${this.apiUrl}/mood/activities/${id}`;
     return this.http.delete(url,{withCredentials:true});

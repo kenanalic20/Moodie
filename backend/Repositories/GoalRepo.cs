@@ -17,7 +17,7 @@ public class GoalRepo : IGoalRepo
     public Goal Create(Goal Goal)
     {
         _context.Goal.Add(Goal);
-        Goal.Id = _context.SaveChanges();
+        _context.SaveChanges();
         return Goal;
     }
 

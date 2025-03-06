@@ -20,7 +20,7 @@ public class HabitRepo : IHabitRepo
     public Habit Create(Habit habit)
     {
         _context.Habits.Add(habit);
-        habit.Id = _context.SaveChanges();
+        _context.SaveChanges();
         return habit;
     }
 

@@ -65,6 +65,11 @@
 	"Thu": "Čet",
 	"Fri": "Pet",
 	"Sat": "Sub",
-	"Sun": "Ned"
+	"Sun": "Ned",
+	"Error": "Greška",
+	"Name is required": "Naziv je obavezan",
+	"Title is required": "Naslov je obavezan",
+	"Description is required": "Opis je obavezan"
+
 
 }

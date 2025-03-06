@@ -58,12 +58,13 @@ export class MoodSelectorComplexComponent {
 		}
 	}
 
-	OpenModal() {
+	OpenModal(mood?:any) {
 		this.modalRef = this.modalService.show(MoodInformationModalComponent);
 		this.modalRef.content.mood = this.value;
+		this.modalRef.content.moodId = mood.id;
 	}
 	CloseModal() {
-		this.modalRef.hide();
+		this.modalRef.hide(MoodInformationModalComponent);
 	}
 	addMood() {
 		this.moodService
@@ -73,6 +74,7 @@ export class MoodSelectorComplexComponent {
 			})
 			.subscribe((res) => {
 				console.log(res);
+				this.OpenModal(res)
 				this.toastr.success("Mood added successfully");
 			});
 	}

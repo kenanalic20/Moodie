@@ -18,7 +18,7 @@ public class NotesRepo : INotesRepo
     public Notes Create(Notes notes)
     {
         _context.Notes.Add(notes);
-        notes.Id = _context.SaveChanges();
+        _context.SaveChanges();
         return notes;
     }
 

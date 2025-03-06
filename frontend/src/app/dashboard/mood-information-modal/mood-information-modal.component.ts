@@ -1,33 +1,37 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import {NotesService} from "../../services/notes.service";
+import { NotesService } from "../../services/notes.service";
 import { ActivityService } from 'src/app/services/activity.service';
-import {ToastrService} from "ngx-toastr";
+import { ToastrService } from "ngx-toastr";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-mood-information-modal',
   templateUrl: './mood-information-modal.component.html',
 })
-export class MoodInformationModalComponent implements OnDestroy,OnInit {
+export class MoodInformationModalComponent implements OnDestroy, OnInit {
   constructor(
     public bsModalRef: BsModalRef,
     private notesService: NotesService,
-    private toastr: ToastrService,
-    private activityService:ActivityService
-  ) {}
+    private toastrService: ToastrService,
+    private activityService: ActivityService,
+    private translateService: TranslateService
+  ) { }
 
   @Input() mood = 0;
-  activityInput:boolean=false;
+  @Input() moodId = 0;
+  activityInput: boolean = false;
   selectedImage: File | null = null;
-  title:string = '';
-  description:string = '';
-  activityTitle:string='';
-  activityDescription:string='';
+  title: string = '';
+  description: string = '';
+  activityName?: string;
+  activityDescription?: string;
 
-  activities:any=[];
+  activities: any = [];
 
   imageUrl: string | null = null;
-    activity: any;
+  activity: any;
+  selectedActivities: Set<number> = new Set();
 
   onImageSelected(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -44,58 +48,81 @@ export class MoodInformationModalComponent implements OnDestroy,OnInit {
       this.imageUrl = null;
     }
   }
- 
-  CloseModal() {
+
+  closeModal() {
     this.bsModalRef.hide();
   }
-  saveActivity(){
-    if(this.activityTitle==''){
-      this.toastr.error("Add title to activity","Failure");
-    }
-    else{
-      this.activityService.addActivity(this.activityTitle,this.activityDescription).subscribe(res=>{
-       this.toastr.success('Activity added successfully', 'Success')
-       this.showActivityInput();
-       this.activityService.getActivitiesByUserId().subscribe(res=>{
-        this.activities=res;
+  
+  saveActivity() {
+    this.activityService.addActivity(this.activityName, this.activityDescription).subscribe(res => {
+      this.toastrService.success('Activity added successfully', 'Success')
+      this.showActivityInput();
+      this.activityService.getActivitiesByUserId().subscribe(res => {
+        this.activities = res;
       });
+    },
+    error=>{
+      console.log(error)
+      //Translated notification
+      this.translateService.get(error.error).subscribe((res: string) => {
+        this.toastrService.error(res, this.translateService.instant('Error'));
       });
-    }
+    },
+  );
+    
   }
+
   setNotes() {
-    this.notesService.addNotes(this.title, this.selectedImage, this.description).subscribe((data: any) => {
-      console.log(data);
-    });
+    this.notesService.addNotes(this.title, this.selectedImage, this.description).subscribe(res => {
+      this.toastrService.success('Notes added successfuly', 'Success');
+      console.log(res);
+    },
+    error=>{
+      this.translateService.get(error.error).subscribe((res: string) => {
+        this.toastrService.error(res,this.translateService.instant('Error'));
+      });
+      }
+    );
 
     this.title = '';
     this.description = '';
     this.selectedImage = null;
     this.imageUrl = null;
 
-    this.toastr.success('Note added successfully', 'Success');
   }
- showActivityInput(){
-  this.activityInput=!this.activityInput;
- }
- removeActivity(id:number){
-  this.activityService.deleteActivity(id).subscribe(res=>{
-    
-    this.getActivities();
-  });
 
- }
+  showActivityInput() {
+    this.activityInput = !this.activityInput;
+  }
+
   ngOnDestroy(): void {
     if (this.imageUrl) {
       URL.revokeObjectURL(this.imageUrl);
     }
   }
-  getActivities(){
-    this.activityService.getActivitiesByUserId().subscribe(res=>{
-      this.activities=res;
+
+  getActivities() {
+    this.activityService.getActivitiesByUserId().subscribe(res => {
+      this.activities = res;
     });
   }
- ngOnInit(): void {
-   this.getActivities();
- }
+
+  selectedActivity(id: number) {
+    this.activityService.updateActivity(this.moodId,id).subscribe(res => {
+      this.selectedActivities.add(id);
+      console.log(res);
+    });
+  }
+
+  unselectActivity(id: number) {
+    this.activityService.updateActivity(undefined, id).subscribe(res => {
+      this.selectedActivities.delete(id);
+      console.log(res);
+    });
+  }
+
+  ngOnInit(): void {
+    this.getActivities();
+  }
 
 }

@@ -2,7 +2,7 @@
 
 <div
     class="overflow-auto top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-50 flex justify-center items-center transition-all"
-    (click)="CloseModal()">
+    (click)="closeModal()">
     <div
         (click)="$event.stopPropagation()"
         class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-lg sm:p-8 p-1 w-full md:h-fit h-full transition-all md:w-1/2">
@@ -11,7 +11,7 @@
             <div class="flex justify-between w-full">
                 <h3 class="font-bold text-lg">Want to add anything else?</h3>
                 <button
-                    (click)="CloseModal()"
+                    (click)="closeModal()"
                     class="dark:text-white text-black close-modal">
                     X
                 </button>
@@ -32,18 +32,25 @@
                       placeholder="Maybe a description?"></textarea>
               </div>
               <div class="flex justify-between w-full items-center">
-                <!-- <input [(ngModel)]="activity" #activityInput
-                       class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2"
-                       placeholder="What were you doing?"> -->
-                    <!-- <select class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center">
-                        <option class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center"  value="" disabled selected>Select activity</option>
-                        <option *ngFor="let a of activities" class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 items-center">{{a.name}}</option> 
-                        
-                    </select> -->
                     <div class="flex flex-wrap  w-full min-h-[50px] h-fit  p-2 items-center">
-                      <div class="border flex justify-between  bg-white dark:bg-neutral-700 rounded-full min-w-[50px] max-w-full min-h-[50px] h-fit m-1  p-2 items-center" *ngFor="let a of activities">
-                        <div class="text-center mr-2">{{a.name}}</div><button (click)="removeActivity(a.id)" class="ml-2 pr-2 cursor-pointer text-center">x</button>
-                    </div>
+                      <div class="border flex justify-between rounded-full min-w-[50px] max-w-full min-h-[50px] h-fit m-1 p-2 items-center"
+                           [ngClass]="{'bg-white dark:bg-neutral-700': !selectedActivities.has(a.id), 
+                                       'bg-gray-200 dark:bg-neutral-600': selectedActivities.has(a.id)}"
+                           *ngFor="let a of activities">
+                          <div class="text-center mr-2">{{a.name}}</div>
+                          <div class="flex items-center">
+                              <button (click)="selectedActivity(a.id)" 
+                                      class="ml-2 pr-2 cursor-pointer text-center"
+                                      *ngIf="!selectedActivities.has(a.id)">
+                                  ✓
+                              </button>
+                              <button (click)="unselectActivity(a.id)"
+                                      class="ml-2 pr-2 cursor-pointer text-center text-red-500 hover:text-red-600"
+                                      *ngIf="selectedActivities.has(a.id)">
+                                  ✕
+                              </button>
+                          </div>
+                      </div>
                       <button (click)="showActivityInput()" class="border bg-white dark:bg-neutral-700 rounded-full min-w-[50px]  min-h-[50px] p-2 m-1">
                           +
                       </button>
@@ -52,9 +59,9 @@
                     </div>
                     <div *ngIf="activityInput" class="flex-row rounded-md justify-between w-full items-center p-2 border">
                        Add activity
-                        <input [(ngModel)]="activityTitle" #titleInput
+                        <input [(ngModel)]="activityName" #titleInput
                             class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit  p-2 mt-2"
-                            placeholder="Activity title?">
+                            placeholder="Activity name?">
                         <textarea [(ngModel)]="activityDescription" #descriptionInput
                             class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit max-h-[200px] p-2 mt-2"
                             placeholder="Activity description?"></textarea>
@@ -83,6 +90,7 @@
 
               <div class="flex w-full mt-8 justify-evenly">
                     <button
+                        (click)="closeModal()"
                         class="font-sans text-black border-2 dark:text-white text-lg dark:border-white border-dark rounded-lg px-4 py-2 hover:scale-105 transition-all">
                         Cancel
                     </button>

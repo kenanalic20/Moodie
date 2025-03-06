@@ -58,19 +58,24 @@ export class MoodSelectorSimpleComponent {
 		this.selected = value;
 	}
 
-	OpenModal() {
+	OpenModal(mood?:any) {
 		this.modalRef = this.modalService.show(MoodInformationModalComponent);
 		this.modalRef.content.mood = this.selected;
+		this.modalRef.content.moodId = mood.id;
+	}
+	CloseModal() {
+		this.modalRef.hide(MoodInformationModalComponent);
 	}
 	addMood() {
 		this.moodService
 			.addMood({
 				moodValue: this.selected,
-				date: this.selectedDate || new Date(),
+				date: new Date(),
 			})
 			.subscribe((res) => {
 				console.log(res);
-				this.toastr.success("Mood added successfully", "Success");
+				this.OpenModal(res)
+				this.toastr.success("Mood added successfully");
 			});
 	}
 }
