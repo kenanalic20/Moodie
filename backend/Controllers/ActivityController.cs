@@ -35,6 +35,14 @@ public class ActivityController : Controller
         if(existingActivity!=null && a.Id!=0) {
             existingActivity.MoodId = a.MoodId;
             existingActivity.Mood = _repositoryMood.GetById(a.MoodId);
+
+            if(!string.IsNullOrEmpty(a.Name)){
+                existingActivity.Name = a.Name;
+            }
+
+            if(!string.IsNullOrEmpty(a.Description)){
+                existingActivity.Description = a.Description;
+            }
         
             return Created("success", _repositoryActivity.Update(existingActivity));
         }

@@ -20,11 +20,13 @@ export class ActivityService {
     return this.http.post(url, body,{withCredentials:true});
   }
 
-  updateActivity(MoodId?:number,ActivityId?:number){ 
+  updateActivity(MoodId?:number,ActivityId?:number,Name?:string,Description?:string){ 
     const url = `${this.apiUrl}/mood/activities`;
     const body = {
       id: ActivityId,
-      moodId: MoodId
+      moodId: MoodId,
+      name: Name,
+      description: Description
     }
     return this.http.post(url,body, { withCredentials: true });
   }
@@ -48,4 +50,5 @@ export class ActivityService {
     const url = `${this.apiUrl}/mood/activities/${id}`;
     return this.http.delete(url,{withCredentials:true});
   }
+  
 }

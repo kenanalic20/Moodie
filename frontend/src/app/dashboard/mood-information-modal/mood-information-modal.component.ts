@@ -75,7 +75,6 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
   setNotes() {
     this.notesService.addNotes(this.title, this.selectedImage, this.description).subscribe(res => {
       this.toastrService.success('Notes added successfuly', 'Success');
-      console.log(res);
     },
     error=>{
       this.translateService.get(error.error).subscribe((res: string) => {
@@ -110,14 +109,15 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
   selectedActivity(id: number) {
     this.activityService.updateActivity(this.moodId,id).subscribe(res => {
       this.selectedActivities.add(id);
-      console.log(res);
+      
+      this.toastrService.success(this.translateService.instant('Activity selected successfuly?'),this.translateService.instant('Error'));
+      
     });
   }
 
   unselectActivity(id: number) {
     this.activityService.updateActivity(undefined, id).subscribe(res => {
       this.selectedActivities.delete(id);
-      console.log(res);
     });
   }
 

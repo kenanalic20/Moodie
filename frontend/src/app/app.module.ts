@@ -27,6 +27,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LanguageSwitcherComponent } from "./language-switcher/language-switcher.component";
 import { SharedModule } from "./shared/shared.module";
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -36,7 +37,8 @@ import { SharedModule } from "./shared/shared.module";
 		StatActivitiesComponent,
 		ExportComponent,
 		GoalsComponent,
-		GoalFilterPipe
+		GoalFilterPipe,
+  ConfirmationDialogComponent
 	],
 	imports: [
 		BrowserModule,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivityService } from 'src/app/services/activity.service';
 import { finalize, timeout } from 'rxjs/operators';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActivityInformationModalComponent } from '../activity-information-modal/activity-information-modal.component';
-
+import { ActivityEditModalComponent } from '../activity-edit-modal/activity-edit-modal.component';
 interface Activity {
   id: number;
   name: string;
@@ -22,24 +22,31 @@ export class StatActivitiesComponent implements OnInit {
     bestMoodActivities: Activity[] = [];
     worstMoodActivities: Activity[] = [];
     isLoading = true;
-    hasActivities = false;
+    hasBestActivities = false;
+    hasWorstActivities = false;
     modalRef: any;
 
-    ngOnInit() {
+    ngOnInit():void {
         this.loadActivities();
     }
 
     loadActivities() {
+        this.bestMoodActivities = [];
+        this.worstMoodActivities = [];
+        this.isLoading = true;
+
         Promise.all([
             this.getBestMoodActivities(),
             this.getWorstMoodActivities()
         ]).then(() => {
-            setTimeout(() => {
-                this.isLoading = false;
-                this.hasActivities = this.bestMoodActivities.length > 0 || 
-                                   this.worstMoodActivities.length > 0;
-            }, 1000);
+            this.isLoading = false;
+            this.updateActivityStates();
         });
+    }
+
+    private updateActivityStates() {
+        this.hasBestActivities = this.bestMoodActivities.length > 0;
+        this.hasWorstActivities = this.worstMoodActivities.length > 0;
     }
 
     getBestMoodActivities() {
@@ -50,6 +57,7 @@ export class StatActivitiesComponent implements OnInit {
                     finalize(() => resolve())
                 )
                 .subscribe(res => {
+                    console.log(res);
                     this.bestMoodActivities = Object.values(res);
                 });
         });
@@ -63,13 +71,36 @@ export class StatActivitiesComponent implements OnInit {
                     finalize(() => resolve())
                 )
                 .subscribe(res => {
+                    console.log(res);
                     this.worstMoodActivities = Object.values(res);
                 });
         });
     }
 
-    openModal(activity?:any) {
-        this.modalRef = this.modalService.show(ActivityInformationModalComponent);
-        this.modalRef.content.activity = activity;
+    openModal(activity?: any) {
+        this.modalRef = this.modalService.show(ActivityInformationModalComponent, {
+            initialState: {
+                activity: activity
+            }
+        });
+
+        if (this.modalRef.content) {
+            const modalComponent = this.modalRef.content as ActivityInformationModalComponent;
+            const modalComponentEdit= this.modalRef.content as ActivityEditModalComponent;
+            modalComponent.activityDeleted.subscribe({
+                next: () => {
+                    this.isLoading = true;
+                    this.loadActivities();
+                    this.modalRef?.hide();
+                }
+            });
+            modalComponentEdit.activityUpdated.subscribe({
+                next: () => {
+                    this.isLoading = true;
+                    this.loadActivities();
+                    this.modalRef?.hide();
+                }
+            });
+        }
     }
 }

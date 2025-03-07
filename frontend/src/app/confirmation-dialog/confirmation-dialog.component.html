@@ -1,35 +1,39 @@
 <div
     class="overflow-auto top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-50 flex justify-center items-center transition-all"
-    (click)="closeModal()">
-    <div 
+    (click)="decline()">
+    <div
         (click)="$event.stopPropagation()"
-        class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-lg sm:p-8 p-1 w-full md:h-fit h-full transition-all md:w-1/2">
-        <div 
-            class=" flex flex-col w-full justify-between items-center gap-4 p-4">
+        class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-lg sm:p-8 p-1 w-full md:h-fit h-full transition-all md:w-1/3">
+        <div class="flex flex-col w-full justify-between items-center gap-4 p-4">
+            <!-- Header -->
             <div class="flex justify-between w-full">
-                <h3 class="font-bold text-lg">Want to edit your activity?</h3>
+                <h3 class="font-bold text-lg">{{ title }}</h3>
                 <button
-                    (click)="closeModal()"
+                    (click)="decline()"
                     class="dark:text-white text-black close-modal">
                     X
                 </button>
             </div>
-            
-            <div class="flex flex-col gap-2 w-full">
-                <h3 class="font-semibold">{{activity.name}}</h3>
-                <p>Created at: {{formatDate(activity.createdAt)}}</p>
-                <p [hidden]="!activity.description">{{activity.description}}</p>
+
+            <!-- Content -->
+            <div class="flex flex-col w-full gap-4">
+                <p class="text-center">{{ message }}</p>
             </div>
+
+            <!-- Actions -->
             <div class="flex w-full mt-8 justify-evenly">
                 <button
-                    (click)="removeActivity(activity.id)"
+                    (click)="decline()"
                     class="font-sans text-black border-2 dark:text-white text-lg dark:border-white border-dark rounded-lg px-4 py-2 hover:scale-105 transition-all">
-                    Delete
+                    Cancel
                 </button>
-                <button (click)="editActivity(activity)"
+                <button
+                    (click)="confirm()"
                     class="font-sans text-lg dark:text-black text-white dark:bg-white bg-gray-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
-                    Edit
+                    Confirm
                 </button>
             </div>
         </div>
+    </div>
 </div>
+
