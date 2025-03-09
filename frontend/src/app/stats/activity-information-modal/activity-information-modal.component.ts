@@ -20,6 +20,7 @@ export class ActivityInformationModalComponent {
 
   @Input() activity: any = {};
   @Output() activityDeleted = new EventEmitter<void>();
+  @Output() activityUpdated = new EventEmitter<void>();
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -39,8 +40,16 @@ export class ActivityInformationModalComponent {
       activity,
       activityUpdated: new EventEmitter<void>()
     };
-    this.bsModalService.show(ActivityEditModalComponent, {initialState});
+    const modalRef=this.bsModalService.show(ActivityEditModalComponent, {initialState});
+    if(modalRef.content){
+      modalRef.content.onClose.subscribe(()=>{
+        this.activityUpdated.emit();
+        this.bsModalRef.hide();
+      })
+    }
   }
+
+
 
   removeActivity(id: number) {
     const modalRef = this.bsModalService.show(ConfirmationDialogComponent, {

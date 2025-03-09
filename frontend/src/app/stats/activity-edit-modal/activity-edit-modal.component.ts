@@ -20,16 +20,16 @@ export class ActivityEditModalComponent implements OnInit {
   ) {}
 
   @Input() activity: any;
-  @Output() activityUpdated = new EventEmitter<void>();
+  @Output() onClose = new EventEmitter<void>();
 
   activityName: string = '';
   activityDescription: string = '';
 
   ngOnInit() {
-    if (this.activity) {
-      this.activityName = this.activity.name;
-      this.activityDescription = this.activity.description;
-    }
+    
+    this.activityName = this.activity.name;
+    this.activityDescription = this.activity.description;
+    
   }
 
   closeModal() {
@@ -49,7 +49,7 @@ export class ActivityEditModalComponent implements OnInit {
             this.translateService.instant('Activity updated successfully'),
             'Success'
           );
-          this.activityUpdated.emit();
+          this.onClose.emit();
           this.bsModalRef.hide();
         },
         error: () => {

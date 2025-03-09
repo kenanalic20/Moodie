@@ -17,12 +17,7 @@ export class AuthService {
 	login(email: string, password: string, twoStepCode?: string) {
 		const url = `${this.apiUrl}/login`;
 		const body = { email, password, twoStepCode };
-		return this.http.post(url, body, { withCredentials: true }).pipe(
-			catchError((error: HttpResponse<any>) => {
-				this.toastr.error(error.statusText, "Error");
-				throw error;
-			}),
-		);
+		return this.http.post(url, body, { withCredentials: true })
 	}
 	register(username: string, email: string, password: string) {
 		const url = `${this.apiUrl}/register`;

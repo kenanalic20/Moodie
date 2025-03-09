@@ -77,6 +77,12 @@ export class StatActivitiesComponent implements OnInit {
         });
     }
 
+    reloadActivities() {
+        this.isLoading = true;
+        this.loadActivities();
+        this.modalRef?.hide();
+    }
+
     openModal(activity?: any) {
         this.modalRef = this.modalService.show(ActivityInformationModalComponent, {
             initialState: {
@@ -86,19 +92,15 @@ export class StatActivitiesComponent implements OnInit {
 
         if (this.modalRef.content) {
             const modalComponent = this.modalRef.content as ActivityInformationModalComponent;
-            const modalComponentEdit= this.modalRef.content as ActivityEditModalComponent;
             modalComponent.activityDeleted.subscribe({
                 next: () => {
-                    this.isLoading = true;
-                    this.loadActivities();
-                    this.modalRef?.hide();
+                    this.reloadActivities();
                 }
             });
-            modalComponentEdit.activityUpdated.subscribe({
+        
+            modalComponent.activityUpdated.subscribe({
                 next: () => {
-                    this.isLoading = true;
-                    this.loadActivities();
-                    this.modalRef?.hide();
+                    this.reloadActivities();
                 }
             });
         }
