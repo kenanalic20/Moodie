@@ -6,4 +6,5 @@ public class UserInfoDto
     public string? LastName { get; set; }
     public string? Gender { get; set; }
     public DateTime? Birthday { get; set; }
+    public string? ProfilePhoto { get; set; }
 }

@@ -119,5 +119,10 @@
 	"Delete": "Delete",
 	"Select": "Select",
 	"Information saved successfully": "Information saved successfully",
-	"Failed to save information": "Failed to save information"
+	"Failed to save information": "Failed to save information",
+
+	"Profile Photo": "Profile Photo",
+	"Change Photo": "Change Photo",
+	"Upload Photo": "Upload Photo",
+	"Maximum file size: 2MB": "Maximum file size: 2MB"
 }

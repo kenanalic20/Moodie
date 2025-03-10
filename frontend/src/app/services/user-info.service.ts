@@ -7,6 +7,7 @@ export interface UserInfo {
 	lastName?: string;
 	gender?: string;
 	birthday?: Date;
+	profilePhoto?: string;
 }
 
 @Injectable({

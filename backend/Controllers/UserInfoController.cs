@@ -39,6 +39,7 @@ public class UserInfoController : Controller
             existingInfo.LastName = uidto.LastName;
             existingInfo.Gender = uidto.Gender;
             existingInfo.Birthday = uidto.Birthday;
+            existingInfo.ProfilePhoto = uidto.ProfilePhoto;
             
             // Delete old info and create updated version
             _repositoryUserInfo.Delete(userId);
@@ -52,6 +53,7 @@ public class UserInfoController : Controller
             LastName = uidto.LastName,
             Gender = uidto.Gender,
             Birthday = uidto.Birthday,
+            ProfilePhoto = uidto.ProfilePhoto,
             UserId = userId,
             User = user
         };

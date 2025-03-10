@@ -13,6 +13,7 @@ export class UserInfoComponent implements OnInit {
 	isSaving = false;
 	saveSuccess = false;
 	saveError = false;
+	profilePhotoPreview: string | null = null;
 
 	constructor(
 		private userInfoService: UserInfoService,
@@ -23,6 +24,7 @@ export class UserInfoComponent implements OnInit {
 			lastName: [""],
 			gender: [""],
 			birthday: [""],
+			profilePhoto: [""],
 		});
 	}
 
@@ -37,6 +39,7 @@ export class UserInfoComponent implements OnInit {
 				// Handle case where info might be empty (204 response)
 				if (info) {
 					this.userInfo = info;
+					this.profilePhotoPreview = info.profilePhoto || null;
 				} else {
 					// Initialize empty user info if response is empty
 					this.userInfo = {
@@ -44,6 +47,7 @@ export class UserInfoComponent implements OnInit {
 						lastName: "",
 						gender: "",
 						birthday: undefined,
+						profilePhoto: "",
 					};
 				}
 				this.patchFormValues();
@@ -74,6 +78,38 @@ export class UserInfoComponent implements OnInit {
 			lastName: this.userInfo.lastName || "",
 			gender: this.userInfo.gender || "",
 			birthday: formattedBirthday ? formattedBirthday.toISOString().split("T")[0] : "",
+			profilePhoto: this.userInfo.profilePhoto || "",
+		});
+	}
+
+	onFileSelected(event: Event): void {
+		const input = event.target as HTMLInputElement;
+		if (input.files && input.files.length > 0) {
+			const file = input.files[0];
+
+			// Check file size (limit to 2MB)
+			if (file.size > 2 * 1024 * 1024) {
+				alert("File size should not exceed 2MB");
+				return;
+			}
+
+			const reader = new FileReader();
+			reader.onload = () => {
+				// Store base64 string in both the preview and form control
+				const base64String = reader.result as string;
+				this.profilePhotoPreview = base64String;
+				this.userInfoForm.patchValue({
+					profilePhoto: base64String,
+				});
+			};
+			reader.readAsDataURL(file); // This converts the file to a base64 data URL
+		}
+	}
+
+	removeProfilePhoto(): void {
+		this.profilePhotoPreview = null;
+		this.userInfoForm.patchValue({
+			profilePhoto: null,
 		});
 	}
 
@@ -87,7 +123,13 @@ export class UserInfoComponent implements OnInit {
 			lastName: this.userInfoForm.value.lastName,
 			gender: this.userInfoForm.value.gender,
 			birthday: this.userInfoForm.value.birthday ? new Date(this.userInfoForm.value.birthday) : undefined,
+			profilePhoto: this.userInfoForm.value.profilePhoto, // This contains the base64 string
 		};
+
+		console.log(
+			"Saving profile photo as base64:",
+			updatedInfo.profilePhoto ? `${updatedInfo.profilePhoto.substring(0, 50)}... (truncated)` : "No photo",
+		);
 
 		this.userInfoService.updateUserInfo(updatedInfo).subscribe({
 			next: () => {
@@ -107,6 +149,7 @@ export class UserInfoComponent implements OnInit {
 			this.userInfoService.deleteUserInfo().subscribe({
 				next: () => {
 					this.userInfo = {};
+					this.profilePhotoPreview = null;
 					this.userInfoForm.reset();
 					this.saveSuccess = true;
 				},

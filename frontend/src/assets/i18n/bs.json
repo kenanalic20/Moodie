@@ -119,5 +119,9 @@
 	"Delete": "Izbriši",
 	"Select": "Odaberi",
 	"Information saved successfully": "Podaci uspješno sačuvani",
-	"Failed to save information": "Greška pri spremanju podataka"
+	"Failed to save information": "Greška pri spremanju podataka",
+	"Profile Photo": "Profilna slika",
+	"Change Photo": "Promijeni sliku",
+	"Upload Photo": "Učitaj sliku",
+	"Maximum file size: 2MB": "Maksimalna veličina datoteke: 2MB"
 }
