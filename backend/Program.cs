@@ -74,6 +74,7 @@ public class Startup
         services.AddScoped<ILanguageRepo, LanguageRepo>();  // Add this line
         services.AddScoped<IExportDataRepo, ExportDataRepo>();
         services.AddScoped<IExportService, ExportService>();
+        services.AddScoped<IAchievementRepo, AchievementRepo>(); // Add this line
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

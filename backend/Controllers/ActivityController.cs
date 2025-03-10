@@ -3,7 +3,7 @@ using Moodie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Interfaces;
 using Moodie.Dtos;
-
+using System.Collections.Generic;
 
 namespace Moodie.Controllers;
 [Route("api")]
@@ -13,13 +13,15 @@ public class ActivityController : Controller
     private readonly IActivityRepo _repositoryActivity;
     private readonly IMoodRepo _repositoryMood;
     private readonly AuthHelper _authHelper;
+    private readonly IAchievementRepo _achievementRepo;
+    
     public ActivityController(
-        AuthHelper authHelper, IActivityRepo repositoryActivity, IMoodRepo repositoryMood)
+        AuthHelper authHelper, IActivityRepo repositoryActivity, IMoodRepo repositoryMood, IAchievementRepo achievementRepo)
     {
         _repositoryMood = repositoryMood;
         _repositoryActivity = repositoryActivity;
         _authHelper = authHelper;
-
+        _achievementRepo = achievementRepo;
     }
 
     [HttpPost("mood/activities")]
@@ -62,7 +64,18 @@ public class ActivityController : Controller
             UserId = userId,
         };
 
-        return Created("success", _repositoryActivity.Create(activity));
+        var createdActivity = _repositoryActivity.Create(activity);
+        
+        // Check for achievements
+        var newAchievements = CheckAndAwardActivityAchievements(userId);
+        
+        var result = new 
+        {
+            activity = createdActivity,
+            newAchievements = newAchievements
+        };
+
+        return Created("success", result);
     }
 
     [HttpGet("mood/activities")]
@@ -119,4 +132,17 @@ public class ActivityController : Controller
         return Ok(id); 
     }
 
+    private List<UserAchievement> CheckAndAwardActivityAchievements(int userId)
+    {
+        var newAchievements = new List<UserAchievement>();
+        
+        // Check for first activity achievement
+        if (!_achievementRepo.HasUserEarnedAchievement(userId, "added_activity"))
+        {
+            var achievement = _achievementRepo.AddUserAchievement(userId, "added_activity");
+            if (achievement != null) newAchievements.Add(achievement);
+        }
+        
+        return newAchievements;
+    }
 }

@@ -8,4 +8,5 @@ public class Achievement
     public string BadgeImage { get; set; } // path or byte array
     public int PointValue { get; set; }
     public string Criteria { get; set; } // e.g., "Log mood for 7 consecutive days"
+    public string Slug { get; set; } // Unique identifier for the achievement
 }

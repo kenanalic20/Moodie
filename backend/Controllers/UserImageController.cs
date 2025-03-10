@@ -25,7 +25,7 @@ public class UserImageController : Controller
     [HttpPut("UserImage")]
     public IActionResult AddUserImage([FromForm] UserImageDto userImageDto)
     {
-       if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+       if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
         var userInfo = _repositoryUserInfo.GetByUserId(userId);
         byte[] imageData = null;
@@ -50,7 +50,7 @@ public class UserImageController : Controller
     [HttpGet("UserImage")]
     public IActionResult GetUserImage()
     {
-        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
         var userInfo = _repositoryUserInfo.GetByUserId(userId);
 
@@ -60,7 +60,7 @@ public class UserImageController : Controller
     [HttpDelete("UserImage")]
     public IActionResult DeleteUserImage()
     {
-        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
         var userInfo = _repositoryUserInfo.GetByUserId(userId);
 

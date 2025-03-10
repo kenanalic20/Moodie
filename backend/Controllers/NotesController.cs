@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moodie.Dtos;
 using Moodie.Interfaces;
 using IdentityServer4.Models;
+using System.Collections.Generic;
 
 namespace Moodie.Controllers;
 
@@ -14,13 +15,15 @@ public class NotesController : Controller
     private readonly INotesRepo _repositoryNotes;
     private readonly IUserRepo _repositoryUser;
     private readonly AuthHelper _authHelper;
+    private readonly IAchievementRepo _achievementRepo;
 
     public NotesController(IUserRepo repositoryUser,
-        AuthHelper authHelper, INotesRepo repositoryNotes)
+        AuthHelper authHelper, INotesRepo repositoryNotes, IAchievementRepo achievementRepo)
     {
         _repositoryUser = repositoryUser;
         _repositoryNotes = repositoryNotes;
         _authHelper = authHelper;
+        _achievementRepo = achievementRepo;
     }
 
     [HttpPost("notes")]
@@ -40,7 +43,6 @@ public class NotesController : Controller
         
         byte[] imageData = null;
 
-
         if (notesDto.Image != null)
             using (var memoryStream = new MemoryStream())
             {
@@ -57,7 +59,19 @@ public class NotesController : Controller
             UserId = userId,
             User = user
         };
-        return Created("success", _repositoryNotes.Create(notes));
+        
+        var createdNote = _repositoryNotes.Create(notes);
+        
+        // Check for achievements
+        var newAchievements = CheckAndAwardNotesAchievements(userId);
+        
+        var result = new 
+        {
+            note = createdNote,
+            newAchievements = newAchievements
+        };
+
+        return Created("success", result);
     }
 
     [HttpGet("notes")]
@@ -78,5 +92,19 @@ public class NotesController : Controller
         
         _repositoryNotes.Delete(userId);
         return Ok(); 
+    }
+
+    private List<UserAchievement> CheckAndAwardNotesAchievements(int userId)
+    {
+        var newAchievements = new List<UserAchievement>();
+        
+        // Check for first note achievement
+        if (!_achievementRepo.HasUserEarnedAchievement(userId, "added_note"))
+        {
+            var achievement = _achievementRepo.AddUserAchievement(userId, "added_note");
+            if (achievement != null) newAchievements.Add(achievement);
+        }
+        
+        return newAchievements;
     }
 }

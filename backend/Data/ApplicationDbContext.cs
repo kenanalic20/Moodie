@@ -23,6 +23,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Habit> Habits { get; set; }
     public DbSet<Language> Languages { get; set; }
     public DbSet<ExportData> Exports { get; set; }
+    public DbSet<Achievement> Achievements { get; set; }
+    public DbSet<UserAchievement> UserAchievements { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -85,6 +87,90 @@ public class ApplicationDbContext : DbContext
                 Region = "BA"
             }
         );
-        
+
+        modelBuilder.Entity<UserAchievement>()
+            .HasOne(ua => ua.Achievement)
+            .WithMany()
+            .HasForeignKey(ua => ua.AchievementId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<UserAchievement>()
+            .HasOne(ua => ua.User)
+            .WithMany()
+            .HasForeignKey(ua => ua.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+            
+        modelBuilder.Entity<Achievement>().HasData(
+            new Achievement
+            {
+                Id = 1,
+                Name = "First Mood",
+                Description = "You've logged your first mood!",
+                BadgeImage = "/images/badges/first-mood.png",
+                PointValue = 10,
+                Criteria = "Log first mood",
+                Slug = "1_mood"
+            },
+            new Achievement
+            {
+                Id = 2,
+                Name = "Mood Tracker",
+                Description = "You've logged 10 moods!",
+                BadgeImage = "/images/badges/mood-tracker.png",
+                PointValue = 25,
+                Criteria = "Log 10 moods",
+                Slug = "10_mood"
+            },
+            new Achievement
+            {
+                Id = 3,
+                Name = "Mood Master",
+                Description = "You've logged 50 moods!",
+                BadgeImage = "/images/badges/mood-master.png",
+                PointValue = 100,
+                Criteria = "Log 50 moods",
+                Slug = "50_mood"
+            },
+            new Achievement
+            {
+                Id = 4,
+                Name = "Multilingual",
+                Description = "You've switched the app language!",
+                BadgeImage = "/images/badges/multilingual.png",
+                PointValue = 15,
+                Criteria = "Change app language",
+                Slug = "switched_language"
+            },
+            new Achievement
+            {
+                Id = 5,
+                Name = "Habit Former",
+                Description = "You've added your first habit to track!",
+                BadgeImage = "/images/badges/habit-former.png",
+                PointValue = 20,
+                Criteria = "Create a habit",
+                Slug = "added_habit"
+            },
+            new Achievement
+            {
+                Id = 6,
+                Name = "Activity Tracker",
+                Description = "You've logged your first activity!",
+                BadgeImage = "/images/badges/activity-tracker.png",
+                PointValue = 15,
+                Criteria = "Add an activity",
+                Slug = "added_activity"
+            },
+            new Achievement
+            {
+                Id = 7,
+                Name = "Note Taker",
+                Description = "You've added your first note!",
+                BadgeImage = "/images/badges/note-taker.png",
+                PointValue = 15,
+                Criteria = "Add a note",
+                Slug = "added_note"
+            }
+        );
     }
 }

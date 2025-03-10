@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moodie.Data;
 
 namespace Moodie.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250310144140_AchievementsSeed")]
+    partial class AchievementsSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,85 +43,9 @@ namespace Moodie.Migrations
                     b.Property<int>("PointValue")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Achievements");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BadgeImage = "/images/badges/first-mood.png",
-                            Criteria = "Log first mood",
-                            Description = "You've logged your first mood!",
-                            Name = "First Mood",
-                            PointValue = 10,
-                            Slug = "1_mood"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BadgeImage = "/images/badges/mood-tracker.png",
-                            Criteria = "Log 10 moods",
-                            Description = "You've logged 10 moods!",
-                            Name = "Mood Tracker",
-                            PointValue = 25,
-                            Slug = "10_mood"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BadgeImage = "/images/badges/mood-master.png",
-                            Criteria = "Log 50 moods",
-                            Description = "You've logged 50 moods!",
-                            Name = "Mood Master",
-                            PointValue = 100,
-                            Slug = "50_mood"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BadgeImage = "/images/badges/multilingual.png",
-                            Criteria = "Change app language",
-                            Description = "You've switched the app language!",
-                            Name = "Multilingual",
-                            PointValue = 15,
-                            Slug = "switched_language"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            BadgeImage = "/images/badges/habit-former.png",
-                            Criteria = "Create a habit",
-                            Description = "You've added your first habit to track!",
-                            Name = "Habit Former",
-                            PointValue = 20,
-                            Slug = "added_habit"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            BadgeImage = "/images/badges/activity-tracker.png",
-                            Criteria = "Add an activity",
-                            Description = "You've logged your first activity!",
-                            Name = "Activity Tracker",
-                            PointValue = 15,
-                            Slug = "added_activity"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            BadgeImage = "/images/badges/note-taker.png",
-                            Criteria = "Add a note",
-                            Description = "You've added your first note!",
-                            Name = "Note Taker",
-                            PointValue = 15,
-                            Slug = "added_note"
-                        });
+                    b.ToTable("Achievement");
                 });
 
             modelBuilder.Entity("Moodie.Models.Activity", b =>
@@ -448,18 +374,13 @@ namespace Moodie.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AchievementId");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("UserAchievements");
+                    b.ToTable("UserAchievement");
                 });
 
             modelBuilder.Entity("Moodie.Models.UserImage", b =>
@@ -624,18 +545,14 @@ namespace Moodie.Migrations
                     b.HasOne("Moodie.Models.Achievement", "Achievement")
                         .WithMany()
                         .HasForeignKey("AchievementId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Moodie.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Moodie.Models.User", null)
                         .WithMany("Achievements")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Achievement");
 

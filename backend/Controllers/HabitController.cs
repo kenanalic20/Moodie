@@ -2,8 +2,8 @@ using Moodie.Helper;
 using Moodie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moodie.Interfaces;
-
 using Moodie.Dtos;
+using System.Collections.Generic;
 
 namespace Moodie.Controllers;
 
@@ -14,12 +14,14 @@ public class HabitController : Controller
     private readonly IHabitRepo _habitRepo;
     private readonly IUserRepo _userRepo;
     private readonly AuthHelper _authHelper;
+    private readonly IAchievementRepo _achievementRepo;
 
-    public HabitController(IHabitRepo habitRepo, IUserRepo userRepo, AuthHelper authHelper)
+    public HabitController(IHabitRepo habitRepo, IUserRepo userRepo, AuthHelper authHelper, IAchievementRepo achievementRepo)
     {
         _habitRepo = habitRepo;
         _userRepo = userRepo;
         _authHelper = authHelper;
+        _achievementRepo = achievementRepo;
     }
 
     [HttpPost("habits")]
@@ -39,7 +41,18 @@ public class HabitController : Controller
             UserId = userId
         };
 
-        return Ok(_habitRepo.Create(habit));  
+        var createdHabit = _habitRepo.Create(habit);
+        
+        // Check for achievements
+        var newAchievements = CheckAndAwardHabitAchievements(userId);
+        
+        var result = new 
+        {
+            habit = createdHabit,
+            newAchievements = newAchievements
+        };
+
+        return Ok(result);
     }
 
     [HttpGet("habits")]
@@ -107,4 +120,17 @@ public class HabitController : Controller
         return Ok(habit);
     }
 
+    private List<UserAchievement> CheckAndAwardHabitAchievements(int userId)
+    {
+        var newAchievements = new List<UserAchievement>();
+        
+        // Check for first habit achievement
+        if (!_achievementRepo.HasUserEarnedAchievement(userId, "added_habit"))
+        {
+            var achievement = _achievementRepo.AddUserAchievement(userId, "added_habit");
+            if (achievement != null) newAchievements.Add(achievement);
+        }
+        
+        return newAchievements;
+    }
 }
