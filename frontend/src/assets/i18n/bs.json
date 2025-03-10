@@ -103,5 +103,21 @@
 	"Format": "Format",
 	"Name": "Naziv",
 	"Date": "Datum",
-	"Export to Google Sheets": "Izvoz u Google Tabele"
+	"Export to Google Sheets": "Izvoz u Google Tabele",
+
+	"User Information": "Korisnički podaci",
+	"Manage your personal information": "Upravljanje ličnim podacima",
+	"First Name": "Ime",
+	"Last Name": "Prezime",
+	"Gender": "Spol",
+	"Male": "Muški",
+	"Female": "Ženski",
+	"Other": "Drugo",
+	"Birthday": "Datum rođenja",
+	"Save": "Sačuvaj",
+	"Saving...": "Spremanje...",
+	"Delete": "Izbriši",
+	"Select": "Odaberi",
+	"Information saved successfully": "Podaci uspješno sačuvani",
+	"Failed to save information": "Greška pri spremanju podataka"
 }

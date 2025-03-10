@@ -11,7 +11,7 @@
             </span>
             <h2 class="font-sans {{
                 this.selected === icon.value && 'font-bold'
-            }} sm:text-xl font-sans text-xs dark:text-gray-300 text-gray-700">
+            }} sm:text-xl font-sans text-xs dark:text-neutral-300 text-neutral-700">
                 {{ icon.name | translate }}
             </h2>
         </div>
@@ -19,7 +19,7 @@
     <button
         *ngIf="selected !== -1"
         (click)="addMood()"
-        class="font-sans text-lg dark:text-black text-white dark:bg-white bg-gray-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
+        class="font-sans text-lg dark:text-black text-white dark:bg-white bg-neutral-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
         {{"That's it, save." | translate}}
     </button>
 </div>

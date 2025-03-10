@@ -7,12 +7,12 @@
             <div *ngIf="isLoading" class="p-3">
                 Loading...
             </div>
-            <div *ngIf="!isLoading && !hasBestActivities" class="p-3 text-gray-500">
+            <div *ngIf="!isLoading && !hasBestActivities" class="p-3 text-neutral-500">
                 Please add some activities to see your stats
             </div>
             <ul *ngIf="!isLoading && bestMoodActivities.length > 0" class="flex flex-col gap-3">
                 <li *ngFor="let activity of bestMoodActivities" (click)="openModal(activity)" 
-                    class="hover:cursor-pointer hover:text-gray-400 transition-all">
+                    class="hover:cursor-pointer hover:text-neutral-400 transition-all">
                     {{activity.name}}
                 </li>
             </ul>
@@ -27,12 +27,12 @@
             <div *ngIf="isLoading" class="p-3">
                 Loading...
             </div>
-            <div *ngIf="!isLoading && !hasWorstActivities" class="p-3 text-gray-500">
+            <div *ngIf="!isLoading && !hasWorstActivities" class="p-3 text-neutral-500">
                 Please add some activities to see your stats
             </div>
             <ul *ngIf="!isLoading && worstMoodActivities.length > 0" class="flex flex-col gap-3">
                 <li *ngFor="let activity of worstMoodActivities" (click)="openModal(activity)"
-                    class="hover:cursor-pointer hover:text-gray-400 transition-all">
+                    class="hover:cursor-pointer hover:text-neutral-400 transition-all">
                     {{activity.name}}
                 </li>
             </ul>

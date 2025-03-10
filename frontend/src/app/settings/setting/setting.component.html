@@ -1,17 +1,17 @@
 <div
-    class="h-fit gap-4 w-[90vw] max-w-[1000px] border-gray-300 dark:border-gray-400 hover:border-gray-600 dark:hover:border-gray-200 transition-all select-none cursor-normal border p-8 flex flex-col lg:flex-row justify-between items-center rounded-xl">
+    class="h-fit gap-4 w-[90vw] max-w-[1000px] border-neutral-300 dark:border-neutral-400 hover:border-neutral-600 dark:hover:border-neutral-200 transition-all select-none cursor-normal border p-8 flex flex-col lg:flex-row justify-between items-center rounded-xl">
     <div class="font-sans w-full">
         <h2 class="text-2xl font-bold">{{ settingName || 'Setting'|translate }}</h2>
-        <p class="dark:text-gray-300 text-gray-700">
+        <p class="dark:text-neutral-300 text-neutral-700">
             {{ settingDescription || 'Description'|translate }}
         </p>
     </div>
     <div
-        class="flex flex-wrap sm:flex-nowrap w-full justify-around border font-sans rounded-xl border-gray-400 cursor-pointer overflow-hidden">
+        class="flex flex-wrap sm:flex-nowrap w-full justify-around border font-sans rounded-xl border-neutral-400 cursor-pointer overflow-hidden">
         <div
             (click)="handleClick(option.value)"
             *ngFor="let option of settingOptions"
-            class="px-4 w-full py-2.5 flex justify-center items-center transition-all {{ option.value === settingValue ? 'dark:bg-gray-500 bg-gray-300' : '' }} hover:bg-gray-400 hover:text-black border-gray-400">
+            class="px-4 w-full py-2.5 flex justify-center items-center transition-all {{ option.value === settingValue ? 'dark:bg-neutral-500 bg-neutral-300' : '' }} hover:bg-neutral-400 hover:text-black border-neutral-400">
             {{ option.label || 'Option'|translate }}
         </div>
     </div>

@@ -5,7 +5,7 @@
         <h1 class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
         {{'Settings' | translate}}
     </h1>
-    <div class="w-full text-center p-2 font-sans text-lg dark:text-gray-300 text-gray-700 select-none">
+    <div class="w-full text-center p-2 font-sans text-lg dark:text-neutral-300 text-neutral-700 select-none">
         {{'Change things up'|translate}}
     </div>
     </div>
@@ -23,5 +23,13 @@
         [settingOptions]="languageOptions"
         settingDescription="Change the language of the application"
         [settingValue]="currentLanguage">
+    </app-setting>
+    
+    <app-setting
+        settingName="Two-Factor Authentication"
+        [onChange]="onTwoFactorChange"
+        [settingOptions]="[{ label: 'Enabled', value: 'true' }, { label: 'Disabled', value: 'false' }]"
+        settingDescription="Enable or disable two-factor authentication for login"
+        [settingValue]="twoFactorEnabled ? 'true' : 'false'">
     </app-setting>
 </div>

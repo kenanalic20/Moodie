@@ -29,6 +29,7 @@ import { SharedModule } from "./shared/shared.module";
 import { ConfirmationDialogComponent } from "./confirmation-dialog/confirmation-dialog.component";
 import { AchievementsComponent } from "src/app/achievements/achievements.component";
 import { ExportModule } from "./export/export.module";
+import { UserInfoModule } from "./user-info/user-info.module";
 
 @NgModule({
 	declarations: [
@@ -69,6 +70,7 @@ import { ExportModule } from "./export/export.module";
 			},
 		}),
 		ExportModule,
+		UserInfoModule,
 	],
 	providers: [
 		{

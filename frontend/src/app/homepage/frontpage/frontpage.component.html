@@ -6,25 +6,25 @@
     </h1>
     <div class="w-1/2 flex gap-5 text-3xl sm:text-5xl justify-evenly">
         <a
-            class="transition-all font-serif dark:text-gray-200 text-gray-600 hover:text-black dark:hover:text-white"
+            class="transition-all font-serif dark:text-neutral-200 text-neutral-600 hover:text-black dark:hover:text-white"
             href="/about"
             >{{'What?'|translate}}</a
         >
         <a
-            class="transition-all font-serif dark:text-gray-200 text-gray-600 hover:text-black dark:hover:text-white"
+            class="transition-all font-serif dark:text-neutral-200 text-neutral-600 hover:text-black dark:hover:text-white"
             href="/auth"
             >{{"Let's go"|translate}}</a
         >
     </div>
     <div class="flex flex-col align-middle justify-center text-center">
-        <p class="font-sans dark:text-gray-300 text-gray-600">
+        <p class="font-sans dark:text-neutral-300 text-neutral-600">
             {{'Moodie is brought to you by'|translate}}
             <span class="dark:text-white text-black">Kenan</span> {{'and'|translate}}
             <span class="dark:text-white text-black">Omar</span>
         </p>
         <p
             *ngIf="isDevelopment"
-            class="font-sans dark:text-gray-300 text-gray-600">
+            class="font-sans dark:text-neutral-300 text-neutral-600">
             Running in
             <span class="dark:text-white text-black">
                 <fa-icon [icon]="codeIcon" class="mr-1 ml-1" />Development

@@ -12,15 +12,16 @@ public class AuthController : Controller
     private readonly EmailService _emailService;
     private readonly JWTService _jwtService;
     private readonly IUserRepo _repository;
-
     private readonly AuthHelper _authHelper;
+    private readonly ISettingsRepo _repositorySettings;
 
-    public AuthController(IUserRepo repository, JWTService jwtService, EmailService emailService, AuthHelper authHelper)
+    public AuthController(IUserRepo repository, JWTService jwtService, EmailService emailService, AuthHelper authHelper, ISettingsRepo repositorySettings)
     {
         _repository = repository;
         _jwtService = jwtService;
         _emailService = emailService;
         _authHelper = authHelper;
+        _repositorySettings = repositorySettings;
     }
 
     [HttpPost("register")]
@@ -50,13 +51,19 @@ public class AuthController : Controller
 
         if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password)) return Unauthorized("Invalid credentials");
 
-        if (user.EmailTwoStepToken?.Length == null)
-        // Verification code is valid, proceed with login
-        if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password))
+        // Check if 2FA is enabled for this user
+        var settings = _repositorySettings.GetByUserId(user.Id);
+        bool twoFactorEnabled = settings != null && settings.TwoFactorEnabled;
+
+        // If 2FA is disabled, skip verification code
+        if (!twoFactorEnabled)
         {
-            return Unauthorized("Invalid credentials");
+            // Skip 2FA process and authenticate user directly
+            SetAuthCookie(user.Id);
+            return Ok(new { message = "Login successful" });
         }
 
+        // Handle 2FA verification
         if (string.IsNullOrEmpty(Dto.TwoStepCode))
         {
             // First step: Send verification code to email
@@ -76,9 +83,20 @@ public class AuthController : Controller
             return Unauthorized("Invalid verification code");
         }
 
+        // Set authentication cookie
+        SetAuthCookie(user.Id);
 
-        // Generate JWT and set as a cookie
-        var jwt = _jwtService.Generate(user.Id);
+        // Clear the verification code in the user record
+        user.EmailTwoStepToken = null;
+        _repository.Update(user);
+
+        return Ok(new { message = "Login successful" });
+    }
+
+    // Helper method to set authentication cookie
+    private void SetAuthCookie(int userId)
+    {
+        var jwt = _jwtService.Generate(userId);
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
@@ -86,12 +104,6 @@ public class AuthController : Controller
             SameSite = SameSiteMode.None
         };
         Response.Cookies.Append("jwt", jwt, cookieOptions);
-
-        // Clear the verification code in the user record
-        user.EmailTwoStepToken = null;
-        _repository.Update(user);
-
-        return Ok(new { message = "Login successful" });
     }
 
     [HttpGet("user")]

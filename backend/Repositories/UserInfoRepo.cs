@@ -39,6 +39,12 @@ public class UserInfoRepo : IUserInfoRepo
         return _context.UserInfo.Where(u => u.UserId == userId).FirstOrDefault();
     }
 
+    public UserInfo Update(UserInfo userInfo)
+    {
+        _context.UserInfo.Update(userInfo);
+        _context.SaveChanges();
+        return userInfo;
+    }
 
     public void Delete(int userId)
     {

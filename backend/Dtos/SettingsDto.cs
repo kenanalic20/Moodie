@@ -6,4 +6,5 @@ public class SettingsDto
     public int? LanguageId { get; set; }
     public bool? ReducedMotion { get; set; }
     public int? UserId { get; set; }
+    public bool? TwoFactorEnabled { get; set; }
 }

@@ -10,6 +10,7 @@ public class Settings
     [ForeignKey("LanguageId")]
     public int LanguageId { get; set; }
     public bool ReducedMotion { get; set; }
+    public bool TwoFactorEnabled { get; set; }
 
     [ForeignKey("UserId")] public int UserId { get; set; }
 

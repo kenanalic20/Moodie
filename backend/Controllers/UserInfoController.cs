@@ -10,7 +10,6 @@ namespace Moodie.Controllers;
 [ApiController]
 public class UserInfoController : Controller
 {
-    private readonly JWTService _jwtService;
     private readonly IUserRepo _repositoryUser;
     private readonly IUserInfoRepo _repositoryUserInfo;
     private readonly AuthHelper _authHelper;
@@ -26,9 +25,27 @@ public class UserInfoController : Controller
     [HttpPut("user-info")]
     public IActionResult AddUserInfo(UserInfoDto uidto)
     {
-        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
        
         var user = _repositoryUser.GetById(userId);
+        
+        // Check if user info already exists, if so update it instead of creating new
+        var existingInfo = _repositoryUserInfo.GetByUserId(userId);
+        
+        if (existingInfo != null)
+        {
+            // Update existing info
+            existingInfo.FirstName = uidto.FirstName;
+            existingInfo.LastName = uidto.LastName;
+            existingInfo.Gender = uidto.Gender;
+            existingInfo.Birthday = uidto.Birthday;
+            
+            // Delete old info and create updated version
+            _repositoryUserInfo.Delete(userId);
+            return Created("success", _repositoryUserInfo.Create(existingInfo, userId));
+        }
+        
+        // Create new user info if none exists
         var userInfo = new UserInfo
         {
             FirstName = uidto.FirstName,
@@ -45,7 +62,7 @@ public class UserInfoController : Controller
     [HttpGet("user-info")]
     public IActionResult GetUserInfo()
     {
-        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
         return Ok(_repositoryUserInfo.GetByUserId(userId));
     }
@@ -53,7 +70,7 @@ public class UserInfoController : Controller
     [HttpDelete("user-info")]
     public IActionResult DeleteUserInfo()
     {
-        if(_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
         _repositoryUserInfo.Delete(userId);
         return Ok("success");

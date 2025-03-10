@@ -34,7 +34,7 @@
                 </div>
 
                 <button
-                    class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-gray-300 bg-gray-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-gray-100 hover:bg-gray-900 transition-all"
+                    class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-neutral-300 bg-neutral-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-neutral-100 hover:bg-neutral-900 transition-all"
                     routerLink="/auth/login">
                     <fa-icon [icon]="faGoogle"></fa-icon>
                     {{'Use Google'|translate}}
@@ -42,7 +42,7 @@
 
                 <button
                     *ngIf="isDevelopment"
-                    class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-gray-300 bg-gray-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-gray-100 hover:bg-gray-900 transition-all"
+                    class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-neutral-300 bg-neutral-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-neutral-100 hover:bg-neutral-900 transition-all"
                     routerLink="/dashboard">
                     <fa-icon [icon]="codeIcon" />
                     {{'Go to the dashboard'|translate}}

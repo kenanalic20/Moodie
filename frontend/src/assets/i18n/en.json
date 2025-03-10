@@ -103,5 +103,21 @@
 	"Format": "Format",
 	"Date": "Date",
 	"Name": "Name",
-	"Export to Google Sheets": "Export to Google Sheets"
+	"Export to Google Sheets": "Export to Google Sheets",
+
+	"User Information": "User Information",
+	"Manage your personal information": "Manage your personal information",
+	"First Name": "First Name",
+	"Last Name": "Last Name",
+	"Gender": "Gender",
+	"Male": "Male",
+	"Female": "Female",
+	"Other": "Other",
+	"Birthday": "Birthday",
+	"Save": "Save",
+	"Saving...": "Saving...",
+	"Delete": "Delete",
+	"Select": "Select",
+	"Information saved successfully": "Information saved successfully",
+	"Failed to save information": "Failed to save information"
 }
