@@ -45,6 +45,10 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.0.1, )"
+            },
             "Microsoft.AspNetCore.ApiAuthorization.IdentityServer": {
               "target": "Package",
               "version": "[5.0.12, )"
@@ -94,6 +98,10 @@
             "Microsoft.Identity.Web.UI": {
               "target": "Package",
               "version": "[1.16.0, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2025.1.5, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

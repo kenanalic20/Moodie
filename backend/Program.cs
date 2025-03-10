@@ -5,6 +5,7 @@ using Moodie.Data;
 using Moodie.Interfaces;
 using Moodie.Repositories;
 using Moodie.Middleware;
+using QuestPDF;
 
 namespace Moodie
 {
@@ -36,6 +37,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        QuestPDF.Settings.License= QuestPDF.Infrastructure.LicenseType.Community;
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(builder =>
@@ -62,7 +64,6 @@ public class Startup
         services.AddScoped<JWTService>();
         services.AddScoped<AuthHelper>();
         services.AddScoped<EmailService>();
-        services.AddScoped<AverageMood>();
         services.AddScoped<INotesRepo, NotesRepo>();
         services.AddScoped<IUserInfoRepo, UserInfoRepo>();  // Add this line
         services.AddScoped<IGoalRepo, GoalRepo>();
@@ -71,6 +72,8 @@ public class Startup
         services.AddScoped<IActivityRepo,ActivityRepo>();
         services.AddScoped<IHabitRepo, HabitRepo>();
         services.AddScoped<ILanguageRepo, LanguageRepo>();  // Add this line
+        services.AddScoped<IExportDataRepo, ExportDataRepo>();
+        services.AddScoped<IExportService, ExportService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

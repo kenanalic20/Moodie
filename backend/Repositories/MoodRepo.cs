@@ -1,6 +1,7 @@
 ﻿using Moodie.Models;
 using Moodie.Interfaces;
 using Moodie.Data;
+using Moodie.Dtos;
 
 
 
@@ -39,9 +40,10 @@ public class MoodRepo : IMoodRepo
     {
         return _context.Moods.Where(u => u.UserId == userId).ToList();
     }
-    
-    public List<Activity> GetAllActivities()
+
+    public List<MoodExportDto> GetExportByUserId(int userId)
     {
-        return _context.Activity.ToList();
+        return _context.Moods.Where(u => u.UserId == userId).Select(u=>new MoodExportDto{Id=u.Id,Mood=u.MoodValue,Date=u.Date}).ToList();
     }
+    
 }

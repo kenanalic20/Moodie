@@ -1,4 +1,5 @@
-﻿using Moodie.Models;
+﻿using Moodie.Dtos;
+using Moodie.Models;
 
 namespace Moodie.Interfaces;
 
@@ -8,5 +9,5 @@ public interface IMoodRepo
     Mood GetById(int? id);
     double GetAverageMoodValue(int userId);
     List<Mood> GetByUserId(int userId);
-    List<Activity> GetAllActivities();
+    List<MoodExportDto> GetExportByUserId(int userId);
 }

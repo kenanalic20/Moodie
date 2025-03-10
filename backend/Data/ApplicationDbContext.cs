@@ -22,6 +22,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Activity> Activity { get; set; }
     public DbSet<Habit> Habits { get; set; }
     public DbSet<Language> Languages { get; set; }
+    public DbSet<ExportData> Exports { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -84,5 +85,6 @@ public class ApplicationDbContext : DbContext
                 Region = "BA"
             }
         );
+        
     }
 }
