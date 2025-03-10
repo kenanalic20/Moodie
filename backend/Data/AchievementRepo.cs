@@ -1,6 +1,7 @@
 using Moodie.Interfaces;
 using Moodie.Models;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Moodie.Data;
 
@@ -45,5 +46,13 @@ public class AchievementRepo : IAchievementRepo
         // Reload the achievement to include in the return
         userAchievement.Achievement = achievement;
         return userAchievement;
+    }
+
+    public List<UserAchievement> GetUserAchievements(int userId)
+    {
+        // Query the database to get all achievements for the specified userId
+        return _context.UserAchievements
+            .Where(ua => ua.UserId == userId)
+            .ToList();
     }
 }
