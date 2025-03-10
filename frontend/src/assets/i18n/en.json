@@ -90,5 +90,18 @@
 	"Activity Tracker": "Activity Tracker",
 	"You've logged your first activity!": "You've logged your first activity!",
 	"Note Taker": "Note Taker",
-	"You've added your first note!": "You've added your first note!"
+	"You've added your first note!": "You've added your first note!",
+
+	"Export": "Export",
+	"Its your data - you can use it however you want!": "It's your data - you can use it however you want!",
+	"Download as JSON": "Download as JSON",
+	"Download as CSV": "Download as CSV",
+	"Download as PDF": "Download as PDF",
+	"Export History": "Export History",
+	"Export Name": "Export Name",
+	"Description": "Description",
+	"Format": "Format",
+	"Date": "Date",
+	"Name": "Name",
+	"Export to Google Sheets": "Export to Google Sheets"
 }

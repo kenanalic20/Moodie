@@ -16,7 +16,6 @@ import { StatActivitiesComponent } from "./stats/stat-activities/stat-activities
 import { SettingsModule } from "./settings/settings.module";
 import { CalendarModule } from "./calendar/calendar.module";
 import { HttpClientModule } from "@angular/common/http";
-import { ExportComponent } from "./export/export.component";
 import { ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { GoalsComponent } from "./goals/goals.component";
@@ -29,6 +28,8 @@ import { LanguageSwitcherComponent } from "./language-switcher/language-switcher
 import { SharedModule } from "./shared/shared.module";
 import { ConfirmationDialogComponent } from "./confirmation-dialog/confirmation-dialog.component";
 import { AchievementsComponent } from "src/app/achievements/achievements.component";
+import { ExportModule } from "./export/export.module";
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -36,7 +37,6 @@ import { AchievementsComponent } from "src/app/achievements/achievements.compone
 		SettingsComponent,
 		StatGraphComponent,
 		StatActivitiesComponent,
-		ExportComponent,
 		AchievementsComponent,
 		GoalsComponent,
 		GoalFilterPipe,
@@ -68,6 +68,7 @@ import { AchievementsComponent } from "src/app/achievements/achievements.compone
 				deps: [HttpClient],
 			},
 		}),
+		ExportModule,
 	],
 	providers: [
 		{

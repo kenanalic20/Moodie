@@ -90,5 +90,18 @@
 	"Activity Tracker": "Pratilac Aktivnosti",
 	"You've logged your first activity!": "Zabilježili ste svoju prvu aktivnost!",
 	"Note Taker": "Zapisničar",
-	"You've added your first note!": "Dodali ste svoju prvu bilješku!"
+	"You've added your first note!": "Dodali ste svoju prvu bilješku!",
+
+	"Export": "Izvoz",
+	"Its your data - you can use it however you want!": "Vi ste vlasnik vaših podataka - možete ih koristiti kako god želite!",
+	"Download as JSON": "Preuzmi kao JSON",
+	"Download as CSV": "Preuzmi kao CSV",
+	"Download as PDF": "Preuzmi kao PDF",
+	"Export History": "Historija izvoza",
+	"Export Name": "Naziv izvoza",
+	"Description": "Opis",
+	"Format": "Format",
+	"Name": "Naziv",
+	"Date": "Datum",
+	"Export to Google Sheets": "Izvoz u Google Tabele"
 }
