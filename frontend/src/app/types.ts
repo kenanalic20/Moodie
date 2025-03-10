@@ -15,6 +15,12 @@ export interface Mood {
 	activityId?: number;
 	activity?: Activity;
 	userId?: number;
+	notes?: {
+		id: number;
+		title: string;
+		description: string;
+		image: string | null;
+	}[];
 }
 
 export interface Activity {

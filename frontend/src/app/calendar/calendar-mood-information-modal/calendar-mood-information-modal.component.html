@@ -37,6 +37,19 @@
                         </div>
                     </div>
 
+                    <div *ngIf="hasNotes(mood)" class="mb-4">
+                        <h3 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</h3>
+                        <div *ngFor="let note of getMoodNotes(mood)" class="mb-3 p-3 rounded-lg bg-gray-50 dark:bg-neutral-900">
+                            <h4 class="font-medium mb-1">{{note.title}}</h4>
+                            <p class="text-gray-600 dark:text-gray-400 whitespace-pre-line">
+                                {{note.description}}
+                            </p>
+                            <img *ngIf="note.image" [src]="note.image" 
+                                class="w-full mt-2 rounded-lg border dark:border-neutral-700 object-cover max-h-48 hover:opacity-90 transition-opacity cursor-pointer"
+                                alt="note image" />
+                        </div>
+                    </div>
+
                     <div *ngIf="mood.note" class="mb-4">
                         <h3 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</h3>
                         <p class="text-gray-600 dark:text-gray-400 whitespace-pre-line bg-gray-50 dark:bg-neutral-900 p-3 rounded-lg">

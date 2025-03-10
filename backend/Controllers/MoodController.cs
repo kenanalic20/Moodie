@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moodie.Data;
 using Moodie.Interfaces;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Moodie.Controllers;
 
@@ -37,7 +39,7 @@ public class MoodController : Controller
 
         var mood = new Mood
         {
-            MoodValue = moodDto.MoodValue,
+            MoodValue = (int)moodDto.MoodValue,  // Add explicit cast here
             Date = moodDto.Date ?? DateTime.Now,
             User = user,
             UserId = userId,
@@ -63,8 +65,29 @@ public class MoodController : Controller
         if(!_authHelper.IsUserLoggedIn(Request,out var userId)) return Unauthorized("Invalid or expired token.");
         
         var moods = _repositoryMood.GetByUserId(userId);
+        
+        // Get notes for each mood
+        var moodWithNotes = moods.Select(mood => {
+            var notes = _context.Notes
+                .Where(note => note.UserId == userId && note.MoodId == mood.Id)
+                .Select(note => new {
+                    Id = note.Id,
+                    Title = note.Title,
+                    Description = note.Description,
+                    Image = note.Image != null ? $"https://localhost:8001/api/images/{note.Image}" : null
+                })
+                .ToList();
+                
+            return new {
+                Id = mood.Id,
+                MoodValue = mood.MoodValue,
+                Date = mood.Date,
+                UserId = mood.UserId,
+                Notes = notes
+            };
+        }).ToList();
 
-        return Ok(moods);
+        return Ok(moodWithNotes);
     }
     
     private List<UserAchievement> CheckAndAwardMoodAchievements(int userId)

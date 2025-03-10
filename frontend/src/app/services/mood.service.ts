@@ -27,6 +27,7 @@ export class MoodService {
 			{
 				moodValue: mood.moodValue,
 				date: moodDate,
+				notes: mood.notes,
 			},
 			{ withCredentials: true },
 		);

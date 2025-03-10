@@ -58,11 +58,19 @@ export class MoodSelectorComplexComponent {
 		}
 	}
 
-	OpenModal(mood?:any) {
+	OpenModal(mood?: any) {
 		this.modalRef = this.modalService.show(MoodInformationModalComponent);
 		this.modalRef.content.mood = this.value;
-		this.modalRef.content.moodId = mood.id;
+
+		// Extract the mood ID from the response structure
+		if (mood && mood.mood && mood.mood.id) {
+			console.log("Setting moodId to:", mood.mood.id);
+			this.modalRef.content.moodId = mood.mood.id;
+		} else {
+			console.error("Invalid mood object structure:", mood);
+		}
 	}
+
 	CloseModal() {
 		this.modalRef.hide(MoodInformationModalComponent);
 	}
@@ -73,8 +81,8 @@ export class MoodSelectorComplexComponent {
 				date: new Date(),
 			})
 			.subscribe((res) => {
-				console.log(res);
-				this.OpenModal(res)
+				console.log("Mood added response:", res);
+				this.OpenModal(res);
 				this.toastr.success("Mood added successfully");
 			});
 	}

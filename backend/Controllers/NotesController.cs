@@ -41,6 +41,9 @@ public class NotesController : Controller
             return BadRequest("Description is required");
         }
         
+        // Log the MoodId value we received
+        Console.WriteLine($"Received MoodId: {notesDto.MoodId}");
+        
         byte[] imageData = null;
 
         if (notesDto.Image != null)
@@ -57,8 +60,12 @@ public class NotesController : Controller
             Description = notesDto.Description,
             Date = DateTime.Now,
             UserId = userId,
-            User = user
+            User = user,
+            MoodId = notesDto.MoodId
         };
+        
+        // Log the note object before saving to confirm MoodId is set
+        Console.WriteLine($"Creating note with MoodId: {notes.MoodId}");
         
         var createdNote = _repositoryNotes.Create(notes);
         

@@ -12,6 +12,9 @@ public class Notes
     public DateTime Date { get; set; }
 
     [ForeignKey("UserId")] public int UserId { get; set; }
-
     [JsonIgnore] public User User { get; set; }
+    
+    // Add relationship to Mood
+    public int? MoodId { get; set; }
+    [JsonIgnore] public Mood? Mood { get; set; }
 }

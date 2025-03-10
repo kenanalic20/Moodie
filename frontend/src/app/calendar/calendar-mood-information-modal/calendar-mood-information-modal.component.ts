@@ -41,6 +41,14 @@ export class CalendarMoodInformationModalComponent {
 		});
 	}
 
+	getMoodNotes(mood: Mood): any[] {
+		return mood.notes || [];
+	}
+
+	hasNotes(mood: Mood): boolean {
+		return (mood.notes?.length ?? 0) > 0;
+	}
+
 	CloseModal() {
 		this.bsModalRef.hide();
 	}
