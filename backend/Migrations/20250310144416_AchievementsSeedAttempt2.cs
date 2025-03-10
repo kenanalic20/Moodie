@@ -81,11 +81,6 @@ namespace Moodie.Migrations
             migrationBuilder.InsertData(
                 table: "Achievements",
                 columns: new[] { "Id", "BadgeImage", "Criteria", "Description", "Name", "PointValue", "Slug" },
-                values: new object[] { 4, "/images/badges/multilingual.png", "Change app language", "You've switched the app language!", "Multilingual", 15, "switched_language" });
-
-            migrationBuilder.InsertData(
-                table: "Achievements",
-                columns: new[] { "Id", "BadgeImage", "Criteria", "Description", "Name", "PointValue", "Slug" },
                 values: new object[] { 5, "/images/badges/habit-former.png", "Create a habit", "You've added your first habit to track!", "Habit Former", 20, "added_habit" });
 
             migrationBuilder.InsertData(

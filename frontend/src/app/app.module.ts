@@ -22,12 +22,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { GoalsComponent } from "./goals/goals.component";
 import { GoalFilterPipe } from "./pipes/goal-filter.pipe";
 
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { LanguageSwitcherComponent } from "./language-switcher/language-switcher.component";
 import { SharedModule } from "./shared/shared.module";
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from "./confirmation-dialog/confirmation-dialog.component";
+import { AchievementsComponent } from "src/app/achievements/achievements.component";
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -36,9 +37,10 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 		StatGraphComponent,
 		StatActivitiesComponent,
 		ExportComponent,
+		AchievementsComponent,
 		GoalsComponent,
 		GoalFilterPipe,
-  ConfirmationDialogComponent
+		ConfirmationDialogComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -60,12 +62,12 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 		ToastrModule.forRoot(),
 		BrowserAnimationsModule,
 		TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient],
+			},
+		}),
 	],
 	providers: [
 		{
@@ -79,5 +81,5 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 export class AppModule {}
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-    return new TranslateHttpLoader(http);
+	return new TranslateHttpLoader(http);
 }

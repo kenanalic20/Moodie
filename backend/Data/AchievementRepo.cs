@@ -19,6 +19,13 @@ public class AchievementRepo : IAchievementRepo
         return _context.Achievements.FirstOrDefault(a => a.Slug == slug);
     }
 
+    public Achievement GetById(int id)
+    {
+        // Assuming you're using Entity Framework Core
+        // Adjust this implementation based on your actual data access method
+        return _context.Achievements.FirstOrDefault(a => a.Id == id);
+    }
+
     public bool HasUserEarnedAchievement(int userId, string achievementSlug)
     {
         var achievement = GetBySlug(achievementSlug);

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moodie.Helper;
 using Moodie.Interfaces;
 using Moodie.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Moodie.Controllers;
 
@@ -24,8 +26,18 @@ public class AchievementController : Controller
     {
         if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
-        var achievements = _repositoryAchievement.GetUserAchievements(userId);
+        var userAchievements = _repositoryAchievement.GetUserAchievements(userId);
         
-        return Ok(achievements);
+        // Populate achievement data for each user achievement
+        foreach (var userAchievement in userAchievements)
+        {
+            if (userAchievement.Achievement == null && userAchievement.AchievementId > 0)
+            {
+                // Use the new GetById method to retrieve the achievement details
+                userAchievement.Achievement = _repositoryAchievement.GetById(userAchievement.AchievementId);
+            }
+        }
+        
+        return Ok(userAchievements);
     }
 }

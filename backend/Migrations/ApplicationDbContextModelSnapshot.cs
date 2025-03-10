@@ -82,16 +82,6 @@ namespace Moodie.Migrations
                         },
                         new
                         {
-                            Id = 4,
-                            BadgeImage = "/images/badges/multilingual.png",
-                            Criteria = "Change app language",
-                            Description = "You've switched the app language!",
-                            Name = "Multilingual",
-                            PointValue = 15,
-                            Slug = "switched_language"
-                        },
-                        new
-                        {
                             Id = 5,
                             BadgeImage = "/images/badges/habit-former.png",
                             Criteria = "Create a habit",

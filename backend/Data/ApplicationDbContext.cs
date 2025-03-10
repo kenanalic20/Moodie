@@ -133,16 +133,6 @@ public class ApplicationDbContext : DbContext
             },
             new Achievement
             {
-                Id = 4,
-                Name = "Multilingual",
-                Description = "You've switched the app language!",
-                BadgeImage = "/images/badges/multilingual.png",
-                PointValue = 15,
-                Criteria = "Change app language",
-                Slug = "switched_language"
-            },
-            new Achievement
-            {
                 Id = 5,
                 Name = "Habit Former",
                 Description = "You've added your first habit to track!",
