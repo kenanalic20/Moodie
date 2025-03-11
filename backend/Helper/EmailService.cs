@@ -6,7 +6,7 @@ namespace Moodie.Helper;
 
 public class EmailService
 {
-      public void SendVerificationEmail(string email, string token)
+    public void SendVerificationEmail(string email, string token)
     {
         if (!IsValidEmail(email))
         {
@@ -110,5 +110,27 @@ public class EmailService
         // Regular expression pattern for email validation
         var pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
         return Regex.IsMatch(email, pattern);
+    }
+
+    public void SendResetPasswordEmail(string email, string resetToken)
+    {
+        var client = new SmtpClient("smtp.gmail.com", 587)
+        {
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential("moodieappfit@gmail.com", "xowmecvcskwbcifa"),
+            EnableSsl = true,
+            DeliveryMethod = SmtpDeliveryMethod.Network
+        };
+
+        var resetLink = $"http://localhost:4200/reset?token={resetToken}";
+
+        var message = new MailMessage("moodieappfit@gmail.com", email)
+        {
+            Subject = "Reset Your Password",
+            Body = $"Click the link below to reset your password:<br><br><a href='{resetLink}'>{resetLink}</a>",
+            IsBodyHtml = true
+        };
+
+        client.Send(message);
     }
 }

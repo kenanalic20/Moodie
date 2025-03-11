@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.IdentityModel.Tokens;
@@ -32,9 +33,54 @@ public class JWTService
         tokenHandler.ValidateToken(jwt,
             new TokenValidationParameters
             {
-                IssuerSigningKey = new SymmetricSecurityKey(key), ValidateIssuerSigningKey = true,
-                ValidateIssuer = false, ValidateAudience = false
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = false,
+                ValidateAudience = false
             }, out var validatedToken);
         return (JwtSecurityToken)validatedToken;
+    }
+    public string GeneratePasswordResetToken(int id)
+    {
+        var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secureKey));
+        var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
+        var header = new JwtHeader(credentials);
+
+        var payload = new JwtPayload(
+            issuer: null, 
+            audience: null, 
+            claims: new List<Claim>
+            {
+            new Claim(JwtRegisteredClaimNames.Sub, id.ToString()) 
+            },
+            notBefore: null, 
+            expires: DateTime.UtcNow.AddHours(1) 
+        );
+
+        var token = new JwtSecurityToken(header, payload);
+        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+        Console.WriteLine($"Generated token: {tokenString}");
+        return tokenString;
+    }
+
+    public bool ValidatePasswordResetToken(string jwt, out int userId)
+    {
+        userId = 0;
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_secureKey);
+        var tokenValidationParameters = new TokenValidationParameters
+        {
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuerSigningKey = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true
+        };
+        tokenHandler.ValidateToken(jwt, tokenValidationParameters, out var validatedToken);
+        var jwtToken = (JwtSecurityToken)validatedToken;
+        userId = int.Parse(jwtToken.Subject);
+        return true;
+       
     }
 }

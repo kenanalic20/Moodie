@@ -14,7 +14,7 @@ export class LoginComponent {
 	constructor(
 		private authService: AuthService,
 		private router: Router,
-		private toastr: ToastrService,
+		private toastrService: ToastrService,
 	) {}
 	faGoogle = faGoogle;
 	isDevelopment = isDev;
@@ -29,19 +29,20 @@ export class LoginComponent {
 
 	onEmailChange(email: any) {
 		this.email = email;
+		console.log(email)
 	}
 
 	onPasswordChange(password: any) {
 		this.password = password;
 	}
+
 	onVerificationCodeChange(verificationCode: any) {
 		this.verificationCode = verificationCode;
 	}
 
 	login() {
 		if (this.password === "" || this.email === "" || !this.email.match(this.emailRegex) || this.password.length < 8) {
-			this.toastr.error("Please enter valid credentials", "Error");
-			console.log(this.email, this.password, this.verificationCode);
+			this.toastrService.error("Please enter valid credentials", "Error");
 			return;
 		}
 
@@ -50,29 +51,29 @@ export class LoginComponent {
 				// Check response message to determine if 2FA is required
 				if (response.message === "Verification code sent to your email") {
 					// 2FA is required - show verification input
-					this.toastr.success("Check your email for verification code", "Success");
+					this.toastrService.success("Check your email for verification code", "Success");
 					this.hide = false;
 					this.hideLogin = true;
 					this.hideVerification = false;
 				} else if (response.message === "Login successful") {
 					// 2FA not required - redirect directly to dashboard
-					this.toastr.success("Logged in successfully", "Success");
+					this.toastrService.success("Logged in successfully", "Success");
 					this.router.navigate(["/dashboard"]);
 				}
 			},
 			(error) => {
-				this.toastr.error(error.error, "Error");
+				this.toastrService.error(error.error, "Error");
 			},
 		);
 	}
 
 	submitVerificationCode() {
 		if (this.verificationCode === "") {
-			this.toastr.error("Please enter valid verification code", "Error");
+			this.toastrService.error("Please enter valid verification code", "Error");
 			return;
 		}
 		this.authService.login(this.email, this.password, this.verificationCode).subscribe((response) => {
-			this.toastr.success("Logged in", "Success");
+			this.toastrService.success("Logged in", "Success");
 			this.router.navigate(["/dashboard"]);
 		});
 	}

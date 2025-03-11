@@ -8,5 +8,5 @@ public interface IUserRepo
     User GetByEmail(string email);
     User GetById(int id);
     User GetByEmailToken(string token);
-    void Update(User user);
+    User Update(User user);
 }

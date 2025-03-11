@@ -11,13 +11,13 @@ public class AuthController : Controller
 {
     private readonly EmailService _emailService;
     private readonly JWTService _jwtService;
-    private readonly IUserRepo _repository;
+    private readonly IUserRepo _repositoryUser;
     private readonly AuthHelper _authHelper;
     private readonly ISettingsRepo _repositorySettings;
 
-    public AuthController(IUserRepo repository, JWTService jwtService, EmailService emailService, AuthHelper authHelper, ISettingsRepo repositorySettings)
+    public AuthController(IUserRepo repositoryUser, JWTService jwtService, EmailService emailService, AuthHelper authHelper, ISettingsRepo repositorySettings)
     {
-        _repository = repository;
+        _repositoryUser = repositoryUser;
         _jwtService = jwtService;
         _emailService = emailService;
         _authHelper = authHelper;
@@ -35,65 +35,55 @@ public class AuthController : Controller
             EmailToken = Guid.NewGuid().ToString()
         };
 
-        var exists = _repository.GetByEmail(user.Email);
+        var exists = _repositoryUser.GetByEmail(user.Email);
         if (exists != null) return BadRequest("Email already exists");
 
         _emailService.SendVerificationEmail(user.Email, user.EmailToken);
-        return Created("success", _repository.Create(user));
+        return Created("success", _repositoryUser.Create(user));
     }
 
     [HttpPost("login")]
     public IActionResult Login(LoginDto Dto)
     {
-        var user = _repository.GetByEmail(Dto.Email);
-        
+        var user = _repositoryUser.GetByEmail(Dto.Email);
+
         if (user == null) return NotFound("Invalid credentials");
 
         if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password)) return Unauthorized("Invalid credentials");
 
-        // Check if 2FA is enabled for this user
         var settings = _repositorySettings.GetByUserId(user.Id);
         bool twoFactorEnabled = settings != null && settings.TwoFactorEnabled;
 
-        // If 2FA is disabled, skip verification code
         if (!twoFactorEnabled)
         {
-            // Skip 2FA process and authenticate user directly
             SetAuthCookie(user.Id);
             return Ok(new { message = "Login successful" });
         }
 
-        // Handle 2FA verification
         if (string.IsNullOrEmpty(Dto.TwoStepCode))
         {
-            // First step: Send verification code to email
             var code = new Random().Next(100000, 999999);
             _emailService.SendTwoFactorCode(user.Email, code.ToString());
 
-            // Store the verification code in the user record
             user.EmailTwoStepToken = code.ToString();
-            _repository.Update(user);
+            _repositoryUser.Update(user);
 
             return Ok(new { message = "Verification code sent to your email" });
         }
 
-        // Second step: Verify the verification code
         if (user.EmailTwoStepToken == null || Dto.TwoStepCode != user.EmailTwoStepToken)
         {
             return Unauthorized("Invalid verification code");
         }
 
-        // Set authentication cookie
         SetAuthCookie(user.Id);
 
-        // Clear the verification code in the user record
         user.EmailTwoStepToken = null;
-        _repository.Update(user);
+        _repositoryUser.Update(user);
 
         return Ok(new { message = "Login successful" });
     }
 
-    // Helper method to set authentication cookie
     private void SetAuthCookie(int userId)
     {
         var jwt = _jwtService.Generate(userId);
@@ -109,11 +99,11 @@ public class AuthController : Controller
     [HttpGet("user")]
     public IActionResult User()
     {
-        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-        
-        var user = _repository.GetById(userId);
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-        return Ok(user);    
+        var user = _repositoryUser.GetById(userId);
+
+        return Ok(user);
     }
 
     [HttpPost("logout")]
@@ -126,15 +116,58 @@ public class AuthController : Controller
     [HttpGet("verifyEmail")]
     public IActionResult VerifyEmail(string token)
     {
-        var user = _repository.GetByEmailToken(token);
+        var user = _repositoryUser.GetByEmailToken(token);
         if (user == null) return NotFound("User not found");
 
         if (user.IsVerifiedEmail) return BadRequest("Email already verified");
 
         user.IsVerifiedEmail = true;
 
-        _repository.Update(user);
+        _repositoryUser.Update(user);
         //will need to change this
         return Redirect("http://localhost:4200/emailVerified");
     }
+
+    [HttpPost("request-reset-password")]
+    public IActionResult RequestResetPassword(RequestResetPasswordDto Dto)
+    {
+        if (string.IsNullOrEmpty(Dto.Email))
+            return BadRequest("Pleas insert email");
+
+        var user = _repositoryUser.GetByEmail(Dto.Email);
+
+        if (user == null)
+            return NotFound("User not found");
+
+        var resetToken = _jwtService.GeneratePasswordResetToken(user.Id);
+
+        user.PasswordResetToken = resetToken;
+        user.PasswordResetTokenExpiry = DateTime.UtcNow.AddHours(1); // Token expires in 1 hour
+        _repositoryUser.Update(user);
+
+        _emailService.SendResetPasswordEmail(user.Email, resetToken);
+
+        return Ok(new { message = "Password reset link sent to your email" });
+    }
+
+    [HttpPost("reset-password")]
+    public IActionResult ResetPassword(ResetPasswordDto Dto)
+    {
+        if (!_jwtService.ValidatePasswordResetToken(Dto.Token, out var userId))
+        {
+            Console.WriteLine("Token validation failed. Token may be expired or invalid.");
+            return BadRequest("Invalid or expired token");
+        }
+
+        var user = _repositoryUser.GetById(userId);
+        if (user == null) return NotFound("User not found");
+
+        user.Password = BCrypt.Net.BCrypt.HashPassword(Dto.NewPassword);
+        user.PasswordResetToken = null;
+        user.PasswordResetTokenExpiry = null;
+        _repositoryUser.Update(user);
+
+        return Ok(new { message = "Password reset successful" });
+    }
+
 }

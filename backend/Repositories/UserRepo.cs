@@ -22,7 +22,7 @@ public class UserRepo : IUserRepo
 
     public User GetByEmail(string email)
     {
-        return _context.Users.FirstOrDefault(u => u.Email == email);
+        return _context.Users.Where(u => u.Email == email).FirstOrDefault();
     }
 
     public User GetById(int id)
@@ -35,9 +35,12 @@ public class UserRepo : IUserRepo
         return _context.Users.FirstOrDefault(u => u.EmailToken == token);
     }
 
-    public void Update(User user)
+    public User Update(User user)
     {
         _context.Users.Update(user);
         _context.SaveChanges();
+        return user;
     }
+
+    
 }

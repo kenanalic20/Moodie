@@ -59,13 +59,13 @@ public class Startup
         });
         services.AddControllers();
         services.AddScoped<IUserRepo, UserRepo>();
-        services.AddScoped<IHabitRepo, HabitRepo>();  // Add this line
+        services.AddScoped<IHabitRepo, HabitRepo>();  
         services.AddScoped<IMoodRepo, MoodRepo>();
         services.AddScoped<JWTService>();
         services.AddScoped<AuthHelper>();
         services.AddScoped<EmailService>();
         services.AddScoped<INotesRepo, NotesRepo>();
-        services.AddScoped<IUserInfoRepo, UserInfoRepo>();  // Add this line
+        services.AddScoped<IUserInfoRepo, UserInfoRepo>();  
         services.AddScoped<IGoalRepo, GoalRepo>();
         services.AddScoped<IUserImageRepo, UserImageRepo>();
         services.AddScoped<ISettingsRepo, SettingsRepo>();

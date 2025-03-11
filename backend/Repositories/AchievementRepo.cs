@@ -1,9 +1,8 @@
 using Moodie.Interfaces;
 using Moodie.Models;
-using System.Linq;
-using System.Collections.Generic;
+using Moodie.Data;
 
-namespace Moodie.Data;
+namespace Moodie.Repositories;
 
 public class AchievementRepo : IAchievementRepo
 {

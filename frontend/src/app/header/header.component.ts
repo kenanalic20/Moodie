@@ -13,7 +13,7 @@ export class HeaderComponent {
     active = window.location.pathname.split('/')[1];
     isDevelopment = isDev;
     codeIcon = faCode;
-    constructor(private auth:AuthService,private route:Router, private toastr: ToastrService) {}
+    constructor(private auth:AuthService,private route:Router, private toastrService: ToastrService) {}
     logOut(){
        this.auth.logout().subscribe((msg)=>{
          console.log(msg);
@@ -25,7 +25,7 @@ export class HeaderComponent {
         this.auth.user().subscribe((data)=>{
           const user = data as unknown as {username:string,email:string};
 
-          this.toastr.success(`Welcome ${user.username}`, 'This is you!');
+          this.toastrService.success(`Welcome ${user.username}`, 'This is you!');
         })
     }
 }

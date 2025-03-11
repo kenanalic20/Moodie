@@ -14,7 +14,7 @@ export class AchievementsComponent implements OnInit {
 
 	constructor(
 		private achievementsService: AchievementsService,
-		private toastr: ToastrService,
+		private toastrService: ToastrService,
 	) {}
 
 	ngOnInit(): void {
@@ -26,7 +26,7 @@ export class AchievementsComponent implements OnInit {
 			},
 			error: (error) => {
 				console.error("Error fetching achievements", error);
-				this.toastr.error("Failed to load achievements", "Error");
+				this.toastrService.error("Failed to load achievements", "Error");
 				this.loading = false;
 				this.error = true;
 			},

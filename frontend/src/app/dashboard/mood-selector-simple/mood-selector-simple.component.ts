@@ -20,7 +20,7 @@ export class MoodSelectorSimpleComponent {
 	constructor(
 		private modalService: BsModalService,
 		private moodService: MoodService,
-		private toastr: ToastrService,
+		private toastrService: ToastrService,
 	) {}
 
 	icons: MoodIcon[] = [
@@ -83,7 +83,7 @@ export class MoodSelectorSimpleComponent {
 			.subscribe((res) => {
 				console.log("Mood added response:", res);
 				this.OpenModal(res);
-				this.toastr.success("Mood added successfully");
+				this.toastrService.success("Mood added successfully");
 			});
 	}
 }

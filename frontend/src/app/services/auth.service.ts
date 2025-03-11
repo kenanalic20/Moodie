@@ -12,7 +12,7 @@ export class AuthService {
 	private jwtCookieName = "jwt";
 	constructor(
 		private http: HttpClient,
-		private toastr: ToastrService,
+		private toastrService: ToastrService,
 	) {}
 	login(email: string, password: string, twoStepCode?: string) {
 		const url = `${this.apiUrl}/login`;
@@ -32,6 +32,19 @@ export class AuthService {
 		const url = `${this.apiUrl}/user`;
 		return this.http.get(url, { withCredentials: true });
 	}
+	requestResetPassword(email:string) {
+		const url = `${this.apiUrl}/request-reset-password`;
+		const body = {email};
+		return this.http.post(url,body)
+	}
+
+	resetPassword(token: string, newPassword: string) {
+		const url = `${this.apiUrl}/reset-password`;
+		const body = { token, newPassword };
+		return this.http.post(url, body);
+	}
+	
+
 	clearUserCookie() {
 		// Clear user data from local storage or any other storage mechanism
 		document.cookie = `${this.jwtCookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
@@ -41,5 +54,5 @@ export class AuthService {
 		  map((data) => !!data),
 		  catchError(() => of(false))
 		);
-	  }
+	}
 }

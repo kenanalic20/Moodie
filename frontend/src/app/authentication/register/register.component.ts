@@ -11,7 +11,7 @@ import {ToastrService} from "ngx-toastr";
     templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-   constructor(private authService: AuthService,private router:Router,private toastr: ToastrService) { }
+   constructor(private authService: AuthService,private router:Router,private toastrService: ToastrService) { }
     faGoogle = faGoogle;
     isDevelopment = isDev;
     codeIcon = faCode;
@@ -41,17 +41,17 @@ export class RegisterComponent {
 
     register() {
       if(  this.password === '' || this.confirmPassword === ''|| this.username === '' || this.email === '' || !this.email.match(this.emailRegex) ||this.password.length<8) {
-          this.toastr.success('Please enter valid credentials', 'Error')
+          this.toastrService.success('Please enter valid credentials', 'Error')
         return;
       }
       if(this.password !== this.confirmPassword) {
-          this.toastr.success('Passwords do not match', 'Error')
+          this.toastrService.success('Passwords do not match', 'Error')
           return;
       }
      console.log(this.username,this.email,this.password,this.confirmPassword);
       this.authService.register(this.username, this.email, this.password).subscribe((response) => {
         console.log(response);
-          this.toastr.success('Registered successfully', 'Success')
+          this.toastrService.success('Registered successfully', 'Success')
         this.router.navigate(['/login']);
       });
     }
