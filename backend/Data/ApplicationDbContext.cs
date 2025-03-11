@@ -1,5 +1,6 @@
 ﻿using Moodie.Models;
 using Microsoft.EntityFrameworkCore;
+using Moodie.Middleware;
 
 
 namespace Moodie.Data;
@@ -25,6 +26,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<ExportData> Exports { get; set; }
     public DbSet<Achievement> Achievements { get; set; }
     public DbSet<UserAchievement> UserAchievements { get; set; }
+    public DbSet<ErrorDetails> ErrorDetails{ get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

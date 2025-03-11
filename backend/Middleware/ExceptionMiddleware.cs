@@ -1,57 +1,76 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using System;
+using Moodie.Data;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace Moodie.Middleware;
+public class ExceptionMiddleware
+{
+    private readonly RequestDelegate _next;
+    private readonly ILogger<ExceptionMiddleware> _logger;
 
-    public class ExceptionMiddleware
+    public ExceptionMiddleware(
+        RequestDelegate next,
+        ILogger<ExceptionMiddleware> logger)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger<ExceptionMiddleware> _logger;
+        _next = next;
+        _logger = logger;
+    }
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
+    public async Task InvokeAsync(HttpContext httpContext, ApplicationDbContext context)
+    {
+        try
         {
-            _next = next;
-            _logger = logger;
+            await _next(httpContext);
         }
-
-        public async Task InvokeAsync(HttpContext httpContext)
+        catch (Exception ex)
         {
-            try
-            {
-                await _next(httpContext);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong: {ex}");
-                await HandleExceptionAsync(httpContext, ex);
-            }
-        }
-
-        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-            var error = new ErrorDetails
-            {
-                StatusCode = context.Response.StatusCode,
-                Message = "An error has occured. Please try again later."
-            }.ToString();
-            _logger.LogError($"Error: {error}");
-            await context.Response.WriteAsJsonAsync(error);
+            _logger.LogError($"Something went wrong: {ex}");
+            await HandleExceptionAsync(httpContext, ex, context);
         }
     }
 
-    public class ErrorDetails
+    private async Task HandleExceptionAsync(HttpContext context, Exception exception, ApplicationDbContext dbContext)
     {
-        public int StatusCode { get; set; }
-        public string Message { get; set; }
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-        public override string ToString()
+        // Log the error to the database
+        await LogErrorToDatabase(exception, dbContext);
+
+        // Return error response to the client
+        var error = new ErrorDetails
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
+            StatusCode = context.Response.StatusCode,
+            Message = "An error has occurred. Please try again later."
+        }.ToString();
+
+        _logger.LogError($"Error: {error}");
+        await context.Response.WriteAsJsonAsync(error);
     }
+
+    private async Task LogErrorToDatabase(Exception exception, ApplicationDbContext dbContext)
+    {
+        var errorDetails = new ErrorDetails
+        {
+            StatusCode = StatusCodes.Status500InternalServerError,
+            Message = exception.Message,
+            StackTrace = exception.StackTrace
+        };
+
+        dbContext.ErrorDetails.Add(errorDetails);
+        await dbContext.SaveChangesAsync();
+    }
+}
+public class ErrorDetails
+{
+    public int Id { get; set; }
+
+    public int StatusCode { get; set; }
+    public string Message { get; set; }
+    public string StackTrace { get; set; }
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+
+    public override string ToString()
+    {
+        return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+    }
+}
