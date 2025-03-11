@@ -74,7 +74,7 @@ public class MoodController : Controller
                     Id = note.Id,
                     Title = note.Title,
                     Description = note.Description,
-                    Image = note.Image != null ? $"https://localhost:8001/api/images/{note.Image}" : null
+                    Image = note.ImagePath != null ? note.ImagePath : null
                 })
                 .ToList();
                 

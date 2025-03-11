@@ -6,6 +6,7 @@ using Moodie.Interfaces;
 using Moodie.Repositories;
 using Moodie.Middleware;
 using QuestPDF;
+using Microsoft.Extensions.FileProviders;
 
 namespace Moodie
 {
@@ -37,7 +38,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        QuestPDF.Settings.License= QuestPDF.Infrastructure.LicenseType.Community;
+        QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(builder =>
@@ -57,19 +58,21 @@ public class Startup
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
         });
+        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Images");
         services.AddControllers();
+        services.AddSingleton(new ImageHelper(uploadsFolder));
         services.AddScoped<IUserRepo, UserRepo>();
-        services.AddScoped<IHabitRepo, HabitRepo>();  
+        services.AddScoped<IHabitRepo, HabitRepo>();
         services.AddScoped<IMoodRepo, MoodRepo>();
         services.AddScoped<JWTService>();
         services.AddScoped<AuthHelper>();
         services.AddScoped<EmailService>();
         services.AddScoped<INotesRepo, NotesRepo>();
-        services.AddScoped<IUserInfoRepo, UserInfoRepo>();  
+        services.AddScoped<IUserInfoRepo, UserInfoRepo>();
         services.AddScoped<IGoalRepo, GoalRepo>();
         services.AddScoped<IUserImageRepo, UserImageRepo>();
         services.AddScoped<ISettingsRepo, SettingsRepo>();
-        services.AddScoped<IActivityRepo,ActivityRepo>();
+        services.AddScoped<IActivityRepo, ActivityRepo>();
         services.AddScoped<IHabitRepo, HabitRepo>();
         services.AddScoped<ILanguageRepo, LanguageRepo>();  // Add this line
         services.AddScoped<IExportDataRepo, ExportDataRepo>();
@@ -87,6 +90,14 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+       
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Images")),
+            RequestPath = "/Uploads/Images"
+        });
+        
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {

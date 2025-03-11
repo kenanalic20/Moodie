@@ -26,12 +26,10 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	description: string = "";
 	activityName?: string;
 	activityDescription?: string;
-
 	activities: any = [];
-
 	imageUrl: string | null = null;
-	activity: any;
 	selectedActivities: Set<number> = new Set();
+	isLoading: boolean = false; // Add loading state
 
 	onImageSelected(event: Event) {
 		const inputElement = event.target as HTMLInputElement;
@@ -64,7 +62,6 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 			},
 			(error) => {
 				console.log(error);
-				//Translated notification
 				this.translateService.get(error.error).subscribe((res: string) => {
 					this.toastrService.error(res, this.translateService.instant("Error"));
 				});
@@ -73,21 +70,43 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	}
 
 	setNotes() {
-		this.notesService.addNotes(this.title, this.selectedImage, this.description, this.moodId).subscribe(
+		// Validate required fields
+		if (!this.title || !this.description) {
+			this.toastrService.error("Title and Description are required", "Error");
+			return;
+		}
+	
+		this.isLoading = true; // Start loading
+	
+		// Create FormData object
+		const formData = new FormData();
+		formData.append("Title", this.title);
+		formData.append("Description", this.description);
+	
+		// Append MoodId if it is defined
+		if (this.moodId !== null && this.moodId !== undefined) {
+			formData.append("MoodId", this.moodId.toString());
+		}
+	
+		// Append the image file if it exists
+		if (this.selectedImage) {
+			formData.append("Image", this.selectedImage, this.selectedImage.name);
+		}
+	
+		// Call the notes service to add notes
+		this.notesService.addNotes(formData).subscribe(
 			(res) => {
-				this.toastrService.success("Notes added successfuly", "Success");
+				this.toastrService.success("Notes added successfully", "Success");
+				this.isLoading = false; // Stop loading
+				this.closeModal();
 			},
 			(error) => {
+				this.isLoading = false; // Stop loading
 				this.translateService.get(error.error).subscribe((res: string) => {
 					this.toastrService.error(res, this.translateService.instant("Error"));
 				});
 			},
 		);
-
-		this.title = "";
-		this.description = "";
-		this.selectedImage = null;
-		this.imageUrl = null;
 	}
 
 	showActivityInput() {
@@ -109,11 +128,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	selectedActivity(id: number) {
 		this.activityService.updateActivity(this.moodId, id).subscribe((res) => {
 			this.selectedActivities.add(id);
-
-			this.toastrService.success(
-				this.translateService.instant("Activity selected successfuly?"),
-				this.translateService.instant("Error"),
-			);
+			this.toastrService.success("Activity selected successfully", "Success");
 		});
 	}
 

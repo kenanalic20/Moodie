@@ -42,6 +42,7 @@ export class CalendarMoodInformationModalComponent {
 	}
 
 	getMoodNotes(mood: Mood): any[] {
+		console.log(mood.notes)
 		return mood.notes || [];
 	}
 
