@@ -20,14 +20,14 @@
                 <p>Created at: {{formatDate(activity.createdAt)}}</p>
                 <p [hidden]="!activity.description">{{activity.description}}</p>
             </div>
-            <div class="flex w-full mt-8 justify-evenly">
+            <div class="flex w-full mt-6 gap-4">
                 <button
                     (click)="removeActivity(activity.id)"
-                    class="font-sans text-black border-2 dark:text-white text-lg dark:border-white border-dark rounded-lg px-4 py-2 hover:scale-105 transition-all">
+                    class="flex-1 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all">
                     Delete
                 </button>
                 <button (click)="editActivity(activity)"
-                    class="font-sans text-lg dark:text-black text-white dark:bg-white bg-neutral-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
+                    class="flex-1 py-3 bg-neutral-700 text-white font-medium rounded-lg hover:bg-neutral-800 transition-all">
                     Edit
                 </button>
             </div>

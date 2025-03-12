@@ -7,6 +7,7 @@ using Moodie.Repositories;
 using Moodie.Middleware;
 using QuestPDF;
 using Microsoft.Extensions.FileProviders;
+using Moodie.Models;
 
 namespace Moodie
 {
@@ -78,6 +79,7 @@ public class Startup
         services.AddScoped<IExportDataRepo, ExportDataRepo>();
         services.AddScoped<IExportService, ExportService>();
         services.AddScoped<IAchievementRepo, AchievementRepo>(); // Add this line
+        services.AddScoped<IMoodActivityRepo,ModActivityRepo>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

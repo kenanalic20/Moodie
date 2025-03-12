@@ -27,6 +27,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Achievement> Achievements { get; set; }
     public DbSet<UserAchievement> UserAchievements { get; set; }
     public DbSet<ErrorDetails> ErrorDetails{ get; set; }
+    public DbSet<MoodActivity> MoodActivities { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -164,5 +165,18 @@ public class ApplicationDbContext : DbContext
                 Slug = "added_note"
             }
         );
+        //many to many
+        modelBuilder.Entity<MoodActivity>()
+            .HasKey(ma => new { ma.MoodId, ma.ActivityId }); // Composite primary key
+
+        modelBuilder.Entity<MoodActivity>()
+            .HasOne(ma => ma.Mood)
+            .WithMany(m => m.MoodActivities)
+            .HasForeignKey(ma => ma.MoodId);
+
+        modelBuilder.Entity<MoodActivity>()
+            .HasOne(ma => ma.Activity)
+            .WithMany(a => a.MoodActivities)
+            .HasForeignKey(ma => ma.ActivityId);
     }
 }

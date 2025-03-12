@@ -66,8 +66,28 @@ public class MoodController : Controller
         
         var moods = _repositoryMood.GetByUserId(userId);
         
+                // Get activities for each mood
+                var moodWithActivities = moods.Select(mood => {
+                    var activities = _context.MoodActivities
+                        .Where(ma => ma.MoodId == mood.Id)
+                        .Include(ma => ma.Activity)
+                        .Select(ma => new {
+                            Id = ma.Activity.Id,
+                            Name = ma.Activity.Name,
+                            Description = ma.Activity.Description
+                        })
+                        .ToList();
+
+                    return new {
+                        Id = mood.Id,
+                        MoodValue = mood.MoodValue,
+                        Date = mood.Date,
+                        UserId = mood.UserId,
+                        Activities = activities
+                    };
+                }).ToList();
         // Get notes for each mood
-        var moodWithNotes = moods.Select(mood => {
+        var moodWithNotesAndActivities = moods.Select(mood => {
             var notes = _context.Notes
                 .Where(note => note.UserId == userId && note.MoodId == mood.Id)
                 .Select(note => new {
@@ -77,17 +97,29 @@ public class MoodController : Controller
                     Image = note.ImagePath != null ? note.ImagePath : null
                 })
                 .ToList();
-                
+
+            var activities = _context.MoodActivities
+                .Where(ma => ma.MoodId == mood.Id)
+                .Include(ma => ma.Activity)
+                .Select(ma => new {
+                    Id = ma.Activity.Id,
+                    Name = ma.Activity.Name,
+                    Description = ma.Activity.Description
+                })
+                .ToList();
+
             return new {
                 Id = mood.Id,
                 MoodValue = mood.MoodValue,
                 Date = mood.Date,
                 UserId = mood.UserId,
-                Notes = notes
+                Notes = notes,
+                MoodActivities = activities
             };
         }).ToList();
+        
 
-        return Ok(moodWithNotes);
+        return Ok(moodWithNotesAndActivities);
     }
     
     private List<UserAchievement> CheckAndAwardMoodAchievements(int userId)

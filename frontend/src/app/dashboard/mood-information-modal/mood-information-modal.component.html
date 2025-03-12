@@ -62,13 +62,13 @@
                     <textarea [(ngModel)]="activityDescription"
                         class="bg-white dark:bg-neutral-800 rounded-lg w-full min-h-[60px] h-fit max-h-[150px] p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-neutral-400"
                         placeholder="Activity description (optional)"></textarea>
-                    <div class="flex justify-end gap-3">
+                    <div class="flex w-full mt-6 gap-4">
                         <button (click)="showActivityInput()" 
-                                class="px-4 py-2 rounded-lg bg-neutral-200 dark:bg-neutral-600 hover:bg-neutral-300 dark:hover:bg-neutral-500 transition-all">
+                                class="flex-1 py-3 bg-neutral-200 dark:bg-neutral-600 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-500 transition-all">
                             Cancel
                         </button>
                         <button (click)="saveActivity()" 
-                                class="px-4 py-2 rounded-lg bg-neutral-700 text-white hover:bg-neutral-800 transition-all">
+                                class="flex-1 py-3 bg-neutral-600 text-white font-medium rounded-lg hover:bg-neutral-800 transition-all">
                             Save
                         </button>
                     </div>

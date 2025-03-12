@@ -4,6 +4,7 @@ import { NotesService } from "../../services/notes.service";
 import { ActivityService } from "src/app/services/activity.service";
 import { ToastrService } from "ngx-toastr";
 import { TranslateService } from "@ngx-translate/core";
+import { MoodActivityService } from "src/app/services/mood-activity.service";
 
 @Component({
 	selector: "app-mood-information-modal",
@@ -16,6 +17,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 		private toastrService: ToastrService,
 		private activityService: ActivityService,
 		private translateService: TranslateService,
+		private moodActivityService: MoodActivityService
 	) {}
 
 	@Input() mood = 0;
@@ -29,7 +31,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	activities: any = [];
 	imageUrl: string | null = null;
 	selectedActivities: Set<number> = new Set();
-	isLoading: boolean = false; // Add loading state
+	isLoading: boolean = false; 
 
 	onImageSelected(event: Event) {
 		const inputElement = event.target as HTMLInputElement;
@@ -126,15 +128,17 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	}
 
 	selectedActivity(id: number) {
-		this.activityService.updateActivity(this.moodId, id).subscribe((res) => {
+		this.moodActivityService.addMoodActivity(this.moodId,id).subscribe((res) => {
 			this.selectedActivities.add(id);
 			this.toastrService.success("Activity selected successfully", "Success");
 		});
+
 	}
 
 	unselectActivity(id: number) {
-		this.activityService.updateActivity(undefined, id).subscribe((res) => {
+		this.moodActivityService.deleteMoodActivity(this.moodId,id).subscribe((res) => {
 			this.selectedActivities.delete(id);
+			this.toastrService.success("Activity selected successfully", "Success");
 		});
 	}
 

@@ -89,14 +89,14 @@ public class NotesController : Controller
         return Ok(notes);
     }
 
-    //Trebat ce popravit brise notes jedan po jedan za sad
-    [HttpDelete("notes")]
-    public IActionResult DeleteNotes()
+    [HttpDelete("notes/{id}")]
+    public IActionResult DeleteNotes(int id)
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-        _repositoryNotes.Delete(userId);
-        return Ok();
+        _repositoryNotes.Delete(id);
+        
+        return Ok("Notes deleted successfully");
     }
 
     private List<UserAchievement> CheckAndAwardNotesAchievements(int userId)

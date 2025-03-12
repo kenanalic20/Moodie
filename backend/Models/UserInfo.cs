@@ -13,7 +13,6 @@ public class UserInfo
     public string? Gender { get; set; }
     public DateTime? Birthday { get; set; }
     
-    // Add ProfilePhoto property to match the DTO
     public string? ProfilePhoto { get; set; }
     
     [ForeignKey("User")]

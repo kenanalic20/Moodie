@@ -13,7 +13,7 @@ export interface Mood {
 	note?: string;
 	image?: string;
 	activityId?: number;
-	activity?: Activity;
+	moodActivities?: Activity[];
 	userId?: number;
 	notes?: {
 		id: number;
@@ -21,6 +21,7 @@ export interface Mood {
 		description: string;
 		image: string | null;
 	}[];
+	
 }
 
 export interface Activity {

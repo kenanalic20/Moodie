@@ -26,7 +26,6 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { LanguageSwitcherComponent } from "./language-switcher/language-switcher.component";
 import { SharedModule } from "./shared/shared.module";
-import { ConfirmationDialogComponent } from "./confirmation-dialog/confirmation-dialog.component";
 import { AchievementsComponent } from "src/app/achievements/achievements.component";
 import { ExportModule } from "./export/export.module";
 import { UserInfoModule } from "./user-info/user-info.module";
@@ -41,7 +40,6 @@ import { UserInfoModule } from "./user-info/user-info.module";
 		AchievementsComponent,
 		GoalsComponent,
 		GoalFilterPipe,
-		ConfirmationDialogComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -1,6 +1,7 @@
 ﻿using Moodie.Models;
 using Moodie.Interfaces;
 using Moodie.Data;
+using Moodie.Helper;
 
 
 
@@ -9,10 +10,13 @@ namespace Moodie.Repositories;
 public class NotesRepo : INotesRepo
 {
     private readonly ApplicationDbContext _context;
+    private readonly ImageHelper _imageHelper;
+    
 
-    public NotesRepo(ApplicationDbContext context)
+    public NotesRepo(ApplicationDbContext context,ImageHelper imageHelper)
     {
         _context = context;
+        _imageHelper = imageHelper;
     }
 
     public Notes Create(Notes notes)
@@ -32,15 +36,17 @@ public class NotesRepo : INotesRepo
         return _context.Notes.Where(u => u.UserId == userId).ToList();
     }
 
-    public Notes Delete(int userId)
+    public void Delete(int Id)
     {
-        var notes = _context.Notes.FirstOrDefault(u => u.UserId == userId);
+        var notes = _context.Notes.Find(Id);
         if (notes != null)
         {
+           if (!string.IsNullOrEmpty(notes.ImagePath))
+            {
+                _imageHelper.DeleteImage(notes.ImagePath);
+            }
             _context.Notes.Remove(notes);
             _context.SaveChanges();
         }
-
-        return notes;
     }
 }

@@ -37,4 +37,22 @@ public class ImageHelper
         // Return the relative path
         return "https://localhost:8001/" + Path.Combine("Uploads", "Images", uniqueFileName);
     }
+
+     public bool DeleteImage(string imagePath)
+    {
+        if (string.IsNullOrEmpty(imagePath))
+        {
+            return false;
+        }
+
+        var filePath = Path.Combine(_uploadsFolder, Path.GetFileName(imagePath));
+
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            return true;
+        }
+
+        return false;
+    }
 }

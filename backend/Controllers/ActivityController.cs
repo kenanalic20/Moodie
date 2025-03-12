@@ -11,14 +11,12 @@ namespace Moodie.Controllers;
 public class ActivityController : Controller
 {
     private readonly IActivityRepo _repositoryActivity;
-    private readonly IMoodRepo _repositoryMood;
     private readonly AuthHelper _authHelper;
     private readonly IAchievementRepo _achievementRepo;
     
     public ActivityController(
         AuthHelper authHelper, IActivityRepo repositoryActivity, IMoodRepo repositoryMood, IAchievementRepo achievementRepo)
     {
-        _repositoryMood = repositoryMood;
         _repositoryActivity = repositoryActivity;
         _authHelper = authHelper;
         _achievementRepo = achievementRepo;
@@ -32,11 +30,9 @@ public class ActivityController : Controller
         
         var activities = _repositoryActivity.GetByUserId(userId);
 
-        var existingActivity = _repositoryActivity.GetById(a.Id, activities);
+        var existingActivity = _repositoryActivity.GetById(a.Id);
         
         if(existingActivity!=null && a.Id!=0) {
-            existingActivity.MoodId = a.MoodId;
-            existingActivity.Mood = _repositoryMood.GetById(a.MoodId);
 
             if(!string.IsNullOrEmpty(a.Name)){
                 existingActivity.Name = a.Name;
@@ -49,8 +45,8 @@ public class ActivityController : Controller
             return Created("success", _repositoryActivity.Update(existingActivity));
         }
 
-        if(activities.Count>=10){ //this can be added in settings for example disable activity limit or change the limit
-            return BadRequest("You can only have 10 activities");
+        if(activities.Count>=20){ //this can be added in settings for example disable activity limit or change the limit
+            return BadRequest("You can only have 20 activities");
         }
 
         if(string.IsNullOrEmpty(a.Name)){
@@ -66,7 +62,6 @@ public class ActivityController : Controller
 
         var createdActivity = _repositoryActivity.Create(activity);
         
-        // Check for achievements
         var newAchievements = CheckAndAwardActivityAchievements(userId);
         
         var result = new 
@@ -92,41 +87,10 @@ public class ActivityController : Controller
         return Ok(activities);
     }
 
-    [HttpGet("mood/activities/best")]
-    public IActionResult GetBestActivities()
-    {
-        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-    
-        var averageMoodValue = _repositoryMood.GetAverageMoodValue(userId);
-
-        var activities = _repositoryActivity.GetBestMoodActivities(averageMoodValue,userId);
-
-        if(activities.Count==0){
-            return NotFound();
-        }
-
-        return Ok(activities);
-    }
-
-    [HttpGet("mood/activities/worst")]
-    public IActionResult GetWorstActivities()
-    {
-        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-    
-        var averageMoodValue = _repositoryMood.GetAverageMoodValue(userId);
-        
-        var activities = _repositoryActivity.GetWorstMoodActivities(averageMoodValue,userId);
-
-        if(activities.Count==0){
-            return NotFound();
-        }
-
-        return Ok(activities);
-    }
-
     [HttpDelete("mood/activities/{id}")]
     public IActionResult DeleteActivity(int id){
-      
+        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+
         _repositoryActivity.Delete(id);
 
         return Ok(id); 
