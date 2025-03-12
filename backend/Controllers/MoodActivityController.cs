@@ -75,7 +75,8 @@ public class MoodActivityController : Controller
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-        var activities = _repositoryMoodActivity.GetBestMoodActivities(userId);
+         var averageMood = _repositoryMood.GetAverageMoodValue(userId);
+        var activities = _repositoryMoodActivity.GetBestMoodActivities(userId, averageMood);
 
         if (activities.Count == 0)
         {
@@ -90,7 +91,10 @@ public class MoodActivityController : Controller
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-        var activities = _repositoryMoodActivity.GetWorstMoodActivities(userId);
+        var averageMood = _repositoryMood.GetAverageMoodValue(userId);
+
+        var activities = _repositoryMoodActivity.GetWorstMoodActivities(userId,averageMood);
+
 
         if (activities.Count == 0)
         {

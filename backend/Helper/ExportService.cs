@@ -31,8 +31,8 @@ public class ExportService : IExportService
     {
         var mood = _repositoryMood.GetExportByUserId(UserId);
         var averageMood = Math.Round(_repositoryMood.GetAverageMoodValue(UserId),2);
-        var bestMoodActivities = string.Join(", ", _repositoryMoodActivity.GetBestMoodActivities(UserId).Select(bm => bm.Name));
-        var worstMoodActivities = string.Join(", ", _repositoryMoodActivity.GetWorstMoodActivities(UserId).Select(wm => wm.Name));
+        var bestMoodActivities = string.Join(", ", _repositoryMoodActivity.GetBestMoodActivities(UserId,averageMood).Select(bm => bm.Name));
+        var worstMoodActivities = string.Join(", ", _repositoryMoodActivity.GetWorstMoodActivities(UserId,averageMood).Select(wm => wm.Name));
         
         var exportData = mood.Select(m=>new {
             Id = m.Id,
@@ -64,8 +64,8 @@ public class ExportService : IExportService
     {
         var moods = _repositoryMood.GetExportByUserId(UserId);
         var averageMood = Math.Round(_repositoryMood.GetAverageMoodValue(UserId), 2);
-        var bestMoodActivities = _repositoryMoodActivity.GetBestMoodActivities(UserId).Select(bm => bm.Name).ToList();
-        var worstMoodActivities = _repositoryMoodActivity.GetWorstMoodActivities(UserId).Select(wm => wm.Name).ToList();
+        var bestMoodActivities = _repositoryMoodActivity.GetBestMoodActivities(UserId,averageMood).Select(bm => bm.Name).ToList();
+        var worstMoodActivities = _repositoryMoodActivity.GetWorstMoodActivities(UserId,averageMood).Select(wm => wm.Name).ToList();
 
         var exportData = new
         {
@@ -94,8 +94,8 @@ public class ExportService : IExportService
     {
         var moods = _repositoryMood.GetExportByUserId(UserId);
         var averageMood = Math.Round(_repositoryMood.GetAverageMoodValue(UserId), 2);
-        var bestMoodActivities = string.Join(", ", _repositoryMoodActivity.GetBestMoodActivities(UserId).Select(bm => bm.Name));
-        var worstMoodActivities = string.Join(", ", _repositoryMoodActivity.GetWorstMoodActivities(UserId).Select(wm => wm.Name));
+        var bestMoodActivities = string.Join(", ", _repositoryMoodActivity.GetBestMoodActivities(UserId,averageMood).Select(bm => bm.Name));
+        var worstMoodActivities = string.Join(", ", _repositoryMoodActivity.GetWorstMoodActivities(UserId,averageMood).Select(wm => wm.Name));
 
         var pdfBytes = Document.Create(container =>
         {

@@ -10,9 +10,9 @@ public interface IMoodActivityRepo
 
     public List<Activity> GetActivitiesByMoodId(int moodId, int userId);
 
-    public List<Activity> GetBestMoodActivities(int userId);
+    public List<Activity> GetBestMoodActivities(int userId, double average);
 
-    public List<Activity> GetWorstMoodActivities(int userId);
+    public List<Activity> GetWorstMoodActivities(int userId, double average);
 
     void Delete(MoodActivity moodActivity);
 

@@ -42,7 +42,7 @@ public class ModActivityRepo : IMoodActivityRepo
         _context.SaveChanges();
     }
 
-    public List<Activity> GetBestMoodActivities(int userId)
+    public List<Activity> GetBestMoodActivities(int userId, double average)
     {
         var moodActivities = _context.MoodActivities
             .Include(ma => ma.Mood)
@@ -62,6 +62,7 @@ public class ModActivityRepo : IMoodActivityRepo
                 Activity = g.Key,
                 AverageMoodValue = g.Average(ma => ma.MoodValue)
             })
+            .Where(g=>g.AverageMoodValue >= average)
             .OrderByDescending(a => a.AverageMoodValue)
             .Take(5)
             .Select(a => a.Activity)
@@ -70,7 +71,7 @@ public class ModActivityRepo : IMoodActivityRepo
         return bestActivities;
     }
 
-    public List<Activity> GetWorstMoodActivities(int userId)
+    public List<Activity> GetWorstMoodActivities(int userId, double average)
     {
         var moodActivities = _context.MoodActivities
             .Include(ma => ma.Mood)
@@ -90,6 +91,7 @@ public class ModActivityRepo : IMoodActivityRepo
                 Activity = g.Key,
                 AverageMoodValue = g.Average(ma => ma.MoodValue)
             })
+            .Where(g=>g.AverageMoodValue < average)
             .OrderBy(a => a.AverageMoodValue)
             .Take(5)
             .Select(a => a.Activity)
