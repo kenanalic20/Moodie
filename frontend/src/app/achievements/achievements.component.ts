@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AchievementsService } from "../services/achievements.service";
 import { UserAchievement } from "../models/achievement.model";
 import { ToastrService } from "ngx-toastr";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
 	selector: "app-achievements",
@@ -15,6 +16,7 @@ export class AchievementsComponent implements OnInit {
 	constructor(
 		private achievementsService: AchievementsService,
 		private toastrService: ToastrService,
+		private translateService: TranslateService
 	) {}
 
 	ngOnInit(): void {
@@ -26,7 +28,7 @@ export class AchievementsComponent implements OnInit {
 			},
 			error: (error) => {
 				console.error("Error fetching achievements", error);
-				this.toastrService.error("Failed to load achievements", "Error");
+				this.toastrService.error(this.translateService.instant("Failed to load achievements"),this.translateService.instant("Error"));
 				this.loading = false;
 				this.error = true;
 			},

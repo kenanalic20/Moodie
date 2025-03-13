@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { MoodService } from "src/app/services/mood.service";
 import { EventEmitter, Output } from "@angular/core";
 import { MoodInformationModalComponent } from "src/app/dashboard/mood-information-modal/mood-information-modal.component";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
 	selector: "app-calendar-mood-information-modal",
@@ -17,6 +18,7 @@ export class CalendarMoodInformationModalComponent {
 		private toastrService:ToastrService,
 		private moodService:MoodService,
 		private modalService: BsModalService,
+		private translateService:TranslateService
 		
 	) {}
 
@@ -86,7 +88,8 @@ export class CalendarMoodInformationModalComponent {
 					}
 					return mood;
 				});
-				this.toastrService.success(res.message,"Success")
+				this.toastrService.success(this.translateService.instant("Notes removed successfully"), this.translateService.instant("Success"));
+
 			});
 		}
 	}
@@ -99,10 +102,6 @@ export class CalendarMoodInformationModalComponent {
 				this.moods = this.moods.filter((m) => m.id !== mood.id);
 
 				this.moodDeleted.emit(mood.id);
-			},
-			(err) => {
-				console.log(err);
-				this.toastrService.error("Failed to delete the mood.", "Error");
 			}
 		);
 	}

@@ -48,7 +48,7 @@ export class LoginComponent {
 
 	login() {
 		if (this.password === "" || this.email === "" || !this.email.match(this.emailRegex) || this.password.length < 8) {
-			this.toastrService.error("Please enter valid credentials", "Error");
+			this.toastrService.error(this.translateService.instant("Please enter valid credentials"), this.translateService.instant("Error"));
 			return;
 		}
 
@@ -57,13 +57,13 @@ export class LoginComponent {
 				// Check response message to determine if 2FA is required
 				if (response.message === "Verification code sent to your email") {
 					// 2FA is required - show verification input
-					this.toastrService.success("Check your email for verification code", "Success");
+					this.toastrService.success(this.translateService.instant("Check your email for verification code"),this.translateService.instant("Success"));
 					this.hide = false;
 					this.hideLogin = true;
 					this.hideVerification = false;
 				} else if (response.message === "Login successful") {
 					// 2FA not required - redirect directly to dashboard
-					this.toastrService.success("Logged in successfully", "Success");
+					this.toastrService.success(this.translateService.instant("Logged in successfully"), this.translateService.instant("Success") );
 					
 					this.settingsService.getSettings().subscribe(
 						(settings: any) => {
@@ -75,26 +75,26 @@ export class LoginComponent {
 						},
 						(error) => {
 						  console.error('Error fetching user settings:', error);
-						  this.toastrService.error("Failed to fetch user settings", "Error");
+						  this.toastrService.error(this.translateService.instant("Failed to fetch user settings"), this.translateService.instant("Error"));
 						}
 					  );
 					
 					this.router.navigate(["/dashboard"]);
 				}
 			},
-			(error) => {
-				this.toastrService.error(error.error, "Error");
+			(error:any) => {
+				this.toastrService.error(error.error,this.translateService.instant("Error"));
 			},
 		);
 	}
 
 	submitVerificationCode() {
 		if (this.verificationCode === "") {
-			this.toastrService.error("Please enter valid verification code", "Error");
+			this.toastrService.error(this.translateService.instant("Please enter valid verification code"), this.translateService.instant("Error"));
 			return;
 		}
 		this.authService.login(this.email, this.password, this.verificationCode).subscribe((response) => {
-			this.toastrService.success("Logged in", "Success");
+			this.toastrService.success(this.translateService.instant("Logged in successfully"), this.translateService.instant("Success"));
 			this.router.navigate(["/dashboard"]);
 		});
 	}

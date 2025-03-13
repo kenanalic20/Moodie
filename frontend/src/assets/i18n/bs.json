@@ -186,5 +186,21 @@
 	"Daily Goals":"Dnevni Ciljevi",
 	"Goal Title":"Naslov Cilja",
 	"Add Goal":"Dodaj Cilj",
-	"Career Goals":"Ciljevi Karijere"
+	"Career Goals":"Ciljevi Karijere",
+	"Goal added successfully":"Cilj uspješno dodan",
+	"Please insert title":"Molimo vas da unesete naslov",
+	"Failed to load achievements":"Nije uspjelo učitavanje postignuća",
+	"Check your email for verification code":"Provjerite vaš email za verikacijski kod",
+	"Logged in successfully":"Uspješno ste prijavljeni",
+	"Failed to fetch user settings":"Nije uspjelo dohvatanje korisničkih opcija",
+	"Please enter valid verification code":"Molimo da unesete validan verifikacijski kod",
+	"Please enter valid credentials":"Molimo unesite ispravne podatke",
+	"Passwords do not match":"Lozinke se ne podudaraju",
+	"Registered successfully":"Uspješno ste registrovani",
+	"Password must be at least 8 characters long":"Lozinka mora imati najmanje 8 karaktera",
+	"Please enter a valid email address":"Molimo unesite validnu email adresu",
+	"Password reset link sent to your email":"Link za resetovanje lozinke je poslan na vaš email",
+	"Password reset successful":"Uspješno restartovana lozinka",
+	"Invalid or expired token":"Token nije validan ili je istekao",
+	"Notes removed successfully":"Uspješno izbrisana bilješka"
 }

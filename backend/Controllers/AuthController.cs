@@ -155,7 +155,6 @@ public class AuthController : Controller
     {
         if (!_jwtService.ValidatePasswordResetToken(Dto.Token, out var userId))
         {
-            Console.WriteLine("Token validation failed. Token may be expired or invalid.");
             return BadRequest("Invalid or expired token");
         }
 

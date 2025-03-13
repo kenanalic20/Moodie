@@ -5,6 +5,7 @@ import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +19,12 @@ export class ResetComponent {
     password:any = '';
     response?:any;
     token?:string;
-    constructor(private route: ActivatedRoute, private authService:AuthService, private toastrService:ToastrService) {}
+    constructor(
+        private route: ActivatedRoute,
+        private authService:AuthService, 
+        private toastrService:ToastrService,
+        private translateService:TranslateService
+    ) {}
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
@@ -36,14 +42,13 @@ export class ResetComponent {
 
     requestReset() {
         if(this.email =='') {
-            this.toastrService.error("Please enter valid credentials", "Error");
+            this.toastrService.error(this.translateService.instant("Please enter valid credentials"), this.translateService.instant("Error"));
+
             return;
         }
         if(!this.token) {
             this.authService.requestResetPassword(this.email).subscribe((res:any)=>{
-                this.toastrService.success(res.message, "Success");
-            },error=>{
-                this.toastrService.error(error.error, "Error");
+                this.toastrService.success(this.translateService.instant(res.message), this.translateService.instant("Success"));
             })
         }
     }
@@ -53,9 +58,9 @@ export class ResetComponent {
             return
         console.log(this.token,this.password);
         this.authService.resetPassword(this.token,this.password).subscribe((res:any) => {
-            this.toastrService.success(res.message, "Success");
+            this.toastrService.success(this.translateService.instant(res.message), this.translateService.instant("Success"));
         },error=>{
-            this.toastrService.error(error.error, "Error");
+            this.toastrService.error(this.translateService.instant(error.error), this.translateService.instant("Error"));
         })
     }
 }

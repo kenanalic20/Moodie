@@ -186,5 +186,21 @@
 	"Daily Goals":"Daily Goals",
 	"Goal Title":"Goal Title",
 	"Add Goal":"Add Goal",
-	"Career Goals":"Career Goals"
+	"Career Goals":"Career Goals",
+	"Goal added successfully":"Goal added successfully",
+	"Please insert title":"Please insert title",
+	"Failed to load achievements":"Failed to load achievements",
+	"Check your email for verification code":"Check your email for verification code",
+	"Logged in successfully":"Logged in successfully",
+	"Failed to fetch user settings":"Failed to fetch user settings",
+	"Please enter valid verification code":"Please enter valid verification code",
+	"Please enter valid credentials":"Please enter valid credentials",
+	"Passwords do not match":"Passwords do not match",
+	"Registered successfully":"Registered successfully",
+	"Password must be at least 8 characters long":"Password must be at least 8 characters long",
+	"Please enter a valid email address":"Please enter a valid email address",
+	"Password reset link sent to your email":"Password reset link sent to your email",
+	"Password reset successful":"Password reset successful",
+	"Invalid or expired token":"Invalid or expired token",
+	"Notes removed successfully":"Notes removed successfully"
 }

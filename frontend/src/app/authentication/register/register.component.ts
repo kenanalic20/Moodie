@@ -5,13 +5,19 @@ import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import {  Router } from '@angular/router';
 import {ToastrService} from "ngx-toastr";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-   constructor(private authService: AuthService,private router:Router,private toastrService: ToastrService) { }
+   constructor(
+    private authService: AuthService,
+    private router:Router,
+    private toastrService: ToastrService,
+    private translateService:TranslateService
+  ) { }
     faGoogle = faGoogle;
     isDevelopment = isDev;
     codeIcon = faCode;
@@ -41,17 +47,18 @@ export class RegisterComponent {
 
     register() {
       if(  this.password === '' || this.confirmPassword === ''|| this.username === '' || this.email === '' || !this.email.match(this.emailRegex) ||this.password.length<8) {
-          this.toastrService.success('Please enter valid credentials', 'Error')
+        this.toastrService.error(this.translateService.instant("Please enter valid credentials"), this.translateService.instant("Error"));
+
         return;
       }
       if(this.password !== this.confirmPassword) {
-          this.toastrService.success('Passwords do not match', 'Error')
+          this.toastrService.success(this.translateService.instant("Passwords do not match"), this.translateService.instant("Error"))
           return;
       }
      console.log(this.username,this.email,this.password,this.confirmPassword);
       this.authService.register(this.username, this.email, this.password).subscribe((response) => {
         console.log(response);
-          this.toastrService.success('Registered successfully', 'Success')
+          this.toastrService.success(this.translateService.instant("Registered successfully"), this.translateService.instant("Success"))
         this.router.navigate(['/login']);
       });
     }
