@@ -123,5 +123,6 @@
 	"Profile Photo": "Profilna slika",
 	"Change Photo": "Promijeni sliku",
 	"Upload Photo": "Učitaj sliku",
-	"Maximum file size: 2MB": "Maksimalna veličina datoteke: 2MB"
+	"Maximum file size: 2MB": "Maksimalna veličina datoteke: 2MB",
+	"Success" : "Uspješno"
 }

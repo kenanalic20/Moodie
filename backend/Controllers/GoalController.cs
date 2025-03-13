@@ -6,7 +6,7 @@ using Moodie.Interfaces;
 
 namespace Moodie.Controllers;
 
-[Route("api/goal")]  // Changed from [Route("api")]
+[Route("api/goal")]
 [ApiController]
 public class GoalController : Controller
 {
@@ -22,7 +22,7 @@ public class GoalController : Controller
         _authHelper = authHelper;
     }
 
-    [HttpPost]  // Changed from [HttpPost("goal")]
+    [HttpPost]
     public IActionResult AddGoal([FromBody] GoalDto goalDto)
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
@@ -34,14 +34,14 @@ public class GoalController : Controller
             GoalType = goalDto.GoalType,
             StartDate = DateTime.Parse(goalDto.StartDate),
             EndDate = DateTime.Parse(goalDto.EndDate),
-            Completed = goalDto.Completed,  // Add this line
+            Completed = goalDto.Completed,
             UserId = userId
         };
 
         return Created("success", _repositoryGoal.Create(goal));   
     }
 
-    [HttpGet]  // Changed from [HttpGet("goal")]
+    [HttpGet]
     public IActionResult GetGoal()
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
@@ -51,7 +51,7 @@ public class GoalController : Controller
         return Ok(Goal); 
     }
 
-    [HttpDelete("{id:int}")]  // Changed from [HttpDelete("goal/{id:int}")]
+    [HttpDelete("{id:int}")]
     public IActionResult DeleteGoal([FromRoute] int id)
     {
        
@@ -63,11 +63,11 @@ public class GoalController : Controller
 
         _repositoryGoal.Delete(id);
 
-        return Ok();
+        return NoContent();
        
     }
 
-    [HttpPut("{id:int}")]  // Changed from [HttpPut("goal/{id:int}")]
+    [HttpPut("{id:int}")]
     public IActionResult UpdateGoal([FromRoute] int id, [FromBody] GoalDto goalDto)
     {
         if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");

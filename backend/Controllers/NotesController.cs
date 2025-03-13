@@ -62,12 +62,8 @@ public class NotesController : Controller
             MoodId = notesDto.MoodId
         };
 
-        // Log the note object before saving to confirm MoodId is set
-        Console.WriteLine($"Creating note with MoodId: {notes.MoodId}");
-
         var createdNote = _repositoryNotes.Create(notes);
 
-        // Check for achievements
         var newAchievements = CheckAndAwardNotesAchievements(userId);
 
         var result = new
@@ -77,6 +73,37 @@ public class NotesController : Controller
         };
 
         return Created("success", result);
+    }
+
+    [HttpPut("notes")]
+    public IActionResult UpdateNotes([FromForm]UpdateNotesDto notesDto)
+    {
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+
+        if (string.IsNullOrEmpty(notesDto.Title))
+        {
+            return BadRequest("Title is required");
+        }
+
+        if (string.IsNullOrEmpty(notesDto.Description))
+        {
+            return BadRequest("Description is required");
+        }
+
+
+        var _existingNotes = _repositoryNotes.GetById(notesDto.Id);
+        string newImagePath = _imageHelper.UpdateImage(notesDto.Image, _existingNotes.ImagePath);
+
+        if(_existingNotes == null)
+            return NotFound();
+
+        _existingNotes.Title = notesDto.Title;
+        _existingNotes.Description = notesDto.Title;
+        _existingNotes.ImagePath = newImagePath;
+
+        _repositoryNotes.Update(_existingNotes);
+
+        return Ok(new { message = "Notes updated successfully" });
     }
 
     [HttpGet("notes")]
@@ -96,14 +123,26 @@ public class NotesController : Controller
 
         _repositoryNotes.Delete(id);
         
-        return Ok("Notes deleted successfully");
+        return NoContent();
+    }
+
+    [HttpGet("notes/{id}")]
+    public IActionResult GetById(int id)
+    {
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+
+        var notes = _repositoryNotes.GetById(id);
+
+        if(notes == null) 
+            return NotFound();
+
+        return Ok(notes);
     }
 
     private List<UserAchievement> CheckAndAwardNotesAchievements(int userId)
     {
         var newAchievements = new List<UserAchievement>();
 
-        // Check for first note achievement
         if (!_achievementRepo.HasUserEarnedAchievement(userId, "added_note"))
         {
             var achievement = _achievementRepo.AddUserAchievement(userId, "added_note");

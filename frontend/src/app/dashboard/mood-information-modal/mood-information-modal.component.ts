@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { NotesService } from "../../services/notes.service";
 import { ActivityService } from "src/app/services/activity.service";
 import { ToastrService } from "ngx-toastr";
 import { TranslateService } from "@ngx-translate/core";
 import { MoodActivityService } from "src/app/services/mood-activity.service";
+import { MoodService } from "src/app/services/mood.service";
 
 @Component({
 	selector: "app-mood-information-modal",
@@ -17,11 +18,14 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 		private toastrService: ToastrService,
 		private activityService: ActivityService,
 		private translateService: TranslateService,
-		private moodActivityService: MoodActivityService
+		private moodActivityService: MoodActivityService,
+		private moodService: MoodService
 	) {}
 
 	@Input() mood = 0;
 	@Input() moodId = 0;
+	@Input() notesId = 0;
+	@Output() onNotesEdit = new EventEmitter<any>();
 	activityInput: boolean = false;
 	selectedImage: File | null = null;
 	title: string = "";
@@ -32,6 +36,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	imageUrl: string | null = null;
 	selectedActivities: Set<number> = new Set();
 	isLoading: boolean = false; 
+	response:any;
 
 	onImageSelected(event: Event) {
 		const inputElement = event.target as HTMLInputElement;
@@ -56,59 +61,60 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	saveActivity() {
 		this.activityService.addActivity(this.activityName, this.activityDescription).subscribe(
 			(res) => {
-				this.toastrService.success("Activity added successfully", "Success");
+				this.toastrService.success("Activity added successfully", this.translateService.instant("Success"));
 				this.showActivityInput();
 				this.activityService.getActivitiesByUserId().subscribe((res) => {
 					this.activities = res;
 				});
 			},
 			(error) => {
-				console.log(error);
-				this.translateService.get(error.error).subscribe((res: string) => {
-					this.toastrService.error(res, this.translateService.instant("Error"));
-				});
+				this.toastrService.error(this.translateService.instant(error.error), this.translateService.instant("Error"));
 			},
 		);
 	}
 
 	setNotes() {
-		// Validate required fields
 		if (!this.title || !this.description) {
-			this.toastrService.error("Title and Description are required", "Error");
+			this.toastrService.error("Title and Description are required", this.translateService.instant("Error"));
 			return;
 		}
 	
-		this.isLoading = true; // Start loading
+		this.isLoading = true;
 	
-		// Create FormData object
 		const formData = new FormData();
+		if(this.notesId != 0) {
+			formData.append("Id", this.notesId.toString());
+		}
 		formData.append("Title", this.title);
 		formData.append("Description", this.description);
 	
-		// Append MoodId if it is defined
 		if (this.moodId !== null && this.moodId !== undefined) {
 			formData.append("MoodId", this.moodId.toString());
 		}
 	
-		// Append the image file if it exists
 		if (this.selectedImage) {
 			formData.append("Image", this.selectedImage, this.selectedImage.name);
 		}
-	
-		// Call the notes service to add notes
-		this.notesService.addNotes(formData).subscribe(
-			(res) => {
-				this.toastrService.success("Notes added successfully", "Success");
-				this.isLoading = false; // Stop loading
-				this.closeModal();
-			},
-			(error) => {
-				this.isLoading = false; // Stop loading
-				this.translateService.get(error.error).subscribe((res: string) => {
-					this.toastrService.error(res, this.translateService.instant("Error"));
+		if(this.notesId == 0) {
+			this.notesService.addNotes(formData).subscribe(
+				() => {
+					this.toastrService.success("Notes added successfully", this.translateService.instant("Success"));
+					this.isLoading = false;
+					this.closeModal();
+				}
+			);
+		}
+		else {
+			console.log(this.moodId);
+			this.notesService.updateNotes(formData).subscribe(res=>{
+				this.response = res;
+				this.toastrService.success(this.response.message, this.translateService.instant("Success"));
+				this.bsModalRef.hide()
+				this.moodService.getMoods().subscribe(updatedMoods => {
+					this.onNotesEdit.emit(updatedMoods);
 				});
-			},
-		);
+			})
+		}
 	}
 
 	showActivityInput() {
@@ -130,7 +136,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	selectedActivity(id: number) {
 		this.moodActivityService.addMoodActivity(this.moodId,id).subscribe((res) => {
 			this.selectedActivities.add(id);
-			this.toastrService.success("Activity selected successfully", "Success");
+			this.toastrService.success("Activity selected successfully", this.translateService.instant("Success"));
 		});
 
 	}
@@ -138,11 +144,31 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 	unselectActivity(id: number) {
 		this.moodActivityService.deleteMoodActivity(this.moodId,id).subscribe((res) => {
 			this.selectedActivities.delete(id);
-			this.toastrService.success("Activity selected successfully", "Success");
+			this.toastrService.success("Activity selected successfully", this.translateService.instant("Success"));
 		});
 	}
 
-	ngOnInit(): void {
+	loadInputs() {
+		this.notesService.getNoteById(this.notesId).subscribe(
+			(note:any) => {
+				this.title = note.title;
+				this.description = note.description;
+				if (note.imagePath) {
+					this.imageUrl = note.imagePath;
+				}
+			},
+			(error) => {
+				this.translateService.get(error.error).subscribe((res: string) => {
+					this.toastrService.error(res, this.translateService.instant("Error"));
+				});
+			}
+		);
+	}
+
+	ngOnInit() {
 		this.getActivities();
+		if(this.notesId!=0) {
+			this.loadInputs();
+		}
 	}
 }

@@ -28,7 +28,7 @@ public class NotesRepo : INotesRepo
 
     public Notes GetById(int id)
     {
-        return _context.Notes.FirstOrDefault(u => u.Id == id);
+        return _context.Notes.Find(id);
     }
 
     public List<Notes> GetByUserId(int userId)
@@ -48,5 +48,11 @@ public class NotesRepo : INotesRepo
             _context.Notes.Remove(notes);
             _context.SaveChanges();
         }
+    }
+
+    public Notes Update(Notes notes) {
+        _context.Notes.Update(notes);
+        _context.SaveChanges();
+        return notes;
     }
 }

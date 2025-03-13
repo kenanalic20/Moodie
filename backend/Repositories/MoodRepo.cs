@@ -45,5 +45,11 @@ public class MoodRepo : IMoodRepo
     {
         return _context.Moods.Where(u => u.UserId == userId).Select(u=>new MoodExportDto{Id=u.Id,Mood=u.MoodValue,Date=u.Date}).ToList();
     }
+
+    public void Delete(int id) {
+        var mood = _context.Moods.Find(id);
+        _context.Moods.Remove(mood);
+        _context.SaveChanges();
+    }
     
 }

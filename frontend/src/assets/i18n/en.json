@@ -124,5 +124,7 @@
 	"Profile Photo": "Profile Photo",
 	"Change Photo": "Change Photo",
 	"Upload Photo": "Upload Photo",
-	"Maximum file size: 2MB": "Maximum file size: 2MB"
+	"Maximum file size: 2MB": "Maximum file size: 2MB",
+	"Success" : "Success"
+
 }

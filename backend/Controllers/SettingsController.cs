@@ -36,7 +36,7 @@ public class SettingsController : Controller
             existingSettings.TwoFactorEnabled = settingsDto.TwoFactorEnabled ?? existingSettings.TwoFactorEnabled;
 
             _repositorySettings.Update(existingSettings, userId);
-            return Ok("Settings updated successfully");
+            return Ok(new {message = "Settings updated successfully"});
         }
         else
         {
@@ -67,13 +67,5 @@ public class SettingsController : Controller
         }
 
         return Ok(settings);
-    }
-
-    [HttpDelete("settings")]
-    public IActionResult DeleteSettings()
-    {
-        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-        
-        return Ok(_repositorySettings.Delete(userId));
     }
 }

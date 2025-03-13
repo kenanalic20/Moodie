@@ -66,6 +66,6 @@ public class UserImageController : Controller
 
         _repositoryUserImage.Delete(userInfo.Id);
 
-        return Ok("success");
+        return NoContent();
     }
 }

@@ -16,6 +16,11 @@ export class MoodService {
 		return this.http.get(url, { withCredentials: true });
 	}
 
+	deleteMood(id:number) {
+		const url = `${this.apiUrl}/mood/${id}`;
+		return this.http.delete(url, { withCredentials: true });
+	}
+
 	addMood(mood: Mood): Observable<any> {
 		const url = `${this.apiUrl}/mood`;
 		// get date from query params

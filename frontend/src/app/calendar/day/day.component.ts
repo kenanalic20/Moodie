@@ -46,6 +46,9 @@ export class DayComponent {
 	OpenModal() {
 		this.modalRef = this.modalService.show(CalendarMoodInformationModalComponent);
 		this.modalRef.content.moods = this.day.moods || [];
+		this.modalRef.content.moodDeleted.subscribe((deletedMoodId: number) => {
+			this.day.moods = this.day.moods?.filter((mood) => mood.id !== deletedMoodId);
+		});
 	}
 
 	GetMoodCount() {

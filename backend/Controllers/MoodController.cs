@@ -121,6 +121,15 @@ public class MoodController : Controller
 
         return Ok(moodWithNotesAndActivities);
     }
+
+    [HttpDelete("mood/{id}")]
+    public IActionResult DeleteMoods(int id) {
+        if(!_authHelper.IsUserLoggedIn(Request,out var userId)) return Unauthorized("Invalid or expired token.");
+
+        _repositoryMood.Delete(id);
+
+        return NoContent();
+    }
     
     private List<UserAchievement> CheckAndAwardMoodAchievements(int userId)
     {

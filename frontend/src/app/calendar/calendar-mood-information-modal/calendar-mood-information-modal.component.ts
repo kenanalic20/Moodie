@@ -1,8 +1,11 @@
 import { Component, Input } from "@angular/core";
-import { BsModalRef } from "ngx-bootstrap/modal";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { Mood } from "../../types";
 import { NotesService } from "src/app/services/notes.service";
 import { ToastrService } from "ngx-toastr";
+import { MoodService } from "src/app/services/mood.service";
+import { EventEmitter, Output } from "@angular/core";
+import { MoodInformationModalComponent } from "src/app/dashboard/mood-information-modal/mood-information-modal.component";
 
 @Component({
 	selector: "app-calendar-mood-information-modal",
@@ -11,10 +14,16 @@ import { ToastrService } from "ngx-toastr";
 export class CalendarMoodInformationModalComponent {
 	constructor(public bsModalRef: BsModalRef, 
 		private notesService:NotesService,
-		private toastrService:ToastrService
+		private toastrService:ToastrService,
+		private moodService:MoodService,
+		private modalService: BsModalService,
+		
 	) {}
 
 	@Input() moods: Mood[] = [];
+	@Input() moodCount: number = 0;
+	@Output() moodDeleted = new EventEmitter<number>();
+	
 	response?:any;
 
 	getMoodName(value: number): string {
@@ -59,18 +68,22 @@ export class CalendarMoodInformationModalComponent {
 		return (mood.notes?.length ?? 0) > 0;
 	}
 
+	hasActivities(mood:Mood): boolean {
+		return (mood.moodActivities?.length ?? 0) > 0;
+	}
+
 	CloseModal() {
 		this.bsModalRef.hide();
 	}
 
 	removeNotes(id:number) {
-		console.log(id)
 		if(confirm("This action will remove both notes and mood!!")){
 			this.notesService.deleteNotes(id).subscribe(res => {
 				this.response = res;
 				this.moods = this.moods.map((mood) => {
+					console.log(mood);
 					if (mood.notes) {
-					  mood.notes = mood.notes.filter((note) => note.id !== id);
+						mood.notes = mood.notes.filter((note) => note.id !== id); 
 					}
 					return mood;
 				});
@@ -79,13 +92,40 @@ export class CalendarMoodInformationModalComponent {
 		}
 	}
 
-	removeMood(id:number) {
+	removeMood(mood: any) {
+		this.moodService.deleteMood(mood.id).subscribe(
+			(res) => {
+				this.response = res;
+				this.toastrService.success("Mood removed successfully", "Success");
+
+				this.moods = this.moods.filter((m) => m.id !== mood.id);
+
+				this.moodDeleted.emit(mood.id);
+			},
+			(err) => {
+				console.log(err);
+				this.toastrService.error("Failed to delete the mood.", "Error");
+			}
+		);
+	}
+
+	ngOnChange() {
 		
 	}
 
-	editNotes(id:number) {
-		console.log(id)
+	editNotes(notesId:number, mood:Mood) {
+		const initialState = {
+			notesId,
+			mood: mood.moodValue,
+			moodId: mood.id
+		};
+		
+		const modalref = this.modalService.show(MoodInformationModalComponent,{initialState});
+		if(modalref.content) {
+			modalref.content.onNotesEdit.subscribe((moods)=>{
+				this.moods	= moods
+			})
+		}
 	}
 
-	//     Close modal on click outside
 }

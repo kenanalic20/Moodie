@@ -10,4 +10,5 @@ public interface IMoodRepo
     double GetAverageMoodValue(int userId);
     List<Mood> GetByUserId(int userId);
     List<MoodExportDto> GetExportByUserId(int userId);
+    public void Delete(int id);
 }

@@ -15,8 +15,19 @@ export class NotesService {
 		const url = `${this.apiUrl}/notes`;
 		return this.http.get(url, { withCredentials: true });
 	}
+	
 	deleteNotes(id:number){
 		const url = `${this.apiUrl}/notes/${id}`;
 		return this.http.delete(url,{withCredentials:true});
+	}
+
+	getNoteById(id:number) {
+		const url = `${this.apiUrl}/notes/${id}`;
+		return this.http.get(url,{withCredentials:true});
+	}
+
+	updateNotes(formData: FormData) {
+		const url = `${this.apiUrl}/notes`;
+		return this.http.put(url, formData, { withCredentials: true });
 	}
 }

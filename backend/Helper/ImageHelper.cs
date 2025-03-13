@@ -38,6 +38,18 @@ public class ImageHelper
         return "https://localhost:8001/" + Path.Combine("Uploads", "Images", uniqueFileName);
     }
 
+    public string UpdateImage(IFormFile newImageFile, string existingImagePath)
+    {
+        if (newImageFile == null)
+        {
+            return null;
+        }
+
+        DeleteImage(existingImagePath);
+
+        return SaveImage(newImageFile);
+    }
+
      public bool DeleteImage(string imagePath)
     {
         if (string.IsNullOrEmpty(imagePath))
