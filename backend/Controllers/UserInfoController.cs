@@ -66,7 +66,9 @@ public class UserInfoController : Controller
     {
         if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
         
-        return Ok(_repositoryUserInfo.GetByUserId(userId));
+        var userInfo = _repositoryUserInfo.GetByUserId(userId);
+
+        return Ok(userInfo);
     }
 
     [HttpDelete("user-info")]
@@ -75,6 +77,6 @@ public class UserInfoController : Controller
         if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
         _repositoryUserInfo.Delete(userId);
-        return Ok("success");
+        return NoContent();
     }
 }
