@@ -91,7 +91,7 @@ public class HabitController : Controller
         if (habit == null || habit.UserId != userId)return NotFound();
 
         _habitRepo.Delete(id);
-        return Ok();
+        return NoContent();
     }
 
     [HttpPost("habits/{id}/check-in")]
