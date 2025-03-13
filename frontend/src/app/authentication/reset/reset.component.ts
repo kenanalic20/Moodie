@@ -40,9 +40,8 @@ export class ResetComponent {
             return;
         }
         if(!this.token) {
-            this.authService.requestResetPassword(this.email).subscribe(res=>{
-                this.response = res;
-                this.toastrService.success(this.response.message, "Success");
+            this.authService.requestResetPassword(this.email).subscribe((res:any)=>{
+                this.toastrService.success(res.message, "Success");
             },error=>{
                 this.toastrService.error(error.error, "Error");
             })
@@ -53,9 +52,8 @@ export class ResetComponent {
         if(!this.token)
             return
         console.log(this.token,this.password);
-        this.authService.resetPassword(this.token,this.password).subscribe(res => {
-            this.response = res;
-            this.toastrService.success(this.response.message, "Success");
+        this.authService.resetPassword(this.token,this.password).subscribe((res:any) => {
+            this.toastrService.success(res.message, "Success");
         },error=>{
             this.toastrService.error(error.error, "Error");
         })

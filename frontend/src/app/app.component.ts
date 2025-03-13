@@ -10,7 +10,7 @@ export class AppComponent {
     title = 'Moodie';
     languageCodes: Array<string> = [];
 
-    constructor(private translate: TranslateService,private languageService: LanguageService) {}
+    constructor(private translateService: TranslateService,private languageService: LanguageService) {}
     
     ngOnInit() {
         const theme = localStorage.getItem('Theme');
@@ -20,13 +20,13 @@ export class AppComponent {
             this.languageCodes = data.map((lang: any) => lang.code);
         });
 
-        this.translate.addLangs(this.languageCodes);
-        this.translate.setDefaultLang(this.languageCodes[0]);
+        this.translateService.addLangs(this.languageCodes);
+        this.translateService.setDefaultLang(this.languageCodes[0]);
 
         if (language) {
-            this.translate.use(language);
+            this.translateService.use(language);
         } else {
-            this.translate.use(this.languageCodes[0]);
+            this.translateService.use(this.languageCodes[0]);
         }
 
         if (theme) {

@@ -8,7 +8,7 @@
         class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-xl sm:p-8 p-4 w-full md:h-fit h-full transition-all md:w-1/2 shadow-xl">
         <div class="flex flex-col w-full h-full justify-between items-center gap-5">
             <div class="flex justify-between w-full items-center pb-2 border-b dark:border-neutral-700 border-neutral-200">
-                <h3 class="font-bold text-xl">Want to add anything else?</h3>
+                <h3 class="font-bold text-xl">{{"Want to add anything else?"|translate}}</h3>
                 <button
                     (click)="closeModal()"
                     class="dark:text-neutral-300 text-neutral-700 hover:text-neutral-900 dark:hover:text-white p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all">
@@ -17,19 +17,19 @@
             </div>
             <div class="flex flex-col w-full gap-5 md:h-fit h-full justify-center">
                 <div class="py-2 px-4 rounded-lg bg-neutral-100 dark:bg-neutral-500">
-                    <span class="font-medium">Your mood value is: </span><span class="font-bold text-lg">{{ mood }}</span>
+                    <span class="font-medium">{{"Your mood value is:"|translate}} </span><span class="font-bold text-lg">{{ mood }}</span>
                 </div>
                 
                 <input [(ngModel)]="title" #titleInput
                     class="bg-neutral-100 dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit p-3 focus:outline-none focus:ring-2 focus:ring-neutral-400"
-                    placeholder="Maybe a title?">
+                    placeholder="{{'Maybe a title?'|translate}}">
                 
                 <textarea [(ngModel)]="description" #descriptionInput
                     class="bg-neutral-100 dark:bg-neutral-700 rounded-lg w-full min-h-[80px] h-fit max-h-[200px] p-3 focus:outline-none focus:ring-2 focus:ring-neutral-400"
-                    placeholder="Maybe a description?"></textarea>
+                    placeholder="{{'Maybe a description?'|translate}}"></textarea>
                 
                 <div *ngIf="notesId == 0" class="mt-2">
-                    <p class="text-neutral-700 dark:text-neutral-300 font-medium mb-3">Select activities you did today:</p>
+                    <p class="text-neutral-700 dark:text-neutral-300 font-medium mb-3">{{"Select activities you did today:"|translate}}</p>
                     <div class="flex flex-wrap w-full gap-2 p-1">
                         <div class="flex items-center rounded-full py-2 px-4 gap-2 transition-all"
                              [ngClass]="{'bg-neutral-100 dark:bg-neutral-700': !selectedActivities.has(a.id), 
@@ -55,30 +55,30 @@
                 </div>
                 
                 <div *ngIf="activityInput" class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-5 mt-2 shadow-sm">
-                    <h4 class="font-medium mb-3">Add new activity</h4>
+                    <h4 class="font-medium mb-3">{{"Add new activity"|translate}}</h4>
                     <input [(ngModel)]="activityName" 
                         class="bg-white dark:bg-neutral-800 rounded-lg w-full min-h-[45px] h-fit p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-neutral-400"
-                        placeholder="Activity name">
+                        placeholder="{{'Activity name'|translate}}">
                     <textarea [(ngModel)]="activityDescription"
                         class="bg-white dark:bg-neutral-800 rounded-lg w-full min-h-[60px] h-fit max-h-[150px] p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-neutral-400"
-                        placeholder="Activity description (optional)"></textarea>
+                        placeholder="{{'Activity description (optional)'|translate}}"></textarea>
                     <div class="flex w-full mt-6 gap-4">
                         <button (click)="showActivityInput()" 
                                 class="flex-1 py-3 bg-neutral-200 dark:bg-neutral-600 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-500 transition-all">
-                            Cancel
+                                {{"Cancel"|translate}}
                         </button>
                         <button (click)="saveActivity()" 
                                 class="flex-1 py-3 bg-neutral-600 text-white font-medium rounded-lg hover:bg-neutral-800 transition-all">
-                            Save
+                                {{"Save"|translate}}
                         </button>
                     </div>
                 </div>
                 
                 <div class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-5">
                     <div class="flex justify-between items-center w-full mb-3">
-                        <h4 class="font-medium">Or add an image?</h4>
+                        <h4 class="font-medium">{{"Or add an image?"|translate}}</h4>
                         <label for="file" class="cursor-pointer py-2 px-4 bg-neutral-200 dark:bg-neutral-600 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-500 transition-all">
-                            Browse
+                            {{"Browse"|translate}}
                         </label>
                         <input type="file" id="file" (change)="onImageSelected($event)" accept="image/png, image/jpeg, image/jpg" class="hidden">
                     </div>
@@ -86,7 +86,7 @@
                         <img [src]="imageUrl | safeUrl" alt="Image preview" class="max-h-[180px] w-auto rounded-md"/>
                     </div>
                     <div *ngIf="!imageUrl" class="flex justify-center items-center p-8 bg-neutral-200 dark:bg-neutral-600 rounded-lg text-neutral-500 dark:text-neutral-400">
-                        No image selected
+                        {{"No image selected"|translate}}
                     </div>
                 </div>
 
@@ -94,11 +94,11 @@
                     <button
                         (click)="closeModal()"
                         class="flex-1 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all">
-                        Cancel
+                        {{"Cancel"|translate}}
                     </button>
                     <button (click)="setNotes()"
                         class="flex-1 py-3 bg-neutral-700 text-white font-medium rounded-lg hover:bg-neutral-800 transition-all">
-                        Save
+                        {{"Save"|translate}}
                     </button>
                 </div>
             </div>

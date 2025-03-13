@@ -12,4 +12,8 @@ export class LanguageService {
     const url = `${this.apiUrl}/languages`;
     return this.http.get(url);
   }
+  getLanguageById(id:number) {
+    const url = `${this.apiUrl}/languages/${id}`;
+    return this.http.get(url,{withCredentials:true});
+  }
 }

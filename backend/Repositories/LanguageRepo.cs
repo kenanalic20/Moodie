@@ -17,5 +17,8 @@ public class LanguageRepo:ILanguageRepo
     {
         return _context.Languages.ToList();
     }
+    public Language GetLanguageById(int id) {
+        return _context.Languages.Find(id);
+    }
 }
         

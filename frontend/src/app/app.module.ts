@@ -29,6 +29,7 @@ import { SharedModule } from "./shared/shared.module";
 import { AchievementsComponent } from "src/app/achievements/achievements.component";
 import { ExportModule } from "./export/export.module";
 import { UserInfoModule } from "./user-info/user-info.module";
+import { StatsModule } from "./stats/stats.module";
 
 @NgModule({
 	declarations: [
@@ -39,7 +40,7 @@ import { UserInfoModule } from "./user-info/user-info.module";
 		StatActivitiesComponent,
 		AchievementsComponent,
 		GoalsComponent,
-		GoalFilterPipe,
+		GoalFilterPipe
 	],
 	imports: [
 		BrowserModule,
@@ -50,6 +51,7 @@ import { UserInfoModule } from "./user-info/user-info.module";
 		HomepageModule,
 		HeaderModule,
 		CalendarModule,
+		StatsModule,
 		ServiceWorkerModule.register("ngsw-worker.js", {
 			enabled: !isDevMode(),
 			// Register the ServiceWorker as soon as the application is stable

@@ -10,9 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class FrontpageComponent {
     isDevelopment = isDev;
     codeIcon = faCode;
-    constructor(private translate: TranslateService) {}
+    constructor(private translateService: TranslateService) {}
     
     switchLanguage(language: string) {
-        this.translate.use(language);
+        this.translateService.use(language);
     }
 }

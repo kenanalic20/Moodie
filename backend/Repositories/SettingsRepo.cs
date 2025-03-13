@@ -30,7 +30,6 @@ public class SettingsRepo : ISettingsRepo
         if (settingsToUpdate == null) return null;
         settingsToUpdate.DarkMode = settings.DarkMode;
         settingsToUpdate.LanguageId = settings.LanguageId;
-        settingsToUpdate.ReducedMotion = settings.ReducedMotion;
         _context.SaveChanges();
         return settingsToUpdate;
     }

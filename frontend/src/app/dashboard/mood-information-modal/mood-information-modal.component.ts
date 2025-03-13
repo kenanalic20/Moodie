@@ -105,10 +105,8 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
 			);
 		}
 		else {
-			console.log(this.moodId);
-			this.notesService.updateNotes(formData).subscribe(res=>{
-				this.response = res;
-				this.toastrService.success(this.response.message, this.translateService.instant("Success"));
+			this.notesService.updateNotes(formData).subscribe((res:any)=>{
+				this.toastrService.success(res.message, this.translateService.instant("Success"));
 				this.bsModalRef.hide()
 				this.moodService.getMoods().subscribe(updatedMoods => {
 					this.onNotesEdit.emit(updatedMoods);

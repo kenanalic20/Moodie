@@ -41,10 +41,12 @@ export class SettingsComponent implements OnInit {
 		value = value.toLowerCase();
 		this.currentTheme = value;
 		localStorage.setItem("Theme", value);
+		this.toastrService.success(this.translateService.instant("Theme changed successfully"),this.translateService.instant("Success"));
 		console.log(`Theme changed to ${value}!`);
 		document.documentElement.classList.remove("dark");
 		document.documentElement.classList.remove("light");
 		document.documentElement.classList.add(value);
+
 	};
 
 	onLanguageChange: (value: string) => void = (value: string) => {
@@ -54,9 +56,7 @@ export class SettingsComponent implements OnInit {
 			localStorage.setItem("Language", selectedLanguage.code);
 			this.translateService.use(selectedLanguage.code);
 			this.settingsService.updateSettings({ languageId: selectedLanguage.id }).subscribe((data) => {
-				this.translateService.get("Language changed successfully").subscribe((translatedMessage: string) => {
-					this.toastrService.success(translatedMessage);
-				});
+				this.toastrService.success(this.translateService.instant("Language changed successfully"),this.translateService.instant("Success"));
 			});
 		}
 	};

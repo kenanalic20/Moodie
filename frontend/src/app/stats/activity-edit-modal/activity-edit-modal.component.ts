@@ -2,13 +2,13 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ActivityService } from 'src/app/services/activity.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-activity-edit-modal',
   templateUrl: './activity-edit-modal.component.html',
-  imports: [FormsModule],
+  imports: [FormsModule,TranslateModule],
   standalone: true
 })
 export class ActivityEditModalComponent implements OnInit {

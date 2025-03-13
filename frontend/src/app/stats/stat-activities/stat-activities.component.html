@@ -1,14 +1,14 @@
 <div class="mt-16 flex flex-col md:flex-row md:gap-8 gap-4 justify-evenly items-start">
     <div class="w-full md:w-1/2 max-w-md max-md:ml-auto max-md:mr-auto">
         <h2 class="text-2xl md:text-3xl text-center mb-4">
-            Best Mood Activities
+            {{"Best Mood Activities"|translate}}
         </h2>
         <div class="mt-2 text-center flex flex-col gap-3">
             <div *ngIf="isLoading" class="p-3">
-                Loading...
+                {{"Loading..."|translate}}
             </div>
             <div *ngIf="!isLoading && !hasBestActivities" class="p-3 text-neutral-500">
-                Please add some activities to see your stats
+                {{"Please add some activities to see your stats"|translate}}
             </div>
             <ul *ngIf="!isLoading && bestMoodActivities.length > 0" class="flex flex-col gap-3">
                 <li *ngFor="let activity of bestMoodActivities" (click)="openModal(activity)" 
@@ -21,14 +21,14 @@
     
     <div class="w-full md:w-1/2 max-w-md max-md:ml-auto max-md:mr-auto">
         <h2 class="text-2xl md:text-3xl text-center mb-4">
-            Worst Mood Activities
+            {{"Worst Mood Activities"|translate}}
         </h2>
         <div class="mt-2 text-center flex flex-col gap-3">
             <div *ngIf="isLoading" class="p-3">
-                Loading...
+                {{"Loading..."|translate}}
             </div>
             <div *ngIf="!isLoading && !hasWorstActivities" class="p-3 text-neutral-500">
-                Please add some activities to see your stats
+                {{"Please add some activities to see your stats"|translate}}
             </div>
             <ul *ngIf="!isLoading && worstMoodActivities.length > 0" class="flex flex-col gap-3">
                 <li *ngFor="let activity of worstMoodActivities" (click)="openModal(activity)"

@@ -5,7 +5,7 @@
     <span class="text-5xl" role="img" [attr.aria-label]="GetMoodCount() > 0 ? 'Mood emoji' : 'No mood recorded'">
         {{getEmoji()}}
     </span>
-    <h2 class="font-sans">{{ day.dayOfMonth }} | {{ day.dayName }}</h2>
+    <h2 class="font-sans">{{ day.dayOfMonth }} | {{ day.dayName|translate }}</h2>
     <span *ngIf="GetMoodCount() > 1" 
         class="absolute top-2 right-2 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
         {{GetMoodCount()}}

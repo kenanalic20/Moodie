@@ -1,28 +1,32 @@
 import { Component } from '@angular/core';
-import { Language, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../services/language.service';
 import { AuthService } from '../services/auth.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { SettingsService } from '../services/settings.service';
+
 @Component({
   selector: 'app-language-switcher',
   templateUrl: './language-switcher.component.html',
 })
 export class LanguageSwitcherComponent {
-  languages: Array<{id:number, code: string, name: string, region:string}> = [];
+  languages: Array<{ id: number, code: string, name: string, region: string }> = [];
+  isAuthenticated: boolean = false;
+  settings?: any;
 
-  constructor(private translate: TranslateService,private languageService:LanguageService,private authService:AuthService) {}
+  constructor(
+    private translateService: TranslateService,
+    private languageService: LanguageService,
+    private authService: AuthService,
+    private settingsService: SettingsService
+  ) {}
 
   ngOnInit() {
     this.languageService.getLanguage().subscribe((data: any) => {
-      for (const lang of data) {
-        this.languages.push(lang);
-      }
+      this.languages = data;
     });
-  }
 
-  switchLanguage(language: string) {
     this.authService.isAuthenticated().pipe(
       catchError((error) => {
         console.log('Error checking authentication:', error);
@@ -30,29 +34,26 @@ export class LanguageSwitcherComponent {
       })
     ).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
-        console.log('User is authenticated');
-        
+        this.isAuthenticated = true;
+
+        this.settingsService.getSettings().subscribe((res) => {
+          this.settings = res;
+
+          const preferredLanguage = this.settings?.preferredLanguage;
+
+          if (preferredLanguage) {
+            this.switchLanguage(preferredLanguage);
+          }
+        });
       } else {
-        console.log('User is not authenticated');
+        this.isAuthenticated = false;
       }
     });
+  }
 
+  switchLanguage(language: string) {
     localStorage.setItem('Language', language);
-    this.translate.use(language);
-    // pipe(
-    //       map((isAuthenticated) => {
-    //         if(!isAuthenticated) {
-    //           console.log('User is not authenticated');
-    //         }
-            
-    //         console.log('User is authenticated');
-            
-    //       }),
-    //       catchError((error) => {
-    //         localStorage.setItem('Language', language);
-    //         this.translate.use(language);
-    //         return of(false);
-    //       })
-    //     );
+
+    this.translateService.use(language);
   }
 }

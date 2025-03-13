@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivityService } from 'src/app/services/activity.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivityEditModalComponent } from '../activity-edit-modal/activity-edit-modal.component';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-activity-information-modal',
   templateUrl: './activity-information-modal.component.html',

@@ -32,7 +32,6 @@ public class SettingsController : Controller
         {
             existingSettings.DarkMode = settingsDto.DarkMode ?? existingSettings.DarkMode;
             existingSettings.LanguageId = settingsDto.LanguageId ?? existingSettings.LanguageId;
-            existingSettings.ReducedMotion = settingsDto.ReducedMotion ?? existingSettings.ReducedMotion;
             existingSettings.TwoFactorEnabled = settingsDto.TwoFactorEnabled ?? existingSettings.TwoFactorEnabled;
 
             _repositorySettings.Update(existingSettings, userId);
@@ -44,7 +43,6 @@ public class SettingsController : Controller
             {
                 DarkMode = settingsDto.DarkMode ?? false,
                 LanguageId = settingsDto.LanguageId ?? 1,
-                ReducedMotion = settingsDto.ReducedMotion ?? false,
                 TwoFactorEnabled = settingsDto.TwoFactorEnabled ?? false,
                 UserId = userId,
                 User = _repositoryUser.GetById(userId)

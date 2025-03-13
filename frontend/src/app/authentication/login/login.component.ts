@@ -5,6 +5,9 @@ import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "src/app/services/auth.service";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
+import { SettingsService } from "src/app/services/settings.service";
+import { TranslateService } from "@ngx-translate/core";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
 	selector: "app-login",
@@ -15,6 +18,9 @@ export class LoginComponent {
 		private authService: AuthService,
 		private router: Router,
 		private toastrService: ToastrService,
+		private settingsService:SettingsService,
+		private translateService:TranslateService,
+		private languageService:LanguageService
 	) {}
 	faGoogle = faGoogle;
 	isDevelopment = isDev;
@@ -58,6 +64,21 @@ export class LoginComponent {
 				} else if (response.message === "Login successful") {
 					// 2FA not required - redirect directly to dashboard
 					this.toastrService.success("Logged in successfully", "Success");
+					
+					this.settingsService.getSettings().subscribe(
+						(settings: any) => {
+							this.languageService.getLanguageById(settings.languageId).subscribe((language:any)=>{
+								const preferredLanguage = language.code || 'en'; 
+								this.translateService.use(preferredLanguage); 
+								localStorage.setItem('Language', preferredLanguage);
+							})
+						},
+						(error) => {
+						  console.error('Error fetching user settings:', error);
+						  this.toastrService.error("Failed to fetch user settings", "Error");
+						}
+					  );
+					
 					this.router.navigate(["/dashboard"]);
 				}
 			},

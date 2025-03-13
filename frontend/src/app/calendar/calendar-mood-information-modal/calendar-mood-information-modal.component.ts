@@ -78,8 +78,7 @@ export class CalendarMoodInformationModalComponent {
 
 	removeNotes(id:number) {
 		if(confirm("This action will remove both notes and mood!!")){
-			this.notesService.deleteNotes(id).subscribe(res => {
-				this.response = res;
+			this.notesService.deleteNotes(id).subscribe((res:any) => {
 				this.moods = this.moods.map((mood) => {
 					console.log(mood);
 					if (mood.notes) {
@@ -87,15 +86,14 @@ export class CalendarMoodInformationModalComponent {
 					}
 					return mood;
 				});
-				this.toastrService.success(this.response,"Success")
+				this.toastrService.success(res.message,"Success")
 			});
 		}
 	}
 
 	removeMood(mood: any) {
 		this.moodService.deleteMood(mood.id).subscribe(
-			(res) => {
-				this.response = res;
+			(res:any) => {
 				this.toastrService.success("Mood removed successfully", "Success");
 
 				this.moods = this.moods.filter((m) => m.id !== mood.id);
