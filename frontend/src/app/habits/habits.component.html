@@ -1,0 +1,92 @@
+<app-header></app-header>
+<div class="w-full mt-32 flex flex-col gap-8">
+  <div class="flex flex-col justify-center items-center">
+    <h1 class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
+      {{ "Habits" | translate }}
+    </h1>
+    <p class="w-full text-center p-2 font-sans text-lg dark:text-neutral-400 text-neutral-600 select-none">
+      {{ "Build consistency with daily habits" | translate }}
+    </p>
+  </div>
+
+  <div class="flex flex-col p-4 max-w-4xl mx-auto w-full">
+    <!-- Add new habit form -->
+    <div class="mb-8 p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-bold mb-4">{{ "Add New Habit" | translate }}</h2>
+      <div class="flex flex-col gap-4">
+        <input 
+          type="text" 
+          [(ngModel)]="newHabitName"
+          class="w-full bg-neutral-100 dark:bg-neutral-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-neutral-400" 
+          placeholder="{{ 'Habit Name' | translate }}"
+        >
+        <textarea 
+          [(ngModel)]="newHabitDesc"
+          class="w-full bg-neutral-100 dark:bg-neutral-700 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-neutral-400"
+          rows="2"
+          placeholder="{{ 'Description' | translate }}"
+        ></textarea>
+        <button 
+          class="w-full px-4 py-3 bg-neutral-700 text-white rounded-lg hover:bg-neutral-800 transition-all"
+          (click)="addHabit()"
+        >
+          {{ "Add Habit" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Habits list -->
+    <div class="flex flex-col gap-4">
+      <div *ngIf="habits.length === 0" class="text-center text-neutral-500 dark:text-neutral-400 py-8">
+        {{ "No habits added yet. Start by adding a new habit above." | translate }}
+      </div>
+      
+      <div *ngFor="let habit of habits" class="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-lg">
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <h3 class="text-xl font-bold">{{ habit.name }}</h3>
+            <p class="text-neutral-600 dark:text-neutral-400 mt-1">{{ habit.description }}</p>
+            
+            <div class="flex flex-row gap-4 mt-3">
+              <div class="flex flex-col">
+                <span class="text-sm text-neutral-500 dark:text-neutral-400">{{ "Current Streak" | translate }}</span>
+                <span class="font-bold text-lg">{{ habit.currentStreak }} {{ "days" | translate }}</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-sm text-neutral-500 dark:text-neutral-400">{{ "Best Streak" | translate }}</span>
+                <span class="font-bold text-lg">{{ habit.bestStreak }} {{ "days" | translate }}</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-sm text-neutral-500 dark:text-neutral-400">{{ "Last Check-in" | translate }}</span>
+                <span class="font-bold text-lg">{{ getTimeSinceLastCheckIn(habit.lastCheckIn) }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <button 
+              *ngIf="canCheckIn(habit)"
+              (click)="checkIn(habit)" 
+              class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all"
+            >
+              {{ "Check-in" | translate }}
+            </button>
+            <button 
+              *ngIf="!canCheckIn(habit)"
+              disabled
+              class="px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
+            >
+              {{ "Already Checked-in" | translate }}
+            </button>
+            <button 
+              (click)="deleteHabit(habit.id)" 
+              class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all mt-2"
+            >
+              {{ "Delete" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

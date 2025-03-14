@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Moodie")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47eb675e92888d7160f4f197f04b5efed7d2fbb2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Moodie")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Moodie")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,46 +1,136 @@
-<div
-    class="transition-all overflow-y-auto h-fit box-border flex-row text-l md:text-xl font-sans gap-2 md:gap-8 left-0 right-0 top-0 flex align-middle justify-center">
-    <app-entry
-        [active]="active === 'dashboard'"
-        link="/dashboard"
-        text="Dashboard" />
+<header class="fixed top-0 left-0 w-full bg-white dark:bg-neutral-900 shadow-sm z-50">
+  <!-- Background overlay to capture clicks outside the menu -->
+  <div *ngIf="isMobileMenuOpen" 
+       class="fixed inset-0 bg-black bg-opacity-20 z-10"
+       (click)="closeMobileMenu()">
+  </div>
 
-    <app-entry 
-        [active]="active === 'stats'" 
-        link="/stats" 
-        text="Stats" />
+  <div class="px-4 py-2 xl:container xl:mx-auto">
+    <div class="flex justify-between items-center">
+      <!-- Logo/Brand with Serif Font -->
+      <div class="flex items-center z-20">
+        <a routerLink="/" class="font-['DM_Serif_Display'] text-xl text-neutral-800 dark:text-white">
+          Moodie
+        </a>
+      </div>
 
-    <app-entry
-        [active]="active === 'calendar'"
-        link="/calendar"
-        text="Calendar" />
+      <!-- Hamburger Menu Button (Mobile/Tablet) -->
+      <button 
+        (click)="toggleMobileMenu()"
+        class="xl:hidden p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 z-20"
+        aria-label="Toggle menu">
+        <svg *ngIf="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-neutral-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg *ngIf="isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-neutral-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
 
-    <app-entry
-        [active]="active === 'achievements'"
-        link="/achievements"
-        text="Achievements" />
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden xl:flex items-center">
+        <!-- Primary Navigation Items -->
+        <div class="flex space-x-3 mr-4">
+          <a *ngFor="let item of navigationItems.slice(0, 5)" 
+             [routerLink]="item.route" 
+             routerLinkActive="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+             class="flex items-center text-neutral-600 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-2 py-1 border-b-2 border-transparent">
+            <svg-icon [name]="item.icon" class="h-5 w-5 mr-1"></svg-icon>
+            {{ item.label | translate }}
+          </a>
+        </div>
+        
+        <!-- Secondary Navigation (User Related) -->
+        <div class="flex items-center space-x-3 border-l border-neutral-200 dark:border-neutral-700 pl-4">
+          <a *ngFor="let item of navigationItems.slice(5)" 
+             [routerLink]="item.route" 
+             routerLinkActive="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+             class="flex items-center text-neutral-600 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-2 py-1 border-b-2 border-transparent">
+            <svg-icon [name]="item.icon" class="h-5 w-5 mr-1"></svg-icon>
+            {{ item.label | translate }}
+          </a>
+          
+          <!-- Language and Theme Toggles -->
+          <div class="flex items-center space-x-1">
+            <button (click)="toggleLanguage()" class="p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+              <span class="text-sm font-medium">{{ currentLanguage }}</span>
+            </button>
+            <button (click)="toggleTheme()" class="p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+              <svg *ngIf="isDarkTheme" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+              </svg>
+              <svg *ngIf="!isDarkTheme" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-neutral-700" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+              </svg>
+            </button>
+            <button *ngIf="isLoggedIn" (click)="logout()" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-neutral-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
 
-    <app-entry
-        [active]="active === 'settings'"
-        link="/settings"
-        text="Settings" />
+    <!-- Mobile Menu (Dropdown) -->
+    <div 
+      *ngIf="isMobileMenuOpen" 
+      class="xl:hidden mt-1 py-2 bg-white dark:bg-neutral-900 rounded-lg shadow-lg animate-fadeIn z-20 relative">
+      <nav class="flex flex-col">
+        <!-- Primary Navigation -->
+        <div class="border-b border-neutral-200 dark:border-neutral-700 pb-1">
+          <a *ngFor="let item of navigationItems.slice(0, 5)"
+             [routerLink]="item.route"
+             routerLinkActive="text-blue-600 dark:text-blue-400 border-l-2 border-blue-600 dark:border-blue-400 bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20"
+             (click)="closeMobileMenu()"
+             class="px-4 py-2 flex items-center text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors border-l-2 border-transparent">
+            <svg-icon [name]="item.icon" class="h-5 w-5 mr-2"></svg-icon>
+            {{ item.label | translate }}
+          </a>
+        </div>
+        
+        <!-- Secondary Navigation -->
+        <div>
+          <a *ngFor="let item of navigationItems.slice(5)"
+             [routerLink]="item.route"
+             routerLinkActive="text-blue-600 dark:text-blue-400 border-l-2 border-blue-600 dark:border-blue-400 bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20"
+             (click)="closeMobileMenu()"
+             class="px-4 py-2 flex items-center text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors border-l-2 border-transparent">
+            <svg-icon [name]="item.icon" class="h-5 w-5 mr-2"></svg-icon>
+            {{ item.label | translate }}
+          </a>
+        </div>
+        
+        <!-- Mobile Language and Theme Toggles -->
+        <div class="flex items-center justify-between px-4 py-2 border-t border-neutral-200 dark:border-neutral-700">
+          <div class="flex items-center space-x-3">
+            <button (click)="toggleLanguage()" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+              <span class="text-sm font-medium">{{ currentLanguage }}</span>
+            </button>
+            <button (click)="toggleTheme()" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+              <span class="flex items-center">
+                <svg *ngIf="isDarkTheme" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+                </svg>
+                <svg *ngIf="!isDarkTheme" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-neutral-700" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+                {{ (isDarkTheme ? 'Light Mode' : 'Dark Mode') | translate }}
+              </span>
+            </button>
+          </div>
+          <button *ngIf="isLoggedIn" (click)="logout()" class="flex items-center text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            {{ "Logout" | translate }}
+          </button>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
 
-    <app-entry
-        [active]="active === 'export'"
-        link="/export"
-        text="Export" />
-    <app-entry
-        [active]="active === 'goals'"
-        link="/goals"
-        text="Goals" />
-    <app-entry
-        [active]="active === 'user'"
-        link="/user-info"
-        text="User" />
-
-    <app-entry
-        [active]="active === 'Logout'"
-        (click)="logOut()"
-        text="Logout" />
-
-</div>
+<!-- Spacer to prevent content from hiding behind fixed header -->
+<div class="h-14"></div>

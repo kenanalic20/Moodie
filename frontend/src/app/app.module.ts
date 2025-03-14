@@ -18,14 +18,14 @@ import { CalendarModule } from "./calendar/calendar.module";
 import { HttpClientModule } from "@angular/common/http";
 import { ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HabitsComponent } from "./habits/habits.component";
 import { GoalsComponent } from "./goals/goals.component";
 import { GoalFilterPipe } from "./pipes/goal-filter.pipe";
+import { FormsModule } from "@angular/forms";
 
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
-import { LanguageSwitcherComponent } from "./language-switcher/language-switcher.component";
-import { SharedModule } from "./shared/shared.module";
 import { AchievementsComponent } from "src/app/achievements/achievements.component";
 import { ExportModule } from "./export/export.module";
 import { UserInfoModule } from "./user-info/user-info.module";
@@ -40,7 +40,8 @@ import { StatsModule } from "./stats/stats.module";
 		StatActivitiesComponent,
 		AchievementsComponent,
 		GoalsComponent,
-		GoalFilterPipe
+		HabitsComponent,
+		GoalFilterPipe,
 	],
 	imports: [
 		BrowserModule,
@@ -62,6 +63,7 @@ import { StatsModule } from "./stats/stats.module";
 		HttpClientModule,
 		ToastrModule.forRoot(),
 		BrowserAnimationsModule,
+		FormsModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

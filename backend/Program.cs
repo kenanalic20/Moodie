@@ -8,6 +8,8 @@ using Moodie.Middleware;
 using QuestPDF;
 using Microsoft.Extensions.FileProviders;
 using Moodie.Models;
+using Moodie.Services;
+
 
 namespace Moodie
 {
@@ -80,6 +82,8 @@ public class Startup
         services.AddScoped<IExportService, ExportService>();
         services.AddScoped<IAchievementRepo, AchievementRepo>(); // Add this line
         services.AddScoped<IMoodActivityRepo,ModActivityRepo>();
+
+        services.AddHostedService<HabitCheckService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

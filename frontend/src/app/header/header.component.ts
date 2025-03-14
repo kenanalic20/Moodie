@@ -1,31 +1,126 @@
-import { Component } from '@angular/core';
-import { isDev } from '../globals';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import {ToastrService} from "ngx-toastr";
+import { Component, OnInit, HostListener } from "@angular/core";
+import { Router, NavigationEnd } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import { AuthService } from "../services/auth.service";
+import { filter } from "rxjs/operators";
+
+interface NavItem {
+	label: string;
+	route: string;
+	icon: string;
+}
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
+	selector: "app-header",
+	templateUrl: "./header.component.html",
 })
-export class HeaderComponent {
-    active = window.location.pathname.split('/')[1];
-    isDevelopment = isDev;
-    codeIcon = faCode;
-    constructor(private auth:AuthService,private route:Router, private toastrService: ToastrService) {}
-    logOut(){
-       this.auth.logout().subscribe((msg)=>{
-         console.log(msg);
-         this.auth.clearUserCookie();
-         this.route.navigate(['/login']);
-       })
-    }
-    User(){
-        this.auth.user().subscribe((data)=>{
-          const user = data as unknown as {username:string,email:string};
+export class HeaderComponent implements OnInit {
+	isMobileMenuOpen = false;
+	isDarkTheme = false;
+	currentLanguage = "EN";
+	isLoggedIn = false;
 
-          this.toastrService.success(`Welcome ${user.username}`, 'This is you!');
-        })
-    }
+	navigationItems: NavItem[] = [
+		{ label: "Home", route: "/", icon: "home" },
+		{ label: "Dashboard", route: "/dashboard", icon: "dashboard" },
+		{ label: "Habits", route: "/habits", icon: "repeat" },
+		{ label: "Goals", route: "/goals", icon: "target" },
+		{ label: "Calendar", route: "/calendar", icon: "calendar" },
+		{ label: "Stats", route: "/stats", icon: "chart-bar" },
+		{ label: "Achievements", route: "/achievements", icon: "trophy" },
+		{ label: "Settings", route: "/settings", icon: "cog" },
+		{ label: "Profile", route: "/user-info", icon: "user" },
+		{ label: "Export", route: "/export", icon: "download" },
+	];
+
+	constructor(
+		private router: Router,
+		private translate: TranslateService,
+		private authService: AuthService,
+	) {}
+
+	ngOnInit(): void {
+		// Check if user is using dark mode
+		this.isDarkTheme =
+			localStorage.getItem("theme") === "dark" ||
+			(!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+		// Apply theme
+		this.applyTheme();
+
+		// Get current language
+		this.currentLanguage = localStorage.getItem("language") || "EN";
+
+		// Check login status
+		this.authService.isAuthenticated().subscribe((isAuthenticated) => {
+			this.isLoggedIn = isAuthenticated;
+		});
+
+		// Close mobile menu on navigation
+		this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+			this.closeMobileMenu();
+		});
+	}
+
+	@HostListener("window:resize")
+	onResize() {
+		// Close mobile menu on window resize if it's open and we're on desktop
+		if (this.isMobileMenuOpen && window.innerWidth >= 1024) {
+			this.isMobileMenuOpen = false;
+		}
+	}
+
+	@HostListener("document:keydown.escape")
+	onEscapeKey() {
+		// Close mobile menu when ESC key is pressed
+		if (this.isMobileMenuOpen) {
+			this.closeMobileMenu();
+		}
+	}
+
+	toggleMobileMenu(): void {
+		this.isMobileMenuOpen = !this.isMobileMenuOpen;
+
+		// Prevent body scrolling when menu is open
+		if (this.isMobileMenuOpen) {
+			document.body.classList.add("overflow-hidden");
+		} else {
+			document.body.classList.remove("overflow-hidden");
+		}
+	}
+
+	closeMobileMenu(): void {
+		if (this.isMobileMenuOpen) {
+			this.isMobileMenuOpen = false;
+			document.body.classList.remove("overflow-hidden");
+		}
+	}
+
+	toggleTheme(): void {
+		this.isDarkTheme = !this.isDarkTheme;
+		localStorage.setItem("theme", this.isDarkTheme ? "dark" : "light");
+		this.applyTheme();
+	}
+
+	applyTheme(): void {
+		if (this.isDarkTheme) {
+			document.documentElement.classList.add("dark");
+		} else {
+			document.documentElement.classList.remove("dark");
+		}
+	}
+
+	toggleLanguage(): void {
+		this.currentLanguage = this.currentLanguage === "EN" ? "BS" : "EN";
+		localStorage.setItem("language", this.currentLanguage);
+		this.translate.use(this.currentLanguage.toLowerCase());
+	}
+
+	logout(): void {
+		this.authService.logout().subscribe({
+			next: () => {
+				this.router.navigate(["/login"]);
+			},
+		});
+	}
 }

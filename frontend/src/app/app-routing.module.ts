@@ -8,6 +8,7 @@ import { GoalsComponent } from "./goals/goals.component";
 import { AuthGuard } from "./auth.guard";
 import { AchievementsComponent } from "src/app/achievements/achievements.component";
 import { UserInfoComponent } from "./user-info/user-info.component";
+import { HabitsComponent } from "src/app/habits/habits.component";
 
 const routes: Routes = [
 	{
@@ -25,6 +26,7 @@ const routes: Routes = [
 	{ path: "export", component: ExportComponent, canActivate: [AuthGuard] },
 	{ path: "achievements", component: AchievementsComponent, canActivate: [AuthGuard] },
 	{ path: "user-info", component: UserInfoComponent, canActivate: [AuthGuard] },
+	{ path: "habits", component: HabitsComponent, canActivate: [AuthGuard] },
 	{
 		path: "auth",
 		loadChildren: () => import("./authentication/authentication.module").then((m) => m.AuthenticationModule),

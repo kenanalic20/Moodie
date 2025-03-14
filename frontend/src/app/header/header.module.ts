@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
-import { EntryComponent } from './entry/entry.component';
-import { RouterLink } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TranslateModule } from '@ngx-translate/core';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { HeaderComponent } from "./header.component";
+import { EntryComponent } from "./entry/entry.component";
+import { TranslateModule } from "@ngx-translate/core";
+import { SvgIconComponent } from "./svg-icon/svg-icon.component";
 
 @NgModule({
-    declarations: [HeaderComponent, EntryComponent],
-    imports: [CommonModule, RouterLink, FontAwesomeModule,TranslateModule],
-    exports: [HeaderComponent, EntryComponent],
+	declarations: [HeaderComponent, EntryComponent, SvgIconComponent],
+	imports: [CommonModule, RouterModule, TranslateModule],
+	exports: [HeaderComponent, EntryComponent],
 })
 export class HeaderModule {}
