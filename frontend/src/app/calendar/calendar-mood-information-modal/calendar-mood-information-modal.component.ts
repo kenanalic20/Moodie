@@ -1,128 +1,127 @@
-import { Component, Input } from "@angular/core";
-import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
-import { Mood } from "../../types";
-import { NotesService } from "src/app/services/notes.service";
-import { ToastrService } from "ngx-toastr";
-import { MoodService } from "src/app/services/mood.service";
-import { EventEmitter, Output } from "@angular/core";
-import { MoodInformationModalComponent } from "src/app/dashboard/mood-information-modal/mood-information-modal.component";
-import { TranslateService } from "@ngx-translate/core";
+import { Component, Input } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Mood } from '../../types';
+import { NotesService } from 'src/app/services/notes.service';
+import { ToastrService } from 'ngx-toastr';
+import { MoodService } from 'src/app/services/mood.service';
+import { EventEmitter, Output } from '@angular/core';
+import { MoodInformationModalComponent } from 'src/app/dashboard/mood-information-modal/mood-information-modal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: "app-calendar-mood-information-modal",
-	templateUrl: "./calendar-mood-information-modal.component.html",
+    selector: 'app-calendar-mood-information-modal',
+    templateUrl: './calendar-mood-information-modal.component.html',
 })
 export class CalendarMoodInformationModalComponent {
-	constructor(public bsModalRef: BsModalRef, 
-		private notesService:NotesService,
-		private toastrService:ToastrService,
-		private moodService:MoodService,
-		private modalService: BsModalService,
-		private translateService:TranslateService
-		
-	) {}
+    constructor(
+        public bsModalRef: BsModalRef,
+        private notesService: NotesService,
+        private toastrService: ToastrService,
+        private moodService: MoodService,
+        private modalService: BsModalService,
+        private translateService: TranslateService
+    ) {}
 
-	@Input() moods: Mood[] = [];
-	@Input() moodCount: number = 0;
-	@Output() moodDeleted = new EventEmitter<number>();
-	
-	response?:any;
+    @Input() moods: Mood[] = [];
+    @Input() moodCount: number = 0;
+    @Output() moodDeleted = new EventEmitter<number>();
 
-	getMoodName(value: number): string {
-		const moodMap: { [key: number]: string } = {
-			1: "Awful",
-			2: "Bad",
-			3: "Okay",
-			4: "Good",
-			5: "Great",
-		};
-		return moodMap[value] || "Unknown";
-	}
+    response?: any;
 
-	getMoodIcon(value: number): string {
-		const moodIcons: { [key: number]: string } = {
-			1: "😢",
-			2: "😕",
-			3: "😐",
-			4: "🙂",
-			5: "😄",
-		};
-		return moodIcons[value] || "❓";
-	}
+    getMoodName(value: number): string {
+        const moodMap: { [key: number]: string } = {
+            1: 'Awful',
+            2: 'Bad',
+            3: 'Okay',
+            4: 'Good',
+            5: 'Great',
+        };
+        return moodMap[value] || 'Unknown';
+    }
 
-	formatDate(date: Date): string {
-		return new Date(date).toLocaleString("en-US", {
-			hour: "numeric",
-			minute: "numeric",
-			hour12: true,
-		});
-	}
+    getMoodIcon(value: number): string {
+        const moodIcons: { [key: number]: string } = {
+            1: '😢',
+            2: '😕',
+            3: '😐',
+            4: '🙂',
+            5: '😄',
+        };
+        return moodIcons[value] || '❓';
+    }
 
-	getMoodNotes(mood: Mood): any[] {
-		return mood.notes || [];
-	}
+    formatDate(date: Date): string {
+        return new Date(date).toLocaleString('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        });
+    }
 
-	getMoodActivities(mood: Mood): any[] {
-		return mood.moodActivities || [];
-	}
+    getMoodNotes(mood: Mood): any[] {
+        return mood.notes || [];
+    }
 
-	hasNotes(mood: Mood): boolean {
-		return (mood.notes?.length ?? 0) > 0;
-	}
+    getMoodActivities(mood: Mood): any[] {
+        return mood.moodActivities || [];
+    }
 
-	hasActivities(mood:Mood): boolean {
-		return (mood.moodActivities?.length ?? 0) > 0;
-	}
+    hasNotes(mood: Mood): boolean {
+        return (mood.notes?.length ?? 0) > 0;
+    }
 
-	CloseModal() {
-		this.bsModalRef.hide();
-	}
+    hasActivities(mood: Mood): boolean {
+        return (mood.moodActivities?.length ?? 0) > 0;
+    }
 
-	removeNotes(id:number) {
-		if(confirm("This action will remove both notes and mood!!")){
-			this.notesService.deleteNotes(id).subscribe((res:any) => {
-				this.moods = this.moods.map((mood) => {
-					console.log(mood);
-					if (mood.notes) {
-						mood.notes = mood.notes.filter((note) => note.id !== id); 
-					}
-					return mood;
-				});
-				this.toastrService.success(this.translateService.instant("Notes removed successfully"), this.translateService.instant("Success"));
+    CloseModal() {
+        this.bsModalRef.hide();
+    }
 
-			});
-		}
-	}
+    removeNotes(id: number) {
+        if (confirm('This action will remove both notes and mood!!')) {
+            this.notesService.deleteNotes(id).subscribe((res: any) => {
+                this.moods = this.moods.map(mood => {
+                    console.log(mood);
+                    if (mood.notes) {
+                        mood.notes = mood.notes.filter(note => note.id !== id);
+                    }
+                    return mood;
+                });
+                this.toastrService.success(
+                    this.translateService.instant('Notes removed successfully'),
+                    this.translateService.instant('Success')
+                );
+            });
+        }
+    }
 
-	removeMood(mood: any) {
-		this.moodService.deleteMood(mood.id).subscribe(
-			(res:any) => {
-				this.toastrService.success("Mood removed successfully", "Success");
+    removeMood(mood: any) {
+        this.moodService.deleteMood(mood.id).subscribe((res: any) => {
+            this.toastrService.success('Mood removed successfully', 'Success');
 
-				this.moods = this.moods.filter((m) => m.id !== mood.id);
+            this.moods = this.moods.filter(m => m.id !== mood.id);
 
-				this.moodDeleted.emit(mood.id);
-			}
-		);
-	}
+            this.moodDeleted.emit(mood.id);
+        });
+    }
 
-	ngOnChange() {
-		
-	}
+    ngOnChange() {}
 
-	editNotes(notesId:number, mood:Mood) {
-		const initialState = {
-			notesId,
-			mood: mood.moodValue,
-			moodId: mood.id
-		};
-		
-		const modalref = this.modalService.show(MoodInformationModalComponent,{initialState});
-		if(modalref.content) {
-			modalref.content.onNotesEdit.subscribe((moods)=>{
-				this.moods	= moods
-			})
-		}
-	}
+    editNotes(notesId: number, mood: Mood) {
+        const initialState = {
+            notesId,
+            mood: mood.moodValue,
+            moodId: mood.id,
+        };
 
+        const modalref = this.modalService.show(MoodInformationModalComponent, {
+            initialState,
+        });
+        if (modalref.content) {
+            modalref.content.onNotesEdit.subscribe(moods => {
+                this.moods = moods;
+            });
+        }
+    }
 }

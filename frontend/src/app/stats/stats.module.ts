@@ -6,17 +6,9 @@ import { ActivityInformationModalComponent } from './activity-information-modal/
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [
-    ActivityInformationModalComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    TranslateModule
-  ],
-  exports: [
-    ActivityInformationModalComponent
-  ]
+    declarations: [ActivityInformationModalComponent],
+    imports: [CommonModule, FormsModule, TranslateModule],
+    exports: [ActivityInformationModalComponent],
 })
-export class StatsModule { }import { SharedModule } from '../shared/shared.module';
-
+export class StatsModule {}
+import { SharedModule } from '../shared/shared.module';

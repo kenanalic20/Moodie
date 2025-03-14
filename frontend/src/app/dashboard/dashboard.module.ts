@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -10,7 +10,7 @@ import { AuthenticationModule } from '../authentication/authentication.module';
 import { HeaderModule } from '../header/header.module';
 import { MoodSelectorComplexComponent } from './mood-selector-complex/mood-selector-complex.component';
 import { MoodInformationModalComponent } from './mood-information-modal/mood-information-modal.component';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 import { SafeUrlPipe } from '../pipes/safe-url.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -20,19 +20,19 @@ import { TranslateModule } from '@ngx-translate/core';
         MoodSelectorSimpleComponent,
         MoodSelectorComplexComponent,
         MoodInformationModalComponent,
-        SafeUrlPipe
+        SafeUrlPipe,
     ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    FontAwesomeModule,
-    AuthenticationModule,
-    HeaderModule,
-    ModalModule.forRoot(),
-    FormsModule,
-    NgOptimizedImage,
-    TranslateModule
-  ],
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        FontAwesomeModule,
+        AuthenticationModule,
+        HeaderModule,
+        ModalModule.forRoot(),
+        FormsModule,
+        NgOptimizedImage,
+        TranslateModule,
+    ],
     exports: [DashboardComponent, MoodSelectorSimpleComponent],
 })
 export class DashboardModule {}

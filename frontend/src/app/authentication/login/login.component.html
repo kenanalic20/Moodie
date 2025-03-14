@@ -5,39 +5,54 @@
     <div class="max-w-lg flex flex-col place-content-center text-center gap-10">
         <div class="cursor-pointer" routerLink="/">
             <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">
-                Moodie <em>{{'says'|translate}}</em> {{'hi'|translate}}!
+                Moodie <em>{{ 'says' | translate }}</em> {{ 'hi' | translate }}!
             </h1>
             <p class="text-s font-sans sm:text-2xl mb-4 transition-all">
-                {{'Please log in to continue'|translate}}
+                {{ 'Please log in to continue' | translate }}
             </p>
         </div>
 
         <div>
-            <app-input placeholder="Email" type="email" (valueChange)="onEmailChange($event)"/>
-            <app-input placeholder="{{'Password'|translate}}" type="password"    (valueChange)="onPasswordChange($event)"/>
-          <app-input [hidden]="hide" placeholder="{{'Verification Code'|translate}}" type="text"    (valueChange)="onVerificationCodeChange($event)"/>
+            <app-input
+                placeholder="Email"
+                type="email"
+                (valueChange)="onEmailChange($event)" />
+            <app-input
+                placeholder="{{ 'Password' | translate }}"
+                type="password"
+                (valueChange)="onPasswordChange($event)" />
+            <app-input
+                [hidden]="hide"
+                placeholder="{{ 'Verification Code' | translate }}"
+                type="text"
+                (valueChange)="onVerificationCodeChange($event)" />
             <div class="flex flex-col gap-4">
                 <div class="flex gap-4">
                     <button
                         class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 hover:text-white border-2 dark:text-white text-black hover:bg-background-100 transition-all"
                         routerLink="/auth/register">
-                        {{"I don't have an account"|translate}}
+                        {{ "I don't have an account" | translate }}
                     </button>
-                    <button [hidden]="hideLogin" (click)="login()"
+                    <button
+                        [hidden]="hideLogin"
+                        (click)="login()"
                         class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
-                        {{'Login'|translate}}
+                        {{ 'Login' | translate }}
                     </button>
-                  <button [hidden]="hideVerification" (click)="submitVerificationCode()"
-                          class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
-                    {{'Verify'|translate}}
-                  </button>
+                    <button
+                        [hidden]="hideVerification"
+                        (click)="submitVerificationCode()"
+                        class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
+                        {{ 'Verify' | translate }}
+                    </button>
                 </div>
 
                 <button
-                    class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-neutral-300 bg-neutral-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-neutral-100 hover:bg-neutral-900 transition-all"
+                    disabled="true"
+                    class="w-full p-2 gap-2 opacity-20 cursor-not-allowed flex items-center justify-center font-sans rounded-xl dark:bg-neutral-300 bg-neutral-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-neutral-100 hover:bg-neutral-900 transition-all"
                     routerLink="/auth/login">
                     <fa-icon [icon]="faGoogle"></fa-icon>
-                    {{'Use Google'|translate}}
+                    {{ 'Use Google (soon)' | translate }}
                 </button>
 
                 <button
@@ -45,13 +60,15 @@
                     class="w-full p-2 gap-2 flex items-center justify-center font-sans rounded-xl dark:bg-neutral-300 bg-neutral-400 border-background-100 dark:border-2 dark:text-black text-white dark:hover:bg-neutral-100 hover:bg-neutral-900 transition-all"
                     routerLink="/dashboard">
                     <fa-icon [icon]="codeIcon" />
-                    {{'Go to the dashboard'|translate}}
+                    {{ 'Go to the dashboard' | translate }}
                 </button>
             </div>
 
             <p class="text-sm mt-4 font-sans">
-                {{'Forgot your password?'|translate}}
-                <a class="text-blue-500" href="/auth/reset">{{'Reset it'|translate}}</a>
+                {{ 'Forgot your password?' | translate }}
+                <a class="text-blue-500" href="/auth/reset">{{
+                    'Reset it' | translate
+                }}</a>
             </p>
         </div>
     </div>

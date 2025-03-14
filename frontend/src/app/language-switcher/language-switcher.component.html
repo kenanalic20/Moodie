@@ -1,5 +1,8 @@
 <div *ngIf="!isAuthenticated" class="absolute top-5 right-5 flex gap-2">
-    <button *ngFor="let lang of languages" (click)="switchLanguage(lang.code)" class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 hover:text-white border-2 dark:text-white text-black hover:bg-background-100 transition-all text-nowrap">
+    <button
+        *ngFor="let lang of languages"
+        (click)="switchLanguage(lang.code)"
+        class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 hover:text-white border-2 dark:text-white text-black hover:bg-background-100 transition-all text-nowrap">
         {{ lang.name | translate }} ({{ lang.region }})
     </button>
 </div>

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import toastr base styles - this is critical */
+@import 'node_modules/ngx-toastr/toastr.css';
+
 @font-face {
     font-family: 'DM Serif Display';
     font-style: normal;
@@ -19,8 +22,33 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes toast-slide-in-right {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .animate-fadeIn {
   animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Theme transition controls */
+.theme-transition {
+  transition-property: color, background-color, border-color;
+  transition-duration: 200ms;
+}
+
+/* Prevent transitions during navigation */
+.router-navigating * {
+  transition: none !important;
 }
 
 html, body {
@@ -37,4 +65,129 @@ html, body {
 
 h1 {
     font-family: 'DM Serif Display', serif;
+}
+
+/* Toast styling - complete redesign with higher specificity */
+body .toast-container {
+  z-index: 999999 !important;
+  position: fixed !important;
+}
+
+body .toast-container .toast {
+  opacity: 1 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+  min-width: 300px !important;
+  max-width: 350px !important;
+  font-family: 'Inter', sans-serif !important;
+  border-left: 5px solid transparent !important;
+  background-size: 24px !important;
+  background-position: 16px center !important;
+}
+
+/* Toast types with improved colors and borders */
+body .toast-container .toast-success {
+  background-color: rgba(53, 179, 101, 0.95) !important;
+  border-left-color: #2b9965 !important;
+  color: white !important;
+}
+
+body .toast-container .toast-error {
+  background-color: rgba(235, 87, 87, 0.95) !important;
+  border-left-color: #d64545 !important;
+  color: white !important;
+}
+
+body .toast-container .toast-info {
+  background-color: rgba(61, 136, 248, 0.95) !important;
+  border-left-color: #2563eb !important;
+  color: white !important;
+}
+
+body .toast-container .toast-warning {
+  background-color: rgba(242, 153, 74, 0.95) !important;
+  border-left-color: #d97706 !important;
+  color: white !important;
+}
+
+/* Toast title and message styling */
+body .toast-container .toast-title {
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  margin-bottom: 6px !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.3 !important;
+}
+
+body .toast-container .toast-message {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+  opacity: 0.95 !important;
+}
+
+/* Close button styling */
+body .toast-container .toast-close-button {
+  font-size: 20px !important;
+  color: white !important;
+  opacity: 0.7 !important;
+  text-shadow: none !important;
+  font-weight: 300 !important;
+  right: 8px !important;
+  top: 5px !important;
+}
+
+body .toast-container .toast-close-button:hover {
+  opacity: 1 !important;
+}
+
+/* Progress bar styling */
+body .toast-container .toast-progress {
+  height: 4px !important;
+  opacity: 0.7 !important;
+  bottom: 0 !important;
+  border-bottom-left-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+body .toast-container .toast-success .toast-progress {
+  background-color: #2b9965 !important;
+}
+
+body .toast-container .toast-error .toast-progress {
+  background-color: #d64545 !important; 
+}
+
+body .toast-container .toast-info .toast-progress {
+  background-color: #2563eb !important;
+}
+
+body .toast-container .toast-warning .toast-progress {
+  background-color: #d97706 !important;
+}
+
+/* Enhanced animation */
+body .toast-container .toast {
+  animation: toast-slide-in-right 0.4s ease-out forwards;
+}
+
+/* Dark mode support with improved contrast */
+body.dark .toast-container .toast {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Make toasts responsive */
+@media (max-width: 480px) {
+  body .toast-container .toast {
+    width: calc(100vw - 24px) !important;
+    max-width: none !important;
+    margin: 0 12px 12px 12px !important;
+  }
+  
+  body .toast-container {
+    padding: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+  }
 }

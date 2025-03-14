@@ -1,50 +1,55 @@
 <div class="mx-auto w-screen h-full flex flex-col justify-center items-center">
     <h2 class="w-full text-center font-sans text-2xl pt-4 pb-4 select-none">
-        {{"Weekly Trend"|translate}}
+        {{ 'Weekly Trend' | translate }}
     </h2>
 
     <div class="flex w-full justify-center items-start">
         <div class="md:block hidden">
             <ul
                 class="dark:text-neutral-300 text-neutral-700 font-sans w-16 gap-2 flex flex-col">
-                <li>{{'Great'|translate}}</li>
-                <li>{{'Good'|translate}}</li>
-                <li>{{'Okay'|translate}}</li>
-                <li>{{'Bad'|translate}}</li>
-                <li>{{'Awful'|translate}}</li>
+                <li>{{ 'Great' | translate }}</li>
+                <li>{{ 'Good' | translate }}</li>
+                <li>{{ 'Okay' | translate }}</li>
+                <li>{{ 'Bad' | translate }}</li>
+                <li>{{ 'Awful' | translate }}</li>
             </ul>
         </div>
 
-        <div class="w-full  md:w-2/3 md:mr-16">
+        <div class="w-full md:w-2/3 md:mr-16">
             <div
                 class="md:border dark:border-neutral-300 border-neutral-700 rounded-xl p-2">
                 <div
-                    class="flex  h-32 items-end md:gap-8 p-2 justify-between font-sans">
-                    <div #monday
+                    class="flex h-32 items-end md:gap-8 p-2 justify-between font-sans">
+                    <div
+                        #monday
                         class="h-20 w-20 md:w-full text-center p-1 bg-blue-500 rounded-xl md:hover:w-[1000px] transition-all">
                         3
                     </div>
-                    <div #tuesday
+                    <div
+                        #tuesday
                         class="h-24 w-20 md:w-full text-center p-1 bg-red-500 rounded-xl md:hover:w-[1000px] transition-all">
                         3.5
                     </div>
-                    <div #wednesday
+                    <div
+                        #wednesday
                         class="h-16 w-20 md:w-full text-center p-1 bg-green-500 rounded-xl md:hover:w-[1000px] transition-all">
                         2
                     </div>
-                    <div #thursday
+                    <div
+                        #thursday
                         class="h-32 w-20 md:w-full text-center p-1 bg-purple-500 rounded-xl md:hover:w-[1000px] transition-all">
                         5
                     </div>
-                    <div #friday
-                        class="h-28 w-20 md:w-full text-center p-1 bg-yellow-500 rounded-xl md:hover:w-[1000px] transition-all">
-
-                    </div>
-                    <div #saturday
+                    <div
+                        #friday
+                        class="h-28 w-20 md:w-full text-center p-1 bg-yellow-500 rounded-xl md:hover:w-[1000px] transition-all"></div>
+                    <div
+                        #saturday
                         class="h-20 w-20 md:w-full text-center p-1 bg-indigo-500 rounded-xl md:hover:w-[1000px] transition-all">
                         3.5
                     </div>
-                    <div #sunday
+                    <div
+                        #sunday
                         class="h-16 w-20 md:w-full text-center p-1 bg-pink-500 rounded-xl md:hover:w-[1000px] transition-all">
                         3
                     </div>
@@ -61,7 +66,6 @@
                 <span class="text-center w-full">{{ 'Sat' | translate }}</span>
                 <span class="text-center w-full">{{ 'Sun' | translate }}</span>
             </div>
-
         </div>
     </div>
 </div>

@@ -1,34 +1,22 @@
 <app-header></app-header>
-<div
-    class="w-full h-full flex flex-col gap-8 items-center justify-start mt-32">
+<div class="w-full h-full flex flex-col gap-8 items-center justify-start mt-32">
     <div>
-        <h1 class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
-        {{'Settings' | translate}}
-    </h1>
-    <div class="w-full text-center p-2 font-sans text-lg dark:text-neutral-300 text-neutral-700 select-none">
-        {{'Change things up'|translate}}
+        <h1
+            class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
+            {{ 'Settings' | translate }}
+        </h1>
+        <div
+            class="w-full text-center p-2 font-sans text-lg dark:text-neutral-300 text-neutral-700 select-none">
+            {{ 'Change things up' | translate }}
+        </div>
     </div>
-    </div>
-    <!-- <app-setting
-        [onChange]="onThemeChange"
-        [settingOptions]="[{ label: 'Light', value: 'light' }, { label: 'Dark', value: 'dark' }]"
-        settingDescription="Change the theme of the application"
-        settingName="Theme"
-        [settingValue]="currentTheme">
-    </app-setting>p-setting>
-        -->
-    <!-- <app-setting
-        settingName="Language"
-        [onChange]="onLanguageChange"
-        [settingOptions]="languageOptions"
-        settingDescription="Change the language of the application"
-        [settingValue]="currentLanguage">
-    </app-setting> -->
-     
     <app-setting
         settingName="Two-Factor Authentication"
         [onChange]="onTwoFactorChange"
-        [settingOptions]="[{ label: 'Enabled', value: 'true' }, { label: 'Disabled', value: 'false' }]"
+        [settingOptions]="[
+            { label: 'Enabled', value: 'true' },
+            { label: 'Disabled', value: 'false' }
+        ]"
         settingDescription="Enable or disable two-factor authentication for login"
         [settingValue]="twoFactorEnabled ? 'true' : 'false'">
     </app-setting>

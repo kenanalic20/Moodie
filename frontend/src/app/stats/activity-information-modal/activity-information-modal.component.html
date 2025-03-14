@@ -1,35 +1,44 @@
 <div
     class="overflow-auto top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-50 flex justify-center items-center transition-all"
     (click)="closeModal()">
-    <div 
+    <div
         (click)="$event.stopPropagation()"
         class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-lg sm:p-8 p-1 w-full md:h-fit h-full transition-all md:w-1/2">
-        <div 
-            class=" flex flex-col w-full justify-between items-center gap-4 p-4">
+        <div
+            class="flex flex-col w-full justify-between items-center gap-4 p-4">
             <div class="flex justify-between w-full">
-                <h3 class="font-bold text-lg">{{"Want to edit your activity?"|translate}}</h3>
+                <h3 class="font-bold text-lg">
+                    {{ 'Want to edit your activity?' | translate }}
+                </h3>
                 <button
                     (click)="closeModal()"
                     class="dark:text-white text-black close-modal">
                     X
                 </button>
             </div>
-            
+
             <div class="flex flex-col gap-2 w-full">
-                <h3 class="font-semibold">{{activity.name}}</h3>
-                <p>{{"Created at:"|translate}} {{formatDate(activity.createdAt)}}</p>
-                <p [hidden]="!activity.description">{{activity.description}}</p>
+                <h3 class="font-semibold">{{ activity.name }}</h3>
+                <p>
+                    {{ 'Created at:' | translate }}
+                    {{ formatDate(activity.createdAt) }}
+                </p>
+                <p [hidden]="!activity.description">
+                    {{ activity.description }}
+                </p>
             </div>
             <div class="flex w-full mt-6 gap-4">
                 <button
                     (click)="removeActivity(activity.id)"
                     class="flex-1 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all">
-                    {{"Delete"|translate}}
+                    {{ 'Delete' | translate }}
                 </button>
-                <button (click)="editActivity(activity)"
+                <button
+                    (click)="editActivity(activity)"
                     class="flex-1 py-3 bg-neutral-700 text-white font-medium rounded-lg hover:bg-neutral-800 transition-all">
-                    {{"Edit"|translate}}
+                    {{ 'Edit' | translate }}
                 </button>
             </div>
         </div>
+    </div>
 </div>

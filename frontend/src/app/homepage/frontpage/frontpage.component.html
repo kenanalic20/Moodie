@@ -2,24 +2,25 @@
     class="w-screen h-screen flex flex-col items-center justify-evenly p-5 select-none gap-10">
     <app-language-switcher></app-language-switcher>
     <h1 class="text-4xl sm:text-8xl font-bold mb-4 transition-all text-center">
-        <em>{{'Hi there!'|translate}}</em> {{'I’m Moodie'|translate}}
+        <em>{{ 'Hi there!' | translate }}</em> {{ 'I’m Moodie' | translate }}
     </h1>
     <div class="w-1/2 flex gap-5 text-3xl sm:text-5xl justify-evenly">
         <a
             class="transition-all font-serif dark:text-neutral-200 text-neutral-600 hover:text-black dark:hover:text-white"
             href="/about"
-            >{{'What?'|translate}}</a
+            >{{ 'What?' | translate }}</a
         >
         <a
             class="transition-all font-serif dark:text-neutral-200 text-neutral-600 hover:text-black dark:hover:text-white"
             href="/auth"
-            >{{"Let's go"|translate}}</a
+            >{{ "Let's go" | translate }}</a
         >
     </div>
     <div class="flex flex-col align-middle justify-center text-center">
         <p class="font-sans dark:text-neutral-300 text-neutral-600">
-            {{'Moodie is brought to you by'|translate}}
-            <span class="dark:text-white text-black">Kenan</span> {{'and'|translate}}
+            {{ 'Moodie is brought to you by' | translate }}
+            <span class="dark:text-white text-black">Kenan</span>
+            {{ 'and' | translate }}
             <span class="dark:text-white text-black">Omar</span>
         </p>
         <p

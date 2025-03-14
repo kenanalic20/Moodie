@@ -18,10 +18,11 @@
                     (click)="setValue(icon.value)"
                     [title]="icon.name"
                     class="text-xl sm:text-3xl transition-all hover:opacity-75 cursor-pointer">
-                    {{icon.emoji}}
+                    {{ icon.emoji }}
                 </span>
-                <h2 class="sm:text-xl font-sans text-xs dark:text-neutral-300 text-neutral-700">
-                    {{ icon.name | translate}}
+                <h2
+                    class="sm:text-xl font-sans text-xs dark:text-neutral-300 text-neutral-700">
+                    {{ icon.name | translate }}
                 </h2>
             </div>
         </div>
@@ -30,6 +31,6 @@
         *ngIf="value !== -1"
         (click)="addMood()"
         class="font-sans text-lg dark:text-black text-white dark:bg-white bg-neutral-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
-        {{"That's it, save." | translate}}
+        {{ "That's it, save." | translate }}
     </button>
 </div>

@@ -14,7 +14,7 @@ export class InputComponent implements OnInit {
     @Input() isConfirmPassword: boolean = false;
 
     @Output() valueChange = new EventEmitter<string>();
-    
+
     inputValue = '';
     passwordInputValue = '';
     validConfirmPassword = true;

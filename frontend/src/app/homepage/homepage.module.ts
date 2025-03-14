@@ -9,7 +9,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 @NgModule({
     declarations: [FrontpageComponent, AboutComponent],
-    imports: [CommonModule, HomepageRoutingModule, FontAwesomeModule,TranslateModule,SharedModule],
+    imports: [
+        CommonModule,
+        HomepageRoutingModule,
+        FontAwesomeModule,
+        TranslateModule,
+        SharedModule,
+    ],
     exports: [FrontpageComponent, AboutComponent],
 })
 export class HomepageModule {}

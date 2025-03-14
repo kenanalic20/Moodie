@@ -5,8 +5,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActivityInformationModalComponent } from '../activity-information-modal/activity-information-modal.component';
 import { ActivityEditModalComponent } from '../activity-edit-modal/activity-edit-modal.component';
 interface Activity {
-  id: number;
-  name: string;
+    id: number;
+    name: string;
 }
 
 @Component({
@@ -26,7 +26,7 @@ export class StatActivitiesComponent implements OnInit {
     hasWorstActivities = false;
     modalRef: any;
 
-    ngOnInit():void {
+    ngOnInit(): void {
         this.loadActivities();
     }
 
@@ -37,7 +37,7 @@ export class StatActivitiesComponent implements OnInit {
 
         Promise.all([
             this.getBestMoodActivities(),
-            this.getWorstMoodActivities()
+            this.getWorstMoodActivities(),
         ]).then(() => {
             this.isLoading = false;
             this.updateActivityStates();
@@ -50,8 +50,9 @@ export class StatActivitiesComponent implements OnInit {
     }
 
     getBestMoodActivities() {
-        return new Promise<void>((resolve) => {
-            this.activityService.getBestMoodActivities()
+        return new Promise<void>(resolve => {
+            this.activityService
+                .getBestMoodActivities()
                 .pipe(
                     timeout(2000),
                     finalize(() => resolve())
@@ -64,8 +65,9 @@ export class StatActivitiesComponent implements OnInit {
     }
 
     getWorstMoodActivities() {
-        return new Promise<void>((resolve) => {
-            this.activityService.getWorstMoodActivities()
+        return new Promise<void>(resolve => {
+            this.activityService
+                .getWorstMoodActivities()
                 .pipe(
                     timeout(2000),
                     finalize(() => resolve())
@@ -84,24 +86,28 @@ export class StatActivitiesComponent implements OnInit {
     }
 
     openModal(activity?: any) {
-        this.modalRef = this.modalService.show(ActivityInformationModalComponent, {
-            initialState: {
-                activity: activity
+        this.modalRef = this.modalService.show(
+            ActivityInformationModalComponent,
+            {
+                initialState: {
+                    activity: activity,
+                },
             }
-        });
+        );
 
         if (this.modalRef.content) {
-            const modalComponent = this.modalRef.content as ActivityInformationModalComponent;
+            const modalComponent = this.modalRef
+                .content as ActivityInformationModalComponent;
             modalComponent.activityDeleted.subscribe({
                 next: () => {
                     this.reloadActivities();
-                }
+                },
             });
-        
+
             modalComponent.activityUpdated.subscribe({
                 next: () => {
                     this.reloadActivities();
-                }
+                },
             });
         }
     }

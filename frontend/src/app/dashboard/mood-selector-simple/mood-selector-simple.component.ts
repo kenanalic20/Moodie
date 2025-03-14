@@ -1,89 +1,89 @@
-import { Component, Input } from "@angular/core";
-import { MoodInformationModalComponent } from "../mood-information-modal/mood-information-modal.component";
-import { BsModalService } from "ngx-bootstrap/modal";
-import { MoodService } from "../../services/mood.service";
-import { ToastrService } from "ngx-toastr";
+import { Component, Input } from '@angular/core';
+import { MoodInformationModalComponent } from '../mood-information-modal/mood-information-modal.component';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { MoodService } from '../../services/mood.service';
+import { ToastrService } from 'ngx-toastr';
 
 interface MoodIcon {
-	emoji: string;
-	name: string;
-	value: number;
+    emoji: string;
+    name: string;
+    value: number;
 }
 
 @Component({
-	selector: "app-mood-selector-simple",
-	templateUrl: "./mood-selector-simple.component.html",
+    selector: 'app-mood-selector-simple',
+    templateUrl: './mood-selector-simple.component.html',
 })
 export class MoodSelectorSimpleComponent {
-	@Input() selectedDate?: Date;
+    @Input() selectedDate?: Date;
 
-	constructor(
-		private modalService: BsModalService,
-		private moodService: MoodService,
-		private toastrService: ToastrService,
-	) {}
+    constructor(
+        private modalService: BsModalService,
+        private moodService: MoodService,
+        private toastrService: ToastrService
+    ) {}
 
-	icons: MoodIcon[] = [
-		{
-			emoji: "🥳",
-			name: "Great",
-			value: 5,
-		},
-		{
-			emoji: "😊",
-			name: "Good",
-			value: 4,
-		},
-		{
-			emoji: "😐",
-			name: "Okay",
-			value: 3,
-		},
-		{
-			emoji: "😔",
-			name: "Bad",
-			value: 2,
-		},
-		{
-			emoji: "😭",
-			name: "Awful",
-			value: 1,
-		},
-	];
+    icons: MoodIcon[] = [
+        {
+            emoji: '🥳',
+            name: 'Great',
+            value: 5,
+        },
+        {
+            emoji: '😊',
+            name: 'Good',
+            value: 4,
+        },
+        {
+            emoji: '😐',
+            name: 'Okay',
+            value: 3,
+        },
+        {
+            emoji: '😔',
+            name: 'Bad',
+            value: 2,
+        },
+        {
+            emoji: '😭',
+            name: 'Awful',
+            value: 1,
+        },
+    ];
 
-	modalRef: any;
-	selected = -1;
+    modalRef: any;
+    selected = -1;
 
-	select(value: number) {
-		this.selected = value;
-	}
+    select(value: number) {
+        this.selected = value;
+    }
 
-	OpenModal(mood?: any) {
-		this.modalRef = this.modalService.show(MoodInformationModalComponent);
-		this.modalRef.content.mood = this.selected;
+    OpenModal(mood?: any) {
+        this.modalRef = this.modalService.show(MoodInformationModalComponent);
+        this.modalRef.content.mood = this.selected;
 
-		// Extract the mood ID from the response structure
-		if (mood && mood.mood && mood.mood.id) {
-			console.log("Setting moodId to:", mood.mood.id);
-			this.modalRef.content.moodId = mood.mood.id;
-		} else {
-			console.error("Invalid mood object structure:", mood);
-		}
-	}
+        // Extract the mood ID from the response structure
+        if (mood && mood.mood && mood.mood.id) {
+            console.log('Setting moodId to:', mood.mood.id);
+            this.modalRef.content.moodId = mood.mood.id;
+        } else {
+            console.error('Invalid mood object structure:', mood);
+        }
+    }
 
-	CloseModal() {
-		this.modalRef.hide(MoodInformationModalComponent);
-	}
-	addMood() {
-		this.moodService
-			.addMood({
-				moodValue: this.selected,
-				date: new Date(),
-			})
-			.subscribe((res) => {
-				console.log("Mood added response:", res);
-				this.OpenModal(res);
-				this.toastrService.success("Mood added successfully");
-			});
-	}
+    CloseModal() {
+        this.modalRef.hide(MoodInformationModalComponent);
+    }
+    addMood() {
+        this.moodService
+            .addMood({
+                moodValue: this.selected,
+                date: new Date(),
+            })
+            .subscribe(res => {
+                console.log('Mood added response:', res);
+                this.OpenModal(res);
+                this.toastrService.success('Mood added successfully');
+            });
+    }
 }

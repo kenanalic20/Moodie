@@ -1,18 +1,40 @@
 <div
-    class="h-fit gap-4 w-[90vw] max-w-[1000px] border-neutral-300 dark:border-neutral-400 hover:border-neutral-600 dark:hover:border-neutral-200 transition-all select-none cursor-normal border p-8 flex flex-col lg:flex-row justify-between items-center rounded-xl">
+    class="h-fit gap-4 w-[90vw] max-w-[1000px] border-neutral-300 dark:border-neutral-500 hover:border-neutral-500 dark:hover:border-neutral-300 transition-all select-none cursor-normal border p-8 flex flex-col lg:flex-row justify-between items-center rounded-xl shadow-sm hover:shadow-md">
     <div class="font-sans w-full">
-        <h2 class="text-2xl font-bold">{{ settingName || 'Setting'|translate }}</h2>
+        <h2 class="text-2xl font-bold">
+            {{ settingName || 'Setting' | translate }}
+        </h2>
         <p class="dark:text-neutral-300 text-neutral-700">
-            {{ settingDescription || 'Description'|translate }}
+            {{ settingDescription || 'Description' | translate }}
         </p>
     </div>
     <div
-        class="flex flex-wrap sm:flex-nowrap w-full justify-around border font-sans rounded-xl border-neutral-400 cursor-pointer overflow-hidden">
+        class="flex flex-wrap sm:flex-nowrap w-full lg:w-auto lg:min-w-[240px] font-sans rounded-xl overflow-hidden shadow-sm bg-white dark:bg-neutral-800">
         <div
             (click)="handleClick(option.value)"
-            *ngFor="let option of settingOptions"
-            class="px-4 w-full py-2.5 flex justify-center items-center transition-all {{ option.value === settingValue ? 'dark:bg-neutral-500 bg-neutral-300' : '' }} hover:bg-neutral-400 hover:text-black border-neutral-400">
-            {{ option.label || 'Option'|translate }}
+            *ngFor="
+                let option of settingOptions;
+                let first = first;
+                let last = last
+            "
+            class="px-6 w-full py-3 flex justify-center items-center transition-all duration-200 relative cursor-pointer"
+            [ngClass]="{
+                'rounded-l-xl sm:rounded-r-none':
+                    first && settingOptions.length > 1,
+                'rounded-r-xl sm:rounded-l-none':
+                    last && settingOptions.length > 1,
+                'bg-gradient-to-r from-blue-500 to-blue-400 text-white font-medium':
+                    option.value === settingValue,
+                'hover:bg-neutral-100 dark:hover:bg-neutral-700':
+                    option.value !== settingValue
+            }">
+            <span
+                [ngClass]="{ 'drop-shadow-sm': option.value === settingValue }">
+                {{ option.label || 'Option' | translate }}
+            </span>
+            <div
+                *ngIf="option.value === settingValue"
+                class="absolute bottom-0 left-0 w-full h-1 bg-blue-300 dark:bg-blue-600"></div>
         </div>
     </div>
 </div>

@@ -1,37 +1,47 @@
-<div class="overflow-auto top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-50 flex justify-center items-center transition-all"
+<div
+    class="overflow-auto top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-50 flex justify-center items-center transition-all"
     (click)="closeModal()">
-    <div (click)="$event.stopPropagation()"
+    <div
+        (click)="$event.stopPropagation()"
         class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-lg sm:p-8 p-1 w-full md:h-fit h-full transition-all md:w-1/2">
-
         <div class="flex flex-col w-full gap-4">
             <div class="flex justify-between w-full">
-                <h3 class="font-bold text-lg">{{"Want to edit your activity?"|translate}}</h3>
+                <h3 class="font-bold text-lg">
+                    {{ 'Want to edit your activity?' | translate }}
+                </h3>
                 <button
                     (click)="closeModal()"
                     class="dark:text-white text-black close-modal">
                     X
                 </button>
             </div>
-            {{"Activity name:"|translate}}
+            {{ 'Activity name:' | translate }}
             <div class="flex justify-between w-full items-center">
-                <input [(ngModel)]="activityName" #activityNameInput type="text"
+                <input
+                    [(ngModel)]="activityName"
+                    #activityNameInput
+                    type="text"
                     class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit p-2"
-                    placeholder="Activity name?">
+                    placeholder="Activity name?" />
             </div>
-            {{"Activity description:"|translate}}
+            {{ 'Activity description:' | translate }}
             <div class="flex justify-between w-full items-center">
-                <textarea [(ngModel)]="activityDescription" #activityDescriptionInput
+                <textarea
+                    [(ngModel)]="activityDescription"
+                    #activityDescriptionInput
                     class="border bg-white dark:bg-neutral-700 rounded-lg w-full min-h-[50px] h-fit max-h-[200px] p-2"
                     placeholder="Activity description?"></textarea>
             </div>
             <div class="flex w-full mt-6 gap-4">
-                <button (click)="closeModal()"
+                <button
+                    (click)="closeModal()"
                     class="flex-1 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all">
-                    {{"Cancel"|translate}}
+                    {{ 'Cancel' | translate }}
                 </button>
-                <button (click)="saveActivity()"
+                <button
+                    (click)="saveActivity()"
                     class="flex-1 py-3 bg-neutral-700 text-white font-medium rounded-lg hover:bg-neutral-800 transition-all">
-                    {{"Save"|translate}}
+                    {{ 'Save' | translate }}
                 </button>
             </div>
         </div>

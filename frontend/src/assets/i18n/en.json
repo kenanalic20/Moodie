@@ -30,7 +30,7 @@
 	"says": "says",
 	"Settings": "Settings",
 	"Theme": "Theme",
-	"Use Google": "Use Google",
+	"Use Google (soon)": "Use Google (soon)",
 	"Username": "Username",
 	"Verification Code": "Verification Code",
 	"Verify": "Verify",
@@ -232,5 +232,6 @@
 	"Today": "Today",
 	"Yesterday": "Yesterday",
 	"days ago": "days ago",
-	"Warning": "Warning"
+	"Warning": "Warning",
+	"Profile": "Profile"
 }

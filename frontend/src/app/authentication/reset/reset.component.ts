@@ -15,15 +15,15 @@ export class ResetComponent {
     faGoogle = faGoogle;
     isDevelopment = isDev;
     codeIcon = faCode;
-    email:any = '';
-    password:any = '';
-    response?:any;
-    token?:string;
+    email: any = '';
+    password: any = '';
+    response?: any;
+    token?: string;
     constructor(
         private route: ActivatedRoute,
-        private authService:AuthService, 
-        private toastrService:ToastrService,
-        private translateService:TranslateService
+        private authService: AuthService,
+        private toastrService: ToastrService,
+        private translateService: TranslateService
     ) {}
 
     ngOnInit() {
@@ -32,35 +32,51 @@ export class ResetComponent {
         });
     }
 
-    onEmailChange(email:any) {
-		this.email = email;
+    onEmailChange(email: any) {
+        this.email = email;
     }
 
-    onPasswordChange(password:any) {
+    onPasswordChange(password: any) {
         this.password = password;
     }
 
     requestReset() {
-        if(this.email =='') {
-            this.toastrService.error(this.translateService.instant("Please enter valid credentials"), this.translateService.instant("Error"));
+        if (this.email == '') {
+            this.toastrService.error(
+                this.translateService.instant('Please enter valid credentials'),
+                this.translateService.instant('Error')
+            );
 
             return;
         }
-        if(!this.token) {
-            this.authService.requestResetPassword(this.email).subscribe((res:any)=>{
-                this.toastrService.success(this.translateService.instant(res.message), this.translateService.instant("Success"));
-            })
+        if (!this.token) {
+            this.authService
+                .requestResetPassword(this.email)
+                .subscribe((res: any) => {
+                    this.toastrService.success(
+                        this.translateService.instant(res.message),
+                        this.translateService.instant('Success')
+                    );
+                });
         }
     }
 
     resetPassword() {
-        if(!this.token)
-            return
-        console.log(this.token,this.password);
-        this.authService.resetPassword(this.token,this.password).subscribe((res:any) => {
-            this.toastrService.success(this.translateService.instant(res.message), this.translateService.instant("Success"));
-        },error=>{
-            this.toastrService.error(this.translateService.instant(error.error), this.translateService.instant("Error"));
-        })
+        if (!this.token) return;
+        console.log(this.token, this.password);
+        this.authService.resetPassword(this.token, this.password).subscribe(
+            (res: any) => {
+                this.toastrService.success(
+                    this.translateService.instant(res.message),
+                    this.translateService.instant('Success')
+                );
+            },
+            error => {
+                this.toastrService.error(
+                    this.translateService.instant(error.error),
+                    this.translateService.instant('Error')
+                );
+            }
+        );
     }
 }

@@ -5,10 +5,10 @@
         class="max-w-5xl flex flex-col items-center justify-evenly text-center gap-10">
         <div class="gap-8 flex-col flex">
             <h1 class="text-4xl sm:text-6xl font-bold mb-4 transition-all">
-                {{'What do you mean what?'|translate}}
+                {{ 'What do you mean what?' | translate }}
             </h1>
             <p class="text-s sm:text-2xl mb-4 transition-all font-sans">
-                {{'Moodie description'|translate}}
+                {{ 'Moodie description' | translate }}
             </p>
         </div>
         <div
@@ -16,18 +16,19 @@
             <a
                 class="transition-all font-serif dark:text-neutral-200 text-neutral-600 hover:text-black dark:hover:text-white"
                 href="/"
-                >{{'Go back'|translate}}</a
+                >{{ 'Go back' | translate }}</a
             >
             <a
                 class="transition-all font-serif dark:text-neutral-200 text-neutral-600 hover:text-black dark:hover:text-white"
                 href="/auth"
-                >{{"Let's go"|translate}}</a
+                >{{ "Let's go" | translate }}</a
             >
         </div>
     </div>
     <p class="font-sans dark:text-neutral-300 text-neutral-600">
-        {{'Moodie is brought to you by'|translate}}
-        <span class="dark:text-white text-black">Kenan</span> {{'and'|translate}}
+        {{ 'Moodie is brought to you by' | translate }}
+        <span class="dark:text-white text-black">Kenan</span>
+        {{ 'and' | translate }}
         <span class="dark:text-white text-black">Omar</span>
     </p>
 </div>

@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 export class SettingComponent {
     @Input() settingName!: string;
     @Input() settingDescription!: string;
-    @Input() settingOptions!: Array<{ label: string, value: string }>;
+    @Input() settingOptions!: Array<{ label: string; value: string }>;
     @Input() settingValue!: string;
     @Input() onChange!: (value: string) => void;
 

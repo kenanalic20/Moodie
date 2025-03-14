@@ -30,7 +30,7 @@
 	"says": "kaže",
 	"Settings": "Postavke",
 	"Theme": "Tema",
-	"Use Google": "Koristi Google",
+	"Use Google (soon)": "Koristi Google (uskoro)",
 	"Username": "Korisničko ime",
 	"Verification Code": "Kod za verifikaciju",
 	"Verify": "Potvrdi",
@@ -146,8 +146,8 @@
 	"Theme changed successfully": "Tema uspješno promijenjena",
 	"Two-Factor Authentication": "Dvofaktorska Autentifikacija",
 	"Enable or disable two-factor authentication for login": "Omogućite ili onemogućite dvofaktorsku autentifikaciju za prijavu",
-	"Enabled": "Omogućite",
-	"Disabled": "Onemogućite",
+	"Enabled": "Uključeno",
+	"Disabled": "Isključeno",
 	"English (US)": "Engleski (US)",
 	"Bosnian (BA)": "Bosanski (BA)",
 	"Light": "Svijetlo",
@@ -230,5 +230,6 @@
 	"Never": "Nikada",
 	"Today": "Danas",
 	"Yesterday": "Jučer",
-	"days ago": "dana ranije"
+	"days ago": "dana ranije",
+	"Profile": "Profil"
 }

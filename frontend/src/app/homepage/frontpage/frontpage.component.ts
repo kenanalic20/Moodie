@@ -11,7 +11,7 @@ export class FrontpageComponent {
     isDevelopment = isDev;
     codeIcon = faCode;
     constructor(private translateService: TranslateService) {}
-    
+
     switchLanguage(language: string) {
         this.translateService.use(language);
     }

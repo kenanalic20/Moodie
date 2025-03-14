@@ -5,36 +5,43 @@
     <div class="max-w-lg flex flex-col place-content-center text-center gap-10">
         <div class="cursor-pointer" routerLink="/">
             <h1 class="text-4xl sm:text-7xl font-bold mb-4 transition-all">
-                Moodie <em>{{'says'|translate}}</em> {{'hi'|translate}}!
+                Moodie <em>{{ 'says' | translate }}</em> {{ 'hi' | translate }}!
             </h1>
             <p class="text-s font-sans sm:text-2xl mb-4 transition-all">
-                {{"Let's reset your password"|translate}}
+                {{ "Let's reset your password" | translate }}
             </p>
         </div>
 
         <div>
-
-            <app-input  *ngIf="!token" placeholder="Email" type="email" (valueChange)="onEmailChange($event)"/>
-            <app-input *ngIf="token" placeholder="Password" type="password" (valueChange)="onPasswordChange($event)" />
+            <app-input
+                *ngIf="!token"
+                placeholder="Email"
+                type="email"
+                (valueChange)="onEmailChange($event)" />
+            <app-input
+                *ngIf="token"
+                placeholder="Password"
+                type="password"
+                (valueChange)="onPasswordChange($event)" />
             <div class="flex flex-col gap-4">
                 <div class="flex gap-4">
                     <button
                         class="w-1/2 p-2 font-sans rounded-xl bg-transparent border-background-100 border-2 dark:text-white text-black hover:text-white hover:bg-background-100 transition-all"
                         routerLink="/auth/login">
-                        {{'Go back'|translate}}
+                        {{ 'Go back' | translate }}
                     </button>
                     <button
                         *ngIf="!token"
                         (click)="requestReset()"
                         class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
-                        {{'Reset'|translate}}
+                        {{ 'Reset' | translate }}
                     </button>
                     <button
                         *ngIf="token"
                         routerLink="/auth/login"
                         (click)="resetPassword()"
                         class="w-1/2 p-2 font-sans rounded-xl bg-background-200 text-white hover:bg-background-100 transition-all">
-                        {{'Reset'|translate}}
+                        {{ 'Reset' | translate }}
                     </button>
                 </div>
 

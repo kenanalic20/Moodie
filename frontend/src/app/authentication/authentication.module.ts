@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
     declarations: [
         LoginComponent,
@@ -19,7 +18,14 @@ import { SharedModule } from '../shared/shared.module';
         RegisterComponent,
         InputComponent,
     ],
-    imports: [CommonModule, AuthenticationRoutingModule, FontAwesomeModule,HttpClientModule,SharedModule,TranslateModule],
+    imports: [
+        CommonModule,
+        AuthenticationRoutingModule,
+        FontAwesomeModule,
+        HttpClientModule,
+        SharedModule,
+        TranslateModule,
+    ],
     exports: [
         LoginComponent,
         ResetComponent,

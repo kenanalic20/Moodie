@@ -7,53 +7,62 @@ import { of } from 'rxjs';
 import { SettingsService } from '../services/settings.service';
 
 @Component({
-  selector: 'app-language-switcher',
-  templateUrl: './language-switcher.component.html',
+    selector: 'app-language-switcher',
+    templateUrl: './language-switcher.component.html',
 })
 export class LanguageSwitcherComponent {
-  languages: Array<{ id: number, code: string, name: string, region: string }> = [];
-  isAuthenticated: boolean = false;
-  settings?: any;
+    languages: Array<{
+        id: number;
+        code: string;
+        name: string;
+        region: string;
+    }> = [];
+    isAuthenticated: boolean = false;
+    settings?: any;
 
-  constructor(
-    private translateService: TranslateService,
-    private languageService: LanguageService,
-    private authService: AuthService,
-    private settingsService: SettingsService
-  ) {}
+    constructor(
+        private translateService: TranslateService,
+        private languageService: LanguageService,
+        private authService: AuthService,
+        private settingsService: SettingsService
+    ) {}
 
-  ngOnInit() {
-    this.languageService.getLanguage().subscribe((data: any) => {
-      this.languages = data;
-    });
-
-    this.authService.isAuthenticated().pipe(
-      catchError((error) => {
-        console.log('Error checking authentication:', error);
-        return of(false);
-      })
-    ).subscribe((isAuthenticated) => {
-      if (isAuthenticated) {
-        this.isAuthenticated = true;
-
-        this.settingsService.getSettings().subscribe((res) => {
-          this.settings = res;
-
-          const preferredLanguage = this.settings?.preferredLanguage;
-
-          if (preferredLanguage) {
-            this.switchLanguage(preferredLanguage);
-          }
+    ngOnInit() {
+        this.languageService.getLanguage().subscribe((data: any) => {
+            this.languages = data;
         });
-      } else {
-        this.isAuthenticated = false;
-      }
-    });
-  }
 
-  switchLanguage(language: string) {
-    localStorage.setItem('Language', language);
+        this.authService
+            .isAuthenticated()
+            .pipe(
+                catchError(error => {
+                    console.log('Error checking authentication:', error);
+                    return of(false);
+                })
+            )
+            .subscribe(isAuthenticated => {
+                if (isAuthenticated) {
+                    this.isAuthenticated = true;
 
-    this.translateService.use(language);
-  }
+                    this.settingsService.getSettings().subscribe(res => {
+                        this.settings = res;
+
+                        const preferredLanguage =
+                            this.settings?.preferredLanguage;
+
+                        if (preferredLanguage) {
+                            this.switchLanguage(preferredLanguage);
+                        }
+                    });
+                } else {
+                    this.isAuthenticated = false;
+                }
+            });
+    }
+
+    switchLanguage(language: string) {
+        localStorage.setItem('Language', language);
+
+        this.translateService.use(language);
+    }
 }

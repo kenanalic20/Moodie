@@ -1,28 +1,54 @@
 <app-header></app-header>
 
-<div class="w-full mt-32 h-full flex flex-col flex-grow justify-center items-center">
-    <div class="flex flex-row justify-center flex-grow  items-starts flex-wrap w-[80vw] w-max-[1000px] p-2">
+<div
+    class="w-full mt-32 h-full flex flex-col flex-grow justify-center items-center">
+    <div
+        class="flex flex-row justify-center flex-grow items-starts flex-wrap w-[80vw] w-max-[1000px] p-2">
         <div class="w-full flex flex-col items-center mb-8">
-            <h1 class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
-                {{"Calendar"|translate}}
+            <h1
+                class="text-4xl sm:text-6xl font-bold mb-4 transition-all text-center">
+                {{ 'Calendar' | translate }}
             </h1>
             <div class="flex items-center gap-4 mb-4">
-                <button (click)="previousMonth()" 
+                <button
+                    (click)="previousMonth()"
                     class="p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
-                <h2 class="text-2xl font-semibold">{{ getMonthName()|translate }} {{ selectedYear }}</h2>
-                <button (click)="nextMonth()"
+                <h2 class="text-2xl font-semibold">
+                    {{ getMonthName() | translate }} {{ selectedYear }}
+                </h2>
+                <button
+                    (click)="nextMonth()"
                     class="p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7" />
                     </svg>
                 </button>
             </div>
-            <p class="w-full text-center p-2 font-sans text-lg dark:text-neutral-300 text-neutral-700 select-none">
-               {{"What's been happening here and there"|translate}}
+            <p
+                class="w-full text-center p-2 font-sans text-lg dark:text-neutral-300 text-neutral-700 select-none">
+                {{ "What's been happening here and there" | translate }}
             </p>
         </div>
         <app-day *ngFor="let day of days" [day]="day"></app-day>

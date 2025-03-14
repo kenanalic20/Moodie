@@ -1,5 +1,6 @@
 <div class="w-full flex flex-col items-center justify-center gap-8 h-fit p-16">
-    <div class="h-32 w-full max-w-[1000px] md:w-32 flex gap-8 justify-center align-middle p-4">
+    <div
+        class="h-32 w-full max-w-[1000px] md:w-32 flex gap-8 justify-center align-middle p-4">
         <div
             (click)="select(icon.value)"
             *ngFor="let icon of icons"
@@ -7,11 +8,12 @@
             <span
                 [title]="icon.name"
                 class="text-5xl sm:text-7xl transition-all hover:opacity-75">
-                {{icon.emoji}}
+                {{ icon.emoji }}
             </span>
-            <h2 class="font-sans {{
-                this.selected === icon.value && 'font-bold'
-            }} sm:text-xl font-sans text-xs dark:text-neutral-300 text-neutral-700">
+            <h2
+                class="font-sans {{
+                    this.selected === icon.value && 'font-bold'
+                }} sm:text-xl font-sans text-xs dark:text-neutral-300 text-neutral-700">
                 {{ icon.name | translate }}
             </h2>
         </div>
@@ -20,6 +22,6 @@
         *ngIf="selected !== -1"
         (click)="addMood()"
         class="font-sans text-lg dark:text-black text-white dark:bg-white bg-neutral-600 rounded-lg px-4 py-2 hover:scale-105 transition-all">
-        {{"That's it, save." | translate}}
+        {{ "That's it, save." | translate }}
     </button>
 </div>
