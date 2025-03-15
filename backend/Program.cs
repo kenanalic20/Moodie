@@ -11,6 +11,7 @@ using Moodie.Models;
 using Moodie.Services;
 
 
+
 namespace Moodie
 {
     public class Program
@@ -82,6 +83,7 @@ public class Startup
         services.AddScoped<IExportService, ExportService>();
         services.AddScoped<IAchievementRepo, AchievementRepo>(); // Add this line
         services.AddScoped<IMoodActivityRepo,ModActivityRepo>();
+        services.AddScoped<IStatsRepo, StatsRepo>();
 
         services.AddHostedService<HabitCheckService>();
     }

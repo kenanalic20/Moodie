@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moodie.Data;
 
 namespace Moodie.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250315050533_AddUserAndMoodStatisticsTables")]
+    partial class AddUserAndMoodStatisticsTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -433,9 +435,6 @@ namespace Moodie.Migrations
                     b.Property<double>("AverageMood")
                         .HasColumnType("REAL");
 
-                    b.Property<DateTime>("CalculationDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("DayOfWeek")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -448,7 +447,8 @@ namespace Moodie.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Statistics");
                 });
@@ -706,8 +706,8 @@ namespace Moodie.Migrations
             modelBuilder.Entity("Moodie.Models.Statistics", b =>
                 {
                     b.HasOne("Moodie.Models.User", "User")
-                        .WithMany("Statistics")
-                        .HasForeignKey("UserId")
+                        .WithOne("Statistics")
+                        .HasForeignKey("Moodie.Models.Statistics", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -795,7 +795,8 @@ namespace Moodie.Migrations
                     b.Navigation("Settings")
                         .IsRequired();
 
-                    b.Navigation("Statistics");
+                    b.Navigation("Statistics")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

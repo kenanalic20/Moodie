@@ -19,52 +19,30 @@
             <div
                 class="md:border dark:border-neutral-300 border-neutral-700 rounded-xl p-2">
                 <div
-                    class="flex h-32 items-end md:gap-8 p-2 justify-between font-sans">
+                    class="flex h-32 items-end md:gap-6 p-2 justify-between font-sans">
                     <div
-                        #monday
-                        class="h-20 w-20 md:w-full text-center p-1 bg-blue-500 rounded-xl md:hover:w-[1000px] transition-all">
-                        3
-                    </div>
-                    <div
-                        #tuesday
-                        class="h-24 w-20 md:w-full text-center p-1 bg-red-500 rounded-xl md:hover:w-[1000px] transition-all">
-                        3.5
-                    </div>
-                    <div
-                        #wednesday
-                        class="h-16 w-20 md:w-full text-center p-1 bg-green-500 rounded-xl md:hover:w-[1000px] transition-all">
-                        2
-                    </div>
-                    <div
-                        #thursday
-                        class="h-32 w-20 md:w-full text-center p-1 bg-purple-500 rounded-xl md:hover:w-[1000px] transition-all">
-                        5
-                    </div>
-                    <div
-                        #friday
-                        class="h-28 w-20 md:w-full text-center p-1 bg-yellow-500 rounded-xl md:hover:w-[1000px] transition-all"></div>
-                    <div
-                        #saturday
-                        class="h-20 w-20 md:w-full text-center p-1 bg-indigo-500 rounded-xl md:hover:w-[1000px] transition-all">
-                        3.5
-                    </div>
-                    <div
-                        #sunday
-                        class="h-16 w-20 md:w-full text-center p-1 bg-pink-500 rounded-xl md:hover:w-[1000px] transition-all">
-                        3
+                        *ngFor="let stat of statData"
+                        [style.height.%]="stat.averageMood * 24"
+                        [ngClass]="{
+                            'bg-blue-500': stat.dayOfWeek === 'Mon',
+                            'bg-red-500': stat.dayOfWeek === 'Tue',
+                            'bg-green-500': stat.dayOfWeek === 'Wed',
+                            'bg-purple-500': stat.dayOfWeek === 'Thu',
+                            'bg-yellow-500': stat.dayOfWeek === 'Fri',
+                            'bg-indigo-500': stat.dayOfWeek === 'Sat',
+                            'bg-pink-500': stat.dayOfWeek === 'Sun'
+                        }"
+                        class="h-24 w-20 md:w-full text-center p-1 rounded-xl md:hover:w-[1000px] transition-all">
+                        {{ stat.averageMood}}
                     </div>
                 </div>
             </div>
 
             <div
                 class="dark:text-neutral-300 text-neutral-700 flex font-sans md:pt-4 items-center justify-between">
-                <span class="text-center w-full">{{ 'Mon' | translate }}</span>
-                <span class="text-center w-full">{{ 'Tue' | translate }}</span>
-                <span class="text-center w-full">{{ 'Wed' | translate }}</span>
-                <span class="text-center w-full">{{ 'Thu' | translate }}</span>
-                <span class="text-center w-full">{{ 'Fri' | translate }}</span>
-                <span class="text-center w-full">{{ 'Sat' | translate }}</span>
-                <span class="text-center w-full">{{ 'Sun' | translate }}</span>
+                <span *ngFor="let stat of statData" class="text-center w-full">
+                    {{ stat.dayOfWeek  | translate }}
+                </span>
             </div>
         </div>
     </div>

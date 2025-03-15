@@ -11,4 +11,6 @@ public interface IMoodRepo
     List<Mood> GetByUserId(int userId);
     List<MoodExportDto> GetExportByUserId(int userId);
     public void Delete(int id);
+
+    Dictionary<string, double> GetDailyAverageMood(int userId);
 }

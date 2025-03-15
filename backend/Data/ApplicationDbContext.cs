@@ -28,6 +28,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<UserAchievement> UserAchievements { get; set; }
     public DbSet<ErrorDetails> ErrorDetails{ get; set; }
     public DbSet<MoodActivity> MoodActivities { get; set; }
+    public DbSet<Statistics> Statistics { get; set; }   
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -36,6 +37,11 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<User>()
+        .HasMany(u => u.Statistics)
+        .WithOne(s => s.User)
+        .HasForeignKey(s => s.UserId);
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasIndex(e => e.Username).IsUnique();

@@ -18,4 +18,5 @@ public class User
     [JsonIgnore] public List<Habit> Habits { get; set; }
     [JsonIgnore] public List<UserAchievement> Achievements { get; set; }
     [JsonIgnore] public Settings Settings {get; set;}
+    [JsonIgnore] public List<Statistics> Statistics { get; set; } = new List<Statistics>();
 }
