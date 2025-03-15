@@ -79,7 +79,7 @@ export class CalendarMoodInformationModalComponent {
     }
 
     removeNotes(id: number) {
-        if (confirm('This action will remove both notes and mood!!')) {
+        if (confirm(this.translateService.instant('This action will remove both notes and mood!!'))) {
             this.notesService.deleteNotes(id).subscribe((res: any) => {
                 this.moods = this.moods.map(mood => {
                     console.log(mood);
@@ -97,16 +97,19 @@ export class CalendarMoodInformationModalComponent {
     }
 
     removeMood(mood: any) {
-        this.moodService.deleteMood(mood.id).subscribe((res: any) => {
-            this.toastrService.success('Mood removed successfully', 'Success');
-
-            this.moods = this.moods.filter(m => m.id !== mood.id);
-
-            this.moodDeleted.emit(mood.id);
-        });
+        if(confirm(this.translateService.instant('Are you sure you want to delete this mood?'))) {
+            this.moodService.deleteMood(mood.id).subscribe((res: any) => {
+                this.toastrService.success(
+                    this.translateService.instant('Mood removed successfully'),
+                    this.translateService.instant('Success')
+                );
+            
+                this.moods = this.moods.filter(m => m.id !== mood.id);
+            
+                this.moodDeleted.emit(mood.id);
+            });
+        }
     }
-
-    ngOnChange() {}
 
     editNotes(notesId: number, mood: Mood) {
         const initialState = {

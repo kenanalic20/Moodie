@@ -39,6 +39,14 @@ export class HeaderComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        //Pleas store these values in backend for the love of GOD set defaults in the backend here!!!
+        /*Combine settings from backend with local storage for example 
+        if user when logged in changes language to bosnian it needs to store that id in settings table
+        and when he logs out if he changes languages it shoudnt inpact the language that is stored 
+        in db and when he logs in again you need to fatch the language that is stored
+        on backend by id*/
+
+
         // Check if user is using dark mode
         this.isDarkTheme =
             localStorage.getItem('theme') === 'dark' ||
@@ -121,7 +129,13 @@ export class HeaderComponent implements OnInit {
 
     toggleLanguage(): void {
         this.currentLanguage = this.currentLanguage === 'EN' ? 'BS' : 'EN';
-        localStorage.setItem('language', this.currentLanguage);
+        /*Here you need to get id of a language from backend and call https request to
+        settings endpoint to stor that language id on toggle. You will probably ask
+        why do i need to store language id on backend and my answer is to be able to 
+        translate exported files to languages chosen from thes switchers. Pleas for
+        the love of GOD do it that way so we have 15 tables to be able to finish this fricking 
+        subject*/
+        localStorage.setItem('Language', this.currentLanguage.toLowerCase());
         console.log('Language changed to:', this.currentLanguage);
         this.translate.use(this.currentLanguage.toLowerCase());
     }

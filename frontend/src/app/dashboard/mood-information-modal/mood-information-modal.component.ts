@@ -71,7 +71,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
             .subscribe(
                 res => {
                     this.toastrService.success(
-                        'Activity added successfully',
+                        this.translateService.instant('Activity added successfully'),
                         this.translateService.instant('Success')
                     );
                     this.showActivityInput();
@@ -93,7 +93,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
     setNotes() {
         if (!this.title || !this.description) {
             this.toastrService.error(
-                'Title and Description are required',
+                this.translateService.instant('Title and Description are required'),
                 this.translateService.instant('Error')
             );
             return;
@@ -122,7 +122,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
         if (this.notesId == 0) {
             this.notesService.addNotes(formData).subscribe(() => {
                 this.toastrService.success(
-                    'Notes added successfully',
+                    this.translateService.instant('Notes added successfully'),
                     this.translateService.instant('Success')
                 );
                 this.isLoading = false;
@@ -131,7 +131,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
         } else {
             this.notesService.updateNotes(formData).subscribe((res: any) => {
                 this.toastrService.success(
-                    res.message,
+                    this.translateService.instant(res.message),
                     this.translateService.instant('Success')
                 );
                 this.bsModalRef.hide();
@@ -164,7 +164,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
             .subscribe(res => {
                 this.selectedActivities.add(id);
                 this.toastrService.success(
-                    'Activity selected successfully',
+                    this.translateService.instant('Activity selected successfully'),
                     this.translateService.instant('Success')
                 );
             });
@@ -176,7 +176,7 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
             .subscribe(res => {
                 this.selectedActivities.delete(id);
                 this.toastrService.success(
-                    'Activity selected successfully',
+                    this.translateService.instant('Activity deleted successfully'),
                     this.translateService.instant('Success')
                 );
             });
@@ -191,16 +191,6 @@ export class MoodInformationModalComponent implements OnDestroy, OnInit {
                     this.imageUrl = note.imagePath;
                 }
             },
-            error => {
-                this.translateService
-                    .get(error.error)
-                    .subscribe((res: string) => {
-                        this.toastrService.error(
-                            res,
-                            this.translateService.instant('Error')
-                        );
-                    });
-            }
         );
     }
 

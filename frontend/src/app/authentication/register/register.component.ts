@@ -61,7 +61,7 @@ export class RegisterComponent {
             return;
         }
         if (this.password !== this.confirmPassword) {
-            this.toastrService.success(
+            this.toastrService.error(
                 this.translateService.instant('Passwords do not match'),
                 this.translateService.instant('Error')
             );
@@ -82,6 +82,11 @@ export class RegisterComponent {
                     this.translateService.instant('Success')
                 );
                 this.router.navigate(['/login']);
+            },(error:any)=>{
+                this.toastrService.error(
+                    this.translateService.instant(error.error),
+                    this.translateService.instant('Error')
+                );
             });
     }
 }

@@ -15,7 +15,7 @@ export class HabitsComponent implements OnInit {
 
     constructor(
         private habitService: HabitService,
-        private toastr: ToastrService,
+        private toastrService: ToastrService,
         private translateService: TranslateService
     ) {}
 
@@ -29,7 +29,7 @@ export class HabitsComponent implements OnInit {
                 this.habits = habits;
             },
             error: error => {
-                this.toastr.error(
+                this.toastrService.error(
                     this.translateService.instant('Failed to load habits'),
                     this.translateService.instant('Error')
                 );
@@ -40,7 +40,7 @@ export class HabitsComponent implements OnInit {
 
     addHabit() {
         if (!this.newHabitName.trim()) {
-            this.toastr.error(
+            this.toastrService.error(
                 this.translateService.instant('Habit name is required'),
                 this.translateService.instant('Error')
             );
@@ -56,14 +56,14 @@ export class HabitsComponent implements OnInit {
                     this.newHabitDesc = '';
 
                     if (response.newAchievements?.length > 0) {
-                        this.toastr.success(
+                        this.toastrService.success(
                             this.translateService.instant(
                                 'You earned a new achievement!'
                             ),
                             this.translateService.instant('Success')
                         );
                     } else {
-                        this.toastr.success(
+                        this.toastrService.success(
                             this.translateService.instant(
                                 'Habit added successfully'
                             ),
@@ -72,7 +72,7 @@ export class HabitsComponent implements OnInit {
                     }
                 },
                 error: error => {
-                    this.toastr.error(
+                    this.toastrService.error(
                         this.translateService.instant('Failed to add habit'),
                         this.translateService.instant('Error')
                     );
@@ -83,7 +83,7 @@ export class HabitsComponent implements OnInit {
 
     deleteHabit(id?: number) {
         if (!id) {
-            this.toastr.error(
+            this.toastrService.error(
                 this.translateService.instant('Invalid habit ID'),
                 this.translateService.instant('Error')
             );
@@ -92,13 +92,13 @@ export class HabitsComponent implements OnInit {
         this.habitService.deleteHabit(id).subscribe({
             next: () => {
                 this.loadHabits();
-                this.toastr.success(
+                this.toastrService.success(
                     this.translateService.instant('Habit deleted successfully'),
                     this.translateService.instant('Success')
                 );
             },
             error: error => {
-                this.toastr.error(
+                this.toastrService.error(
                     this.translateService.instant('Failed to delete habit'),
                     this.translateService.instant('Error')
                 );
@@ -109,7 +109,7 @@ export class HabitsComponent implements OnInit {
 
     checkIn(habit: Habit) {
         if (!habit.id) {
-            this.toastr.error(
+            this.toastrService.error(
                 this.translateService.instant('Invalid habit ID'),
                 this.translateService.instant('Error')
             );
@@ -118,7 +118,7 @@ export class HabitsComponent implements OnInit {
 
         // Check if already checked in today
         if (!this.canCheckIn(habit)) {
-            this.toastr.warning(
+            this.toastrService.warning(
                 this.translateService.instant('Already checked in today'),
                 this.translateService.instant('Warning')
             );
@@ -131,14 +131,14 @@ export class HabitsComponent implements OnInit {
                 if (index !== -1) {
                     this.habits[index] = updatedHabit;
                 }
-                this.toastr.success(
+                this.toastrService.success(
                     this.translateService.instant('Check-in successful'),
                     this.translateService.instant('Success')
                 );
             },
             error: error => {
                 console.error(error);
-                this.toastr.error(
+                this.toastrService.error(
                     this.translateService.instant('Failed to check in'),
                     this.translateService.instant('Error')
                 );

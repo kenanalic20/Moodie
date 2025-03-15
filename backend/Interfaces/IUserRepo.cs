@@ -9,4 +9,5 @@ public interface IUserRepo
     User GetById(int id);
     User GetByEmailToken(string token);
     User Update(User user);
+    User GetByUsername(string username);
 }

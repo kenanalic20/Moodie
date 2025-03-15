@@ -82,9 +82,10 @@ export class LoginComponent {
                         this.translateService.instant('Logged in successfully'),
                         this.translateService.instant('Success')
                     );
-
+                    
                     this.settingsService.getSettings().subscribe(
                         (settings: any) => {
+                            console.log(settings.languageId);
                             this.languageService
                                 .getLanguageById(settings.languageId)
                                 .subscribe((language: any) => {

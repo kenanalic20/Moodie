@@ -49,7 +49,7 @@ export class ActivityEditModalComponent implements OnInit {
                             this.translateService.instant(
                                 'Activity updated successfully'
                             ),
-                            'Success'
+                             this.translateService.instant('Success')
                         );
                         this.onClose.emit();
                         this.bsModalRef.hide();
@@ -59,7 +59,7 @@ export class ActivityEditModalComponent implements OnInit {
                             this.translateService.instant(
                                 'Error updating activity'
                             ),
-                            'Error'
+                            this.translateService.instant('Error')
                         );
                     },
                 });

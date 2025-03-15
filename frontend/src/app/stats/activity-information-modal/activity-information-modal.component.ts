@@ -54,7 +54,7 @@ export class ActivityInformationModalComponent {
     removeActivity(id: number) {
         if (
             confirm(
-                'Are you sure you want to delete your personal information?'
+                this.translateService.instant('Are you sure you want to delete your personal information?')
             )
         ) {
             this.activityService.deleteActivity(id).subscribe({
@@ -63,17 +63,18 @@ export class ActivityInformationModalComponent {
                         this.translateService.instant(
                             'Activity deleted successfully'
                         ),
-                        'Success'
+                        this.translateService.instant('Success')
+
                     );
                     this.activityDeleted.emit();
-                    // this.bsModalRef.hide();
                 },
                 error: error => {
                     this.toastrService.error(
                         this.translateService.instant(
                             'An error occurred while deleting the activity'
                         ),
-                        'Error'
+                        this.translateService.instant('Error')
+                        
                     );
                 },
             });

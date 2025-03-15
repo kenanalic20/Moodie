@@ -203,6 +203,7 @@
 	"Password reset successful": "Uspješno restartovana lozinka",
 	"Invalid or expired token": "Token nije validan ili je istekao",
 	"Notes removed successfully": "Uspješno izbrisana bilješka",
+	"Mood removed successfully": "Raspoloženje uspješno izbrisano",
 
 	"Habits": "Navike",
 	"Build consistency with daily habits": "Budite bolji sa svakodnevnim navikama",
@@ -216,7 +217,6 @@
 	"Last Check-in": "Posljednja prijava",
 	"Check-in": "Prijavi se",
 	"Already Checked-in": "Već prijavljeno",
-	"Delete": "Izbriši",
 	"Habit name is required": "Naziv navike je obavezan",
 	"Failed to load habits": "Nije uspjelo učitavanje navika",
 	"Habit added successfully": "Navika uspješno dodana",
@@ -231,5 +231,25 @@
 	"Today": "Danas",
 	"Yesterday": "Jučer",
 	"days ago": "dana ranije",
-	"Profile": "Profil"
+	"Profile": "Profil",
+	"Username already exists": "Korisničko ime već postoji",
+	"Email already exists": "Email već postoji",
+	"Invalid credentials": "Neispravni podaci",
+	"Login successful": "Uspješna prijava",
+	"Verification code sent to your email": "Kod za verifikaciju poslan na vaš email",
+	"Invalid verification code": "Neispravan kod za verifikaciju",
+	"Pleas insert email": "Molimo unesite email",
+	"User not found": "Korisnik nije pronađen",
+	"Mood added successfully": "Raspoloženje uspješno dodano",
+	"Activity added successfully": "Aktivnost uspješno dodana",
+	"You can only have 20 activities": "Možete imati samo 20 aktivnosti",
+	"Title and Description are required": "Naslov i opis su obavezni",
+	"Notes added successfully": "Bilješka uspješno dodana",
+	"Notes updated successfully": "Bilješka uspješno ažurirana",
+	"Activity selected successfully": "Aktivnost uspješno odabrana",
+	"Activity deleted successfully": "Aktivnost uspješno izbrisana",
+	"This action will remove both notes and mood!!": "Ova akcija će ukloniti i bilješke i raspoloženje!!",
+	"Are you sure you want to delete your personal information?": "Da li ste sigurni da želite izbrisati vaše lične podatke?",
+	"Are you sure you want to delete this mood?": "Da li ste sigurni da želite izbrisati ovo raspoloženje?"
+	
 }

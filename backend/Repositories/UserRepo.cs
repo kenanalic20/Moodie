@@ -42,5 +42,9 @@ public class UserRepo : IUserRepo
         return user;
     }
 
+    public User GetByUsername(string username)
+    {
+        return _context.Users.FirstOrDefault(u => u.Username == username);
+    }
     
 }

@@ -16,7 +16,8 @@ export class LanguageService {
     ) {}
 
     getLanguage(): Observable<any> {
-        return this.http.get('/assets/i18n/languages.json');
+        const url = `${this.apiUrl}/languages`;
+        return this.http.get(url);
     }
 
     getLanguageById(id: number) {
@@ -27,13 +28,13 @@ export class LanguageService {
     // New helper method to ensure consistent language handling
     setCurrentLanguage(language: string): void {
         const lang = language.toUpperCase();
-        localStorage.setItem('language', lang);
+        localStorage.setItem('Language', lang);
         this.translateService.use(lang.toLowerCase());
         console.log('Language service set language to:', lang);
     }
 
     // Get current language with fallback
     getCurrentLanguage(): string {
-        return localStorage.getItem('language') || 'EN';
+        return localStorage.getItem('Language') || 'EN';
     }
 }

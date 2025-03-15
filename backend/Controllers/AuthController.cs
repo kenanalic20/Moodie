@@ -36,6 +36,8 @@ public class AuthController : Controller
         };
 
         var exists = _repositoryUser.GetByEmail(user.Email);
+        var existsUsername = _repositoryUser.GetByUsername(user.Username);
+        if(existsUsername != null) return BadRequest("Username already exists");
         if (exists != null) return BadRequest("Email already exists");
 
         _emailService.SendVerificationEmail(user.Email, user.EmailToken);

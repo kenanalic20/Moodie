@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserInfo, UserInfoService } from '../services/user-info.service';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-user-info',
     templateUrl: './user-info.component.html',
@@ -17,7 +17,8 @@ export class UserInfoComponent implements OnInit {
 
     constructor(
         private userInfoService: UserInfoService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private translateService: TranslateService
     ) {
         this.userInfoForm = this.fb.group({
             firstName: [''],
@@ -153,7 +154,7 @@ export class UserInfoComponent implements OnInit {
     deleteUserInfo(): void {
         if (
             confirm(
-                'Are you sure you want to delete your personal information?'
+                this.translateService.instant('Are you sure you want to delete your personal information?')
             )
         ) {
             this.userInfoService.deleteUserInfo().subscribe({

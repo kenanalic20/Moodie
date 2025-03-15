@@ -3,6 +3,7 @@ import { MoodInformationModalComponent } from '../mood-information-modal/mood-in
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { MoodService } from '../../services/mood.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 interface MoodIcon {
     emoji: string;
@@ -20,7 +21,8 @@ export class MoodSelectorSimpleComponent {
     constructor(
         private modalService: BsModalService,
         private moodService: MoodService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private translateService: TranslateService
     ) {}
 
     icons: MoodIcon[] = [
@@ -83,7 +85,10 @@ export class MoodSelectorSimpleComponent {
             .subscribe(res => {
                 console.log('Mood added response:', res);
                 this.OpenModal(res);
-                this.toastrService.success('Mood added successfully');
+                this.toastrService.success(
+                    this.translateService.instant('Mood added successfully'),
+                    this.translateService.instant('Success')
+                );
             });
     }
 }
