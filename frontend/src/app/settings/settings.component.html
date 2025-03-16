@@ -10,6 +10,21 @@
             {{ 'Change things up' | translate }}
         </div>
     </div>
+    <!-- <app-setting
+        [onChange]="onThemeChange"
+        [settingOptions]="[{ label: 'Light', value: 'light' }, { label: 'Dark', value: 'dark' }]"
+        settingDescription="Change the theme of the application"
+        settingName="Theme"
+        [settingValue]="currentTheme">
+    </app-setting>
+    
+    <app-setting
+        settingName="Language"
+        [onChange]="onLanguageChange"
+        [settingOptions]="languageOptions"
+        settingDescription="Change the language of the application"
+        [settingValue]="currentLanguage">
+    </app-setting> -->
     <app-setting
         settingName="Two-Factor Authentication"
         [onChange]="onTwoFactorChange"

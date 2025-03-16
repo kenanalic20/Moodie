@@ -20,9 +20,16 @@ IF NOT EXIST frontend\node_modules (
     )
 )
 
+REM Create necessary directories for backend
+echo Checking backend directories...
+IF NOT EXIST backend\Uploads mkdir backend\Uploads
+IF NOT EXIST backend\Uploads\Images mkdir backend\Uploads\Images
+echo Backend directories verified.
+
 REM Start backend
 echo Starting backend...
-start cmd /k "cd backend && dotnet run"
+start cmd /k "cd backend && dotnet watch run"
+
 REM Start frontend
 echo Starting frontend...
 cd frontend
