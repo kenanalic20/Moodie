@@ -53,6 +53,8 @@ public class AuthController : Controller
 
         if (!BCrypt.Net.BCrypt.Verify(Dto.Password, user.Password)) return Unauthorized("Invalid credentials");
 
+        if (!user.IsVerifiedEmail) return BadRequest("Email not verified. Please check your email for verification link.");
+
         var settings = _repositorySettings.GetByUserId(user.Id);
         bool twoFactorEnabled = settings != null && settings.TwoFactorEnabled;
 
@@ -121,19 +123,19 @@ public class AuthController : Controller
         var user = _repositoryUser.GetByEmailToken(token);
         if (user == null) return NotFound("User not found");
 
-        if (user.IsVerifiedEmail) return BadRequest("Email already verified");
+        if (user.IsVerifiedEmail) return Redirect($"http://localhost:4200/login?email={user.Email}");
 
         user.IsVerifiedEmail = true;
 
         _repositoryUser.Update(user);
-        return Redirect("http://localhost:4200/emailVerified");
+        return Redirect($"http://localhost:4200/login?email={user.Email}");
     }
 
     [HttpPost("request-reset-password")]
     public IActionResult RequestResetPassword(RequestResetPasswordDto Dto)
     {
         if (string.IsNullOrEmpty(Dto.Email))
-            return BadRequest("Pleas insert email");
+            return BadRequest("Please insert email");
 
         var user = _repositoryUser.GetByEmail(Dto.Email);
 

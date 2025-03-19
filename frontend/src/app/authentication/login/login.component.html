@@ -15,6 +15,7 @@
         <div>
             <app-input
                 placeholder="Email"
+                [defaultValue]="email"
                 type="email"
                 (valueChange)="onEmailChange($event)" />
             <app-input
@@ -68,6 +69,14 @@
                 {{ 'Forgot your password?' | translate }}
                 <a class="text-blue-500" href="/auth/reset">{{
                     'Reset it' | translate
+                }}</a>
+            </p>
+            
+            <!-- New section for resending verification email -->
+            <p class="text-sm mt-2 font-sans">
+                {{ "Didn't receive verification email?" | translate }}
+                <a class="text-blue-500 cursor-pointer" (click)="resendVerificationEmail()" href="javascript:void(0)">{{
+                    'Resend it' | translate
                 }}</a>
             </p>
         </div>

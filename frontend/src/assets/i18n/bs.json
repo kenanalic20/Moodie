@@ -254,10 +254,19 @@
 	"Enter a status (e.g., Profile Picture, Favorite)": "Unesite status (npr. Profilna slika, Omiljeno)",
 	"Photo status": "Status slike",
 	"Image uploaded successfully": "Slika uspješno učitana",
-	"Please select an image":"Molimo izaberite sliku",
+	"Please select an image": "Molimo izaberite sliku",
 	"Are you sure you want to remove your profile photo and status?": "Da li ste sigurni da želite ukloniti vašu profilnu sliku i status?",
 	"Upload Profile Image": "Dodaj Profilnu Sliku",
-  	"Image Status": "Status Slike",
-  	"Select an image": "Odaberite sliku",
-	"Where do you feel the best?":"Gdje se najbolje osjećate?"
+	"Image Status": "Status Slike",
+	"Select an image": "Odaberite sliku",
+	"Where do you feel the best?": "Gdje se najbolje osjećate?",
+
+	"Didn't receive verification email?": "Niste primili email za verifikaciju?",
+	"Resend it": "Pošalji ponovo",
+	"Please enter a valid email first": "Molimo prvo unesite ispravnu email adresu",
+	"Verification email sent. Please check your inbox.": "Email za verifikaciju je poslan. Molimo provjerite vaš inbox.",
+	"Email not verified. Please check your inbox for verification link.": "Email nije verifikovan. Molimo provjerite vaš inbox za link za verifikaciju.",
+	"Verification Required": "Potrebna verifikacija",
+	"Already checked in today": "Već prijavljeno danas",
+	"Warning": "Upozorenje"
 }
