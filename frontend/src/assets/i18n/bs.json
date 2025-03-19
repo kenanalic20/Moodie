@@ -268,5 +268,8 @@
 	"Email not verified. Please check your inbox for verification link.": "Email nije verifikovan. Molimo provjerite vaš inbox za link za verifikaciju.",
 	"Verification Required": "Potrebna verifikacija",
 	"Already checked in today": "Već prijavljeno danas",
-	"Warning": "Upozorenje"
+	"Warning": "Upozorenje",
+	"Country":"Država",
+	"City":"Grad",
+	"Province":"Provincija"
 }

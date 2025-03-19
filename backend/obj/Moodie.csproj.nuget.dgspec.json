@@ -1,25 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "A:\\personal\\Moodie\\backend\\Moodie.csproj": {}
+    "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj": {}
   },
   "projects": {
-    "A:\\personal\\Moodie\\backend\\Moodie.csproj": {
+    "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "A:\\personal\\Moodie\\backend\\Moodie.csproj",
+        "projectUniqueName": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
         "projectName": "Moodie",
-        "projectPath": "A:\\personal\\Moodie\\backend\\Moodie.csproj",
-        "packagesPath": "C:\\Users\\omar\\.nuget\\packages\\",
-        "outputPath": "A:\\personal\\Moodie\\backend\\obj\\",
+        "projectPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\Moodie.csproj",
+        "packagesPath": "C:\\Users\\kenoa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kenoa\\Desktop\\Github\\Moodie\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\omar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\kenoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.317\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,11 +35,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -121,6 +119,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.31, 6.0.31]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.31, 6.0.31]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.31, 6.0.31]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.31, 6.0.31]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -129,7 +145,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.317\\RuntimeIdentifierGraph.json"
         }
       }
     }

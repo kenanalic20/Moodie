@@ -261,6 +261,9 @@
 	"Upload Profile Image": "Upload Profile Image",
   	"Image Status": "Image Status",
   	"Select an image": "Select an image",
-	"Where do you feel the best?":"Where do you feel the best?"
+	"Where do you feel the best?":"Where do you feel the best?",
+	"Country":"Country",
+	"City":"City",
+	"Province":"Province"
   
 }
