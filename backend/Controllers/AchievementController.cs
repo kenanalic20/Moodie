@@ -28,12 +28,10 @@ public class AchievementController : Controller
         
         var userAchievements = _repositoryAchievement.GetUserAchievements(userId);
         
-        // Populate achievement data for each user achievement
         foreach (var userAchievement in userAchievements)
         {
             if (userAchievement.Achievement == null && userAchievement.AchievementId > 0)
             {
-                // Use the new GetById method to retrieve the achievement details
                 userAchievement.Achievement = _repositoryAchievement.GetById(userAchievement.AchievementId);
             }
         }

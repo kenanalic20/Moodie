@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
 
             // Apply stored language if available
             if (language) {
-                console.log('Applying saved language:', language);
                 this.translateService.use(language.toLowerCase());
             } else {
                 this.translateService.use(this.languageCodes[0]);

@@ -4,9 +4,8 @@ namespace Moodie.Interfaces;
 
 public interface IUserImageRepo
 {
-    UserImage Create(UserImage userImage, int userInfoId);
-
-    UserImage GetByUserInfoId(int userInfoId);
-
-    UserImage Delete(int userInfoId);
+    UserImage Create(UserImage userImage);
+    UserImage Update(UserImage userImage);
+    UserImage GetByUserId(int userId);
+    void Delete(int userInfoId);
 }

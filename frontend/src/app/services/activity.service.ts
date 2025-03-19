@@ -15,7 +15,6 @@ export class ActivityService {
             Name,
             Description,
         };
-        console.log(body);
         return this.http.post(url, body, { withCredentials: true });
     }
 

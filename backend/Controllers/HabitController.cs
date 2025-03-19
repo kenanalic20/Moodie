@@ -44,7 +44,6 @@ public class HabitController : Controller
 
         var createdHabit = _habitRepo.Create(habit);
         
-        // Check for achievements
         var newAchievements = CheckAndAwardHabitAchievements(userId);
         
         var result = new 
@@ -116,10 +115,8 @@ public class HabitController : Controller
 
         if (habit == null || habit.UserId != userId) return NotFound();
 
-        // Convert current time to Bosnian time
         var bosnianNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _bosnianTimeZone);
         
-        // Get the date part only for comparison (ignoring time)
         var lastCheckInDate = habit.LastCheckIn.Date;
         var bosnianToday = bosnianNow.Date;
 
@@ -143,7 +140,6 @@ public class HabitController : Controller
     {
         var newAchievements = new List<UserAchievement>();
         
-        // Check for first habit achievement
         if (!_achievementRepo.HasUserEarnedAchievement(userId, "added_habit"))
         {
             var achievement = _achievementRepo.AddUserAchievement(userId, "added_habit");

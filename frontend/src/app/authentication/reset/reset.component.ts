@@ -63,7 +63,6 @@ export class ResetComponent {
 
     resetPassword() {
         if (!this.token) return;
-        console.log(this.token, this.password);
         this.authService.resetPassword(this.token, this.password).subscribe(
             (res: any) => {
                 this.toastrService.success(

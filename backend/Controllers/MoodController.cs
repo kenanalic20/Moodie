@@ -39,7 +39,7 @@ public class MoodController : Controller
 
         var mood = new Mood
         {
-            MoodValue = (int)moodDto.MoodValue,  // Add explicit cast here
+            MoodValue = (int)moodDto.MoodValue,  
             Date = moodDto.Date ?? DateTime.Now,
             User = user,
             UserId = userId,
@@ -47,7 +47,7 @@ public class MoodController : Controller
 
         var createdMood = _repositoryMood.Create(mood);
         
-        // Check for achievements
+       
         var userAchievements = CheckAndAwardMoodAchievements(userId);        
         
         var result = new 
@@ -66,7 +66,6 @@ public class MoodController : Controller
         
         var moods = _repositoryMood.GetByUserId(userId);
         
-                // Get activities for each mood
                 var moodWithActivities = moods.Select(mood => {
                     var activities = _context.MoodActivities
                         .Where(ma => ma.MoodId == mood.Id)
@@ -86,7 +85,6 @@ public class MoodController : Controller
                         Activities = activities
                     };
                 }).ToList();
-        // Get notes for each mood
         var moodWithNotesAndActivities = moods.Select(mood => {
             var notes = _context.Notes
                 .Where(note => note.UserId == userId && note.MoodId == mood.Id)
@@ -136,7 +134,6 @@ public class MoodController : Controller
         var moodCount = _repositoryMood.GetByUserId(userId).Count;
         var newAchievements = new List<UserAchievement>();
                 
-        // Check for first mood achievement
         if (moodCount >= 1)
         {
             if (!_repositoryAchievement.HasUserEarnedAchievement(userId, "1_mood"))
@@ -146,7 +143,6 @@ public class MoodController : Controller
             }
         }
         
-        // Check for 10 moods achievement
         if (moodCount >= 10)
         {
             if (!_repositoryAchievement.HasUserEarnedAchievement(userId, "10_mood"))
@@ -156,7 +152,6 @@ public class MoodController : Controller
             }
         }
         
-        // Check for 50 moods achievement
         if (moodCount >=50 )
         {
             if (!_repositoryAchievement.HasUserEarnedAchievement(userId, "50_mood"))

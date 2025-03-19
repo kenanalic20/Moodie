@@ -7,7 +7,6 @@ public class Notes
 {
     public int Id { get; set; }
     public string Title { get; set; }
-    // public byte[]? Image { get; set; }
     public string? ImagePath { get; set; }
     public string Description { get; set; }
     public DateTime Date { get; set; }
@@ -15,7 +14,6 @@ public class Notes
     [ForeignKey("UserId")] public int UserId { get; set; }
     [JsonIgnore] public User User { get; set; }
     
-    // Add relationship to Mood
     public int? MoodId { get; set; }
     [JsonIgnore] public Mood? Mood { get; set; }
 }

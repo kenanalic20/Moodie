@@ -35,7 +35,6 @@ export class LoginComponent {
 
     onEmailChange(email: any) {
         this.email = email;
-        console.log(email);
     }
 
     onPasswordChange(password: any) {
@@ -85,7 +84,6 @@ export class LoginComponent {
                     
                     this.settingsService.getSettings().subscribe(
                         (settings: any) => {
-                            console.log(settings.languageId);
                             this.languageService
                                 .getLanguageById(settings.languageId)
                                 .subscribe((language: any) => {
@@ -99,18 +97,6 @@ export class LoginComponent {
                                         preferredLanguage
                                     );
                                 });
-                        },
-                        error => {
-                            console.error(
-                                'Error fetching user settings:',
-                                error
-                            );
-                            this.toastrService.error(
-                                this.translateService.instant(
-                                    'Failed to fetch user settings'
-                                ),
-                                this.translateService.instant('Error')
-                            );
                         }
                     );
 

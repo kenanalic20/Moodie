@@ -15,23 +15,31 @@ public class UserInfoRepo : IUserInfoRepo
         _context = context;
     }
 
-    public UserInfo Create(UserInfo userInfo, int userId)
+    public UserInfo Create(UserInfo userInfo)
+    {
+        _context.UserInfo.Add(userInfo);
+        _context.SaveChanges();
+        return userInfo;
+    }
+
+    public UserInfo Update(UserInfo userInfo, int userId)
     {
         var existingUserInfo = _context.UserInfo.FirstOrDefault(u => u.UserId == userId);
-        if (existingUserInfo != null)
+        if(existingUserInfo != null)
         {
             existingUserInfo.FirstName = userInfo.FirstName;
             existingUserInfo.LastName = userInfo.LastName;
-            existingUserInfo.Gender = userInfo.Gender;
+            existingUserInfo.Gender= userInfo.Gender;
             existingUserInfo.Birthday = userInfo.Birthday;
+
             _context.UserInfo.Update(existingUserInfo);
             _context.SaveChanges();
             return existingUserInfo;
         }
+        else {
+            return null;
+        }
 
-        _context.UserInfo.Add(userInfo);
-        _context.SaveChanges();
-        return userInfo;
     }
 
     public UserInfo GetByUserId(int userId)

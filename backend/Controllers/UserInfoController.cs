@@ -10,62 +10,54 @@ namespace Moodie.Controllers;
 [ApiController]
 public class UserInfoController : Controller
 {
-    private readonly IUserRepo _repositoryUser;
     private readonly IUserInfoRepo _repositoryUserInfo;
     private readonly AuthHelper _authHelper;
 
-    public UserInfoController(IUserRepo repositoryUser,
-        AuthHelper authHelper, IUserInfoRepo repositoryUserInfo)
+    public UserInfoController(
+        AuthHelper authHelper,
+        IUserInfoRepo repositoryUserInfo
+        )
     {
-        _repositoryUser = repositoryUser;
         _authHelper = authHelper;
         _repositoryUserInfo = repositoryUserInfo;
     }
 
-    [HttpPut("user-info")]
-    public IActionResult AddUserInfo(UserInfoDto uidto)
+    [HttpPost("user-info")]
+    public IActionResult AddOrUpdateUserInfo(UserInfoDto userInfoDto)
     {
-        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-       
-        var user = _repositoryUser.GetById(userId);
-        
-        // Check if user info already exists, if so update it instead of creating new
-        var existingInfo = _repositoryUserInfo.GetByUserId(userId);
-        
-        if (existingInfo != null)
-        {
-            // Update existing info
-            existingInfo.FirstName = uidto.FirstName;
-            existingInfo.LastName = uidto.LastName;
-            existingInfo.Gender = uidto.Gender;
-            existingInfo.Birthday = uidto.Birthday;
-            existingInfo.ProfilePhoto = uidto.ProfilePhoto;
-            
-            // Delete old info and create updated version
-            _repositoryUserInfo.Delete(userId);
-            return Created("success", _repositoryUserInfo.Create(existingInfo, userId));
-        }
-        
-        // Create new user info if none exists
-        var userInfo = new UserInfo
-        {
-            FirstName = uidto.FirstName,
-            LastName = uidto.LastName,
-            Gender = uidto.Gender,
-            Birthday = uidto.Birthday,
-            ProfilePhoto = uidto.ProfilePhoto,
-            UserId = userId,
-            User = user
-        };
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
-        return Created("success", _repositoryUserInfo.Create(userInfo, userId));
+        var userInfo = _repositoryUserInfo.GetByUserId(userId);
+        if (userInfo == null)
+        {
+            userInfo = new UserInfo
+            {
+                UserId = userId,
+                FirstName = userInfoDto.FirstName,
+                LastName = userInfoDto.LastName,
+                Gender = userInfoDto.Gender,
+                Birthday = userInfoDto.Birthday,
+
+            };
+            _repositoryUserInfo.Create(userInfo);
+        }
+        else
+        {
+            userInfo.FirstName = userInfoDto.FirstName;
+            userInfo.LastName = userInfoDto.LastName;
+            userInfo.Gender = userInfoDto.Gender;
+            userInfo.Birthday = userInfoDto.Birthday;
+            _repositoryUserInfo.Update(userInfo);
+        }
+
+        return Ok(userInfo);
     }
 
     [HttpGet("user-info")]
     public IActionResult GetUserInfo()
     {
-        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
-        
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+
         var userInfo = _repositoryUserInfo.GetByUserId(userId);
 
         return Ok(userInfo);
@@ -74,7 +66,7 @@ public class UserInfoController : Controller
     [HttpDelete("user-info")]
     public IActionResult DeleteUserInfo()
     {
-        if(!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
+        if (!_authHelper.IsUserLoggedIn(Request, out var userId)) return Unauthorized("Invalid or expired token.");
 
         _repositoryUserInfo.Delete(userId);
         return NoContent();

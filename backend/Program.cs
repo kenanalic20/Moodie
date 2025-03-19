@@ -21,7 +21,6 @@ namespace Moodie
             CreateHostBuilder(args).Build().Run();
         }
 
-        // EF Core uses this method at design time to access the DbContext
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
@@ -48,7 +47,7 @@ public class Startup
             options.AddDefaultPolicy(builder =>
             {
                 builder
-                    .WithOrigins("http://localhost:4200") // Your Angular app URL
+                    .WithOrigins("http://localhost:4200") 
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
@@ -73,17 +72,18 @@ public class Startup
         services.AddScoped<EmailService>();
         services.AddScoped<INotesRepo, NotesRepo>();
         services.AddScoped<IUserInfoRepo, UserInfoRepo>();
-        services.AddScoped<IGoalRepo, GoalRepo>();
         services.AddScoped<IUserImageRepo, UserImageRepo>();
+        services.AddScoped<IGoalRepo, GoalRepo>();
         services.AddScoped<ISettingsRepo, SettingsRepo>();
         services.AddScoped<IActivityRepo, ActivityRepo>();
         services.AddScoped<IHabitRepo, HabitRepo>();
-        services.AddScoped<ILanguageRepo, LanguageRepo>();  // Add this line
+        services.AddScoped<ILanguageRepo, LanguageRepo>();
         services.AddScoped<IExportDataRepo, ExportDataRepo>();
         services.AddScoped<IExportService, ExportService>();
-        services.AddScoped<IAchievementRepo, AchievementRepo>(); // Add this line
+        services.AddScoped<IAchievementRepo, AchievementRepo>(); 
         services.AddScoped<IMoodActivityRepo,ModActivityRepo>();
         services.AddScoped<IStatsRepo, StatsRepo>();
+        services.AddScoped<IUserLocationRepo,UserLocationRepo>();
 
         services.AddHostedService<HabitCheckService>();
     }
@@ -91,8 +91,8 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseMiddleware<ExceptionMiddleware>();
-        // if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
         app.UseHttpsRedirection();
+        app.UseStaticFiles();
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();
@@ -110,7 +110,7 @@ public class Startup
         app.UseSwaggerUI(c =>
         {
             c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name v1");
-            c.RoutePrefix = "swagger"; // Change this to your desired URL prefix
+            c.RoutePrefix = "swagger";
         });
     }
 }

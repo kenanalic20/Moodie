@@ -58,7 +58,6 @@ export class StatActivitiesComponent implements OnInit {
                     finalize(() => resolve())
                 )
                 .subscribe(res => {
-                    console.log(res);
                     this.bestMoodActivities = Object.values(res);
                 });
         });
@@ -73,7 +72,6 @@ export class StatActivitiesComponent implements OnInit {
                     finalize(() => resolve())
                 )
                 .subscribe(res => {
-                    console.log(res);
                     this.worstMoodActivities = Object.values(res);
                 });
         });

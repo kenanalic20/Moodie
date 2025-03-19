@@ -1,0 +1,82 @@
+<div
+    class="overflow-auto top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-70 flex justify-center items-center transition-all"
+    (click)="closeModal()">
+    <div
+        (click)="$event.stopPropagation()"
+        class="dark:bg-neutral-800 bg-white justify-center items-center font-sans rounded-xl sm:p-8 p-4 w-full md:h-fit h-full transition-all md:w-1/2 shadow-xl">
+        <div
+            class="flex flex-col w-full h-full justify-between items-center gap-5">
+            <div
+                class="flex justify-between w-full items-center pb-2 border-b dark:border-neutral-700 border-neutral-200">
+                <h3 class="font-bold text-xl">
+                    {{ 'Upload Profile Image' | translate }}
+                </h3>
+                <button
+                    (click)="closeModal()"
+                    class="dark:text-neutral-300 text-neutral-700 hover:text-neutral-900 dark:hover:text-white p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all">
+                    X
+                </button>
+            </div>
+            <div
+                class="flex flex-col w-full gap-5 md:h-fit h-full justify-center">
+                <div class="mb-6">
+                    <label
+                        for="imageStatus"
+                        class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                        {{ 'Image Status' | translate }}
+                    </label>
+                    <input
+                        type="text"
+                        id="imageStatus"
+                        [(ngModel)]="imageStatus"
+                        class="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-neutral-500 dark:bg-neutral-700 dark:text-white" />
+                </div>
+
+                <div class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-5">
+                    <div class="flex justify-between items-center w-full mb-3">
+                        <h4 class="font-medium">
+                            {{ 'Select an image' | translate }}
+                        </h4>
+                        <label
+                            for="file"
+                            class="cursor-pointer py-2 px-4 bg-neutral-200 dark:bg-neutral-600 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-500 transition-all">
+                            {{ 'Browse' | translate }}
+                        </label>
+                        <input
+                            type="file"
+                            id="file"
+                            (change)="onImageSelected($event)"
+                            accept="image/png, image/jpeg, image/jpg"
+                            class="hidden" />
+                    </div>
+                    <div
+                        *ngIf="imageUrl"
+                        class="flex justify-center items-center p-2 bg-neutral-200 dark:bg-neutral-600 rounded-lg">
+                        <img
+                            [src]="imageUrl"
+                            alt="Image preview"
+                            class="max-h-[180px] w-auto rounded-md" />
+                    </div>
+                    <div
+                        *ngIf="!imageUrl"
+                        class="flex justify-center items-center p-8 bg-neutral-200 dark:bg-neutral-600 rounded-lg text-neutral-500 dark:text-neutral-400">
+                        {{ 'No image selected' | translate }}
+                    </div>
+                </div>
+
+                <div class="flex w-full mt-6 gap-4">
+                    <button
+                        (click)="closeModal()"
+                        class="flex-1 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all">
+                        {{ 'Cancel' | translate }}
+                    </button>
+                    <button
+                        (click)="saveImage()"
+                        class="flex-1 py-3 bg-neutral-700 text-white font-medium rounded-lg hover:bg-neutral-800 transition-all">
+                        {{ 'Save' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

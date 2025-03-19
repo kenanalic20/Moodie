@@ -250,6 +250,14 @@
 	"Activity deleted successfully": "Aktivnost uspješno izbrisana",
 	"This action will remove both notes and mood!!": "Ova akcija će ukloniti i bilješke i raspoloženje!!",
 	"Are you sure you want to delete your personal information?": "Da li ste sigurni da želite izbrisati vaše lične podatke?",
-	"Are you sure you want to delete this mood?": "Da li ste sigurni da želite izbrisati ovo raspoloženje?"
-	
+	"Are you sure you want to delete this mood?": "Da li ste sigurni da želite izbrisati ovo raspoloženje?",
+	"Enter a status (e.g., Profile Picture, Favorite)": "Unesite status (npr. Profilna slika, Omiljeno)",
+	"Photo status": "Status slike",
+	"Image uploaded successfully": "Slika uspješno učitana",
+	"Please select an image":"Molimo izaberite sliku",
+	"Are you sure you want to remove your profile photo and status?": "Da li ste sigurni da želite ukloniti vašu profilnu sliku i status?",
+	"Upload Profile Image": "Dodaj Profilnu Sliku",
+  	"Image Status": "Status Slike",
+  	"Select an image": "Odaberite sliku",
+	"Where do you feel the best?":"Gdje se najbolje osjećate?"
 }

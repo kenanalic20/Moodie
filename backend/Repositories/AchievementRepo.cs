@@ -20,8 +20,6 @@ public class AchievementRepo : IAchievementRepo
 
     public Achievement GetById(int id)
     {
-        // Assuming you're using Entity Framework Core
-        // Adjust this implementation based on your actual data access method
         return _context.Achievements.FirstOrDefault(a => a.Id == id);
     }
 
@@ -49,14 +47,12 @@ public class AchievementRepo : IAchievementRepo
         _context.UserAchievements.Add(userAchievement);
         _context.SaveChanges();
 
-        // Reload the achievement to include in the return
         userAchievement.Achievement = achievement;
         return userAchievement;
     }
 
     public List<UserAchievement> GetUserAchievements(int userId)
     {
-        // Query the database to get all achievements for the specified userId
         return _context.UserAchievements
             .Where(ua => ua.UserId == userId)
             .ToList();

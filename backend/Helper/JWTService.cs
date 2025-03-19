@@ -60,7 +60,6 @@ public class JWTService
         var token = new JwtSecurityToken(header, payload);
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-        Console.WriteLine($"Generated token: {tokenString}");
         return tokenString;
     }
 

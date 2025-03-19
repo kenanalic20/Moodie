@@ -45,7 +45,7 @@ public class ActivityController : Controller
             return Created("success", _repositoryActivity.Update(existingActivity));
         }
 
-        if(activities.Count>=20){ //this can be added in settings for example disable activity limit or change the limit
+        if(activities.Count>=20){
             return BadRequest("You can only have 20 activities");
         }
 
@@ -100,7 +100,6 @@ public class ActivityController : Controller
     {
         var newAchievements = new List<UserAchievement>();
         
-        // Check for first activity achievement
         if (!_achievementRepo.HasUserEarnedAchievement(userId, "added_activity"))
         {
             var achievement = _achievementRepo.AddUserAchievement(userId, "added_activity");

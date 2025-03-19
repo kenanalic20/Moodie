@@ -14,7 +14,6 @@ export class MoodActivityService {
             moodId,
             activityId,
         };
-        console.log(body);
         return this.http.post(url, body, { withCredentials: true });
     }
 

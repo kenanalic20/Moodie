@@ -10,8 +10,6 @@ public class EmailService
     {
         if (!IsValidEmail(email))
         {
-            // Handle the case where the email is invalid
-            Console.WriteLine("Invalid email address format.");
             return;
         }
 
@@ -36,7 +34,6 @@ public class EmailService
         }
         catch (Exception ex)
         {
-            // Handle any exceptions that might occur during sending
             Console.WriteLine($"Error sending email: {ex.Message}");
         }
     }
@@ -45,7 +42,6 @@ public class EmailService
     {
         if (!IsValidEmail(email))
         {
-            // Handle the case where the email is invalid
             Console.WriteLine("Invalid email address format.");
             return;
         }
@@ -71,7 +67,6 @@ public class EmailService
         }
         catch (Exception ex)
         {
-            // Handle any exceptions that might occur during sending
             Console.WriteLine($"Error sending email: {ex.Message}");
         }
     }
@@ -107,7 +102,6 @@ public class EmailService
 
     private bool IsValidEmail(string email)
     {
-        // Regular expression pattern for email validation
         var pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
         return Regex.IsMatch(email, pattern);
     }

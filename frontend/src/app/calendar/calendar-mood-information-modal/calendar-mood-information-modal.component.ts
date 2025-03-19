@@ -82,7 +82,6 @@ export class CalendarMoodInformationModalComponent {
         if (confirm(this.translateService.instant('This action will remove both notes and mood!!'))) {
             this.notesService.deleteNotes(id).subscribe((res: any) => {
                 this.moods = this.moods.map(mood => {
-                    console.log(mood);
                     if (mood.notes) {
                         mood.notes = mood.notes.filter(note => note.id !== id);
                     }

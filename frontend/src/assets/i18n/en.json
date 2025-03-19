@@ -252,5 +252,15 @@
 	"Activity deleted successfully": "Activity deleted successfully",
 	"This action will remove both notes and mood!!": "This action will remove both notes and mood!!",
 	"Are you sure you want to delete your personal information?": "Are you sure you want to delete your personal information?",
-	"Are you sure you want to delete this mood?": "Are you sure you want to delete this mood?"
+	"Are you sure you want to delete this mood?": "Are you sure you want to delete this mood?",
+	"Enter a status (e.g., Profile Picture, Favorite)": "Enter a status (e.g., Profile Picture, Favorite)",
+	"Photo status":"Photo status",
+	"Image uploaded successfully": "Image uploaded successfully",
+	"Please select an image":"Please select an image",
+	"Are you sure you want to remove your profile photo and status?": "Are you sure you want to remove your profile photo and status?",
+	"Upload Profile Image": "Upload Profile Image",
+  	"Image Status": "Image Status",
+  	"Select an image": "Select an image",
+	"Where do you feel the best?":"Where do you feel the best?"
+  
 }

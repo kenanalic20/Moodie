@@ -31,7 +31,6 @@ export class ActivityInformationModalComponent {
     }
 
     closeModal() {
-        console.log(this.activity);
         this.bsModalRef.hide();
     }
 

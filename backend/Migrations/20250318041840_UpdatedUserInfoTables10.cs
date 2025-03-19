@@ -1,0 +1,55 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace Moodie.Migrations
+{
+    public partial class UpdatedUserInfoTables10 : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_UserImages_UserInfo_UserInfoId1",
+                table: "UserImages");
+
+            migrationBuilder.DropIndex(
+                name: "IX_UserImages_UserInfoId1",
+                table: "UserImages");
+
+            migrationBuilder.DropColumn(
+                name: "UserInfoId1",
+                table: "UserImages");
+
+            migrationBuilder.DropColumn(
+                name: "UserInfoId2",
+                table: "UserImages");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<int>(
+                name: "UserInfoId1",
+                table: "UserImages",
+                type: "INTEGER",
+                nullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "UserInfoId2",
+                table: "UserImages",
+                type: "INTEGER",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserImages_UserInfoId1",
+                table: "UserImages",
+                column: "UserInfoId1");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_UserImages_UserInfo_UserInfoId1",
+                table: "UserImages",
+                column: "UserInfoId1",
+                principalTable: "UserInfo",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+        }
+    }
+}

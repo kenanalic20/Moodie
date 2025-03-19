@@ -15,39 +15,41 @@ public class UserImageRepo : IUserImageRepo
         _context = context;
     }
 
-    public UserImage Create(UserImage userImage, int userInfoId)
+    public UserImage Create(UserImage userImage)
     {
-        var existingUserImage = _context.UserImages.FirstOrDefault(userImage => userImage.UserInfoId == userInfoId);
-        if (existingUserImage != null)
-        {
-            existingUserImage.Status = userImage.Status;
-            existingUserImage.Image = userImage.Image;
-
-            _context.UserImages.Update(existingUserImage);
-            _context.SaveChanges();
-            return existingUserImage;
-        }
-
         _context.UserImages.Add(userImage);
         _context.SaveChanges();
         return userImage;
     }
 
-
-    public UserImage Delete(int userInfoId)
+    public UserImage Update(UserImage userImage)
     {
-        var existingUserImage = _context.UserImages.FirstOrDefault(userImage => userImage.UserInfoId == userInfoId);
+        var existingUserImage = _context.UserImages.Find(userImage.Id);
         if (existingUserImage != null)
         {
-            _context.UserImages.Remove(existingUserImage);
+            existingUserImage.ImagePath = userImage.ImagePath;
+            existingUserImage.Status = userImage.Status;
+            existingUserImage.Date = userImage.Date;
+
             _context.SaveChanges();
         }
-
         return existingUserImage;
     }
 
-    public UserImage GetByUserInfoId(int userInfoId)
+
+    public void Delete(int userId)
     {
-        return _context.UserImages.Where(userImage => userImage.UserInfoId == userInfoId).FirstOrDefault();
+        var existingUserImage = _context.UserImages.FirstOrDefault(userImage => userImage.UserId == userId);
+       if(existingUserImage!=null) {
+            _context.UserImages.Remove(existingUserImage);
+            _context.SaveChanges();
+       }
+
+    }
+
+    public UserImage GetByUserId(int userId)
+    {
+        return _context.UserImages
+        .FirstOrDefault(ui => ui.UserId == userId);;
     }
 }

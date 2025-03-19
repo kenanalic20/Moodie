@@ -536,19 +536,19 @@ namespace Moodie.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("BLOB");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
+                    b.Property<string>("ImagePath")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserInfoId")
+                    b.Property<string>("Status")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserInfoId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UserImages");
                 });
@@ -571,15 +571,13 @@ namespace Moodie.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ProfilePhoto")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UserInfo");
                 });
@@ -593,21 +591,19 @@ namespace Moodie.Migrations
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Continent")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("State")
+                    b.Property<string>("Province")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserInfoId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserInfoId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UserLocations");
                 });
@@ -739,20 +735,20 @@ namespace Moodie.Migrations
 
             modelBuilder.Entity("Moodie.Models.UserImage", b =>
                 {
-                    b.HasOne("Moodie.Models.UserInfo", "UserInfo")
-                        .WithMany()
-                        .HasForeignKey("UserInfoId")
+                    b.HasOne("Moodie.Models.User", "User")
+                        .WithOne("UserImage")
+                        .HasForeignKey("Moodie.Models.UserImage", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserInfo");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Moodie.Models.UserInfo", b =>
                 {
                     b.HasOne("Moodie.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("UserInfo")
+                        .HasForeignKey("Moodie.Models.UserInfo", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -761,13 +757,13 @@ namespace Moodie.Migrations
 
             modelBuilder.Entity("Moodie.Models.UserLocation", b =>
                 {
-                    b.HasOne("Moodie.Models.UserInfo", "UserInfo")
-                        .WithMany()
-                        .HasForeignKey("UserInfoId")
+                    b.HasOne("Moodie.Models.User", "User")
+                        .WithOne("UserLocation")
+                        .HasForeignKey("Moodie.Models.UserLocation", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserInfo");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Moodie.Models.Activity", b =>
@@ -796,6 +792,15 @@ namespace Moodie.Migrations
                         .IsRequired();
 
                     b.Navigation("Statistics");
+
+                    b.Navigation("UserImage")
+                        .IsRequired();
+
+                    b.Navigation("UserInfo")
+                        .IsRequired();
+
+                    b.Navigation("UserLocation")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

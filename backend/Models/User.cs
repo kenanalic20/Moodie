@@ -19,4 +19,7 @@ public class User
     [JsonIgnore] public List<UserAchievement> Achievements { get; set; }
     [JsonIgnore] public Settings Settings {get; set;}
     [JsonIgnore] public List<Statistics> Statistics { get; set; } = new List<Statistics>();
+    [JsonIgnore]public UserInfo UserInfo { get; set; }
+    [JsonIgnore]public UserLocation UserLocation { get; set; }
+    [JsonIgnore]public UserImage UserImage { get; set; }
 }

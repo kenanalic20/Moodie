@@ -126,7 +126,6 @@ public class AuthController : Controller
         user.IsVerifiedEmail = true;
 
         _repositoryUser.Update(user);
-        //will need to change this
         return Redirect("http://localhost:4200/emailVerified");
     }
 
@@ -144,7 +143,7 @@ public class AuthController : Controller
         var resetToken = _jwtService.GeneratePasswordResetToken(user.Id);
 
         user.PasswordResetToken = resetToken;
-        user.PasswordResetTokenExpiry = DateTime.UtcNow.AddHours(1); // Token expires in 1 hour
+        user.PasswordResetTokenExpiry = DateTime.UtcNow.AddHours(1);
         _repositoryUser.Update(user);
 
         _emailService.SendResetPasswordEmail(user.Email, resetToken);

@@ -22,7 +22,7 @@
                     class="flex h-32 items-end md:gap-6 p-2 justify-between font-sans">
                     <div
                         *ngFor="let stat of statData"
-                        [style.height.%]="stat.averageMood * 24"
+                        [style.height.%]="stat.averageMood * 20"
                         [ngClass]="{
                             'bg-blue-500': stat.dayOfWeek === 'Mon',
                             'bg-red-500': stat.dayOfWeek === 'Tue',

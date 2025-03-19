@@ -42,7 +42,6 @@ public class HabitCheckService : BackgroundService
                         int resetCount = 0;
                         foreach (var habit in habits)
                         {
-                            // Compare dates in Bosnian time
                             if ((bosnianNow - habit.LastCheckIn).TotalHours > 24)
                             {
                                 _logger.LogInformation("Resetting streak for habit: {habitName} (ID: {habitId})", habit.Name, habit.Id);

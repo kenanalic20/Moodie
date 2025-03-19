@@ -67,16 +67,10 @@ export class RegisterComponent {
             );
             return;
         }
-        console.log(
-            this.username,
-            this.email,
-            this.password,
-            this.confirmPassword
-        );
+        
         this.authService
             .register(this.username, this.email, this.password)
             .subscribe(response => {
-                console.log(response);
                 this.toastrService.success(
                     this.translateService.instant('Registered successfully'),
                     this.translateService.instant('Success')

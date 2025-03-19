@@ -42,6 +42,19 @@ public class ApplicationDbContext : DbContext
         .WithOne(s => s.User)
         .HasForeignKey(s => s.UserId);
 
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.UserInfo)
+            .WithOne(ui => ui.User)
+            .HasForeignKey<UserInfo>(ui => ui.UserId);
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.UserImage)
+            .WithOne(ui => ui.User)
+            .HasForeignKey<UserImage>(ui => ui.UserId);
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.UserLocation)
+            .WithOne(ul => ul.User)
+            .HasForeignKey<UserLocation>(ul => ul.UserId);
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasIndex(e => e.Username).IsUnique();
@@ -171,9 +184,8 @@ public class ApplicationDbContext : DbContext
                 Slug = "added_note"
             }
         );
-        //many to many
         modelBuilder.Entity<MoodActivity>()
-            .HasKey(ma => new { ma.MoodId, ma.ActivityId }); // Composite primary key
+            .HasKey(ma => new { ma.MoodId, ma.ActivityId }); 
 
         modelBuilder.Entity<MoodActivity>()
             .HasOne(ma => ma.Mood)

@@ -36,7 +36,6 @@ export class LanguageSwitcherComponent {
             .isAuthenticated()
             .pipe(
                 catchError(error => {
-                    console.log('Error checking authentication:', error);
                     return of(false);
                 })
             )

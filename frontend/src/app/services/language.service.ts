@@ -30,7 +30,6 @@ export class LanguageService {
         const lang = language.toUpperCase();
         localStorage.setItem('Language', lang);
         this.translateService.use(lang.toLowerCase());
-        console.log('Language service set language to:', lang);
     }
 
     // Get current language with fallback

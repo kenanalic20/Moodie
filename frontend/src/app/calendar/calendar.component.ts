@@ -93,12 +93,8 @@ export class CalendarComponent implements OnInit {
         this.moodService.getMoods().subscribe({
             next: (response: any) => {
                 this.moods = response;
-                console.log(this.moods);
                 this.mapMoodsToDays();
-            },
-            error: error => {
-                console.error('Error fetching moods:', error);
-            },
+            }
         });
     }
 

@@ -7,7 +7,6 @@ export interface UserInfo {
     lastName?: string;
     gender?: string;
     birthday?: Date;
-    profilePhoto?: string;
 }
 
 @Injectable({
@@ -24,8 +23,8 @@ export class UserInfoService {
         });
     }
 
-    updateUserInfo(userInfo: UserInfo): Observable<any> {
-        return this.http.put(`${this.apiUrl}/user-info`, userInfo, {
+    updateUserInfo(userInfo: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/user-info`, userInfo, {
             withCredentials: true,
         });
     }

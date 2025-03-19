@@ -18,29 +18,29 @@ public class ImageHelper
             return null;
         }
 
-        // Ensure the directory exists
         if (!Directory.Exists(_uploadsFolder))
         {
             Directory.CreateDirectory(_uploadsFolder);
         }
 
-        // Generate a unique file name
         var uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
         var filePath = Path.Combine(_uploadsFolder, uniqueFileName);
 
-        // Save the file to the server
         using (var fileStream = new FileStream(filePath, FileMode.Create))
         {
             imageFile.CopyTo(fileStream);
         }
 
-        // Return the relative path
         return "https://localhost:8001/" + Path.Combine("Uploads", "Images", uniqueFileName);
     }
 
     public string UpdateImage(IFormFile newImageFile, string existingImagePath)
     {
         if (newImageFile == null)
+        {
+            return null;
+        }
+        if (string.IsNullOrEmpty(existingImagePath))
         {
             return null;
         }

@@ -50,7 +50,6 @@ export class SettingsComponent implements OnInit {
             this.translateService.instant('Theme changed successfully'),
             this.translateService.instant('Success')
         );
-        console.log(`Theme changed to ${value}!`);
         document.documentElement.classList.remove('dark');
         document.documentElement.classList.remove('light');
         document.documentElement.classList.add(value);

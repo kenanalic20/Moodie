@@ -33,10 +33,8 @@ public class ExceptionMiddleware
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-        // Log the error to the database
         await LogErrorToDatabase(exception, dbContext);
 
-        // Return error response to the client
         var error = new ErrorDetails
         {
             StatusCode = context.Response.StatusCode,
