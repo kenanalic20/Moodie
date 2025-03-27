@@ -66,13 +66,13 @@ Frontend: Angular
 Backend: .Net
 Styling: Tailwind CSS
 
+## 📜 License
+
+Moodie is released under the [MIT License](LICENSE).
+
 ## Installation
 ```bash
 git clone https://github.com/kenanalic20/Moodie.git
 cd Moodie
 npm install
 npm start
-
-## 📜 License
-
-Moodie is released under the [MIT License](LICENSE).
