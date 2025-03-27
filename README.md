@@ -78,7 +78,7 @@ It's privacy-oriented, secure, and incredibly easy to use.
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" width="20" height="20" /> **C#**  
 
 ### Database
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" width="20" height="20" /> **SQL Server**  
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" width="20" height="20" /> **SQLite**  
 
 ## 📜 License
 Moodie is released under the [MIT License](LICENSE).  
