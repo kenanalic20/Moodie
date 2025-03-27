@@ -3,7 +3,7 @@
 ## Overview
 Moodie is an open-source and self-hostable mood tracker with a plethora of features that work with and for you.
 It’s currently being developed by 2 software engineering students for a school project, but we plan on making it a fully-featured application. 
-It’s privacy-oriented, secure, and incredibly easy to use, but don’t trust us, just follow me.
+It’s privacy-oriented, secure, and incredibly easy to use.
 ## Features
 - 📅 Daily mood logging 
 - 📊 Mood history visualization (charts/graphs)
