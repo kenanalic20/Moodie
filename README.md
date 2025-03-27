@@ -13,21 +13,53 @@ It’s privacy-oriented, secure, and incredibly easy to use, but don’t trust u
 
 ## Screenshots
 
+### Home View
+![Home](./screenshots/Home.png)
+*First page that you see*
+
 ### About View
-![Dashboard](./screenshots/About.png)
-*Main dashboard with mood selector*
+![About](./screenshots/About.png)
+*Some info about moodie*
 
 ### Dashboard View
 ![Dashboard](./screenshots/Dashboard.png)
 *Main dashboard with mood selector*
 
 ### Calendar View
-![History](./screenshots/Calendar.png)
+![Calendar](./screenshots/Calendar.png)
 *Visualization of mood history over time*
 
 ### Daily View
-![History](./screenshots/CalendarOverview.png)
+![Daily](./screenshots/CalendarOverview.png)
 *Visualization of daily mood and notes*
+
+### Goals View
+![Goals](./screenshots/Goals.png)
+*Visualization of goals*
+
+### Habits View
+![Habits](./screenshots/Habits.png)
+*Visualization of habits*
+
+### Stats View
+![Stats](./screenshots/Stats.png)
+*Visualization of weekly stats*
+
+### Achievements View
+![Stats](./screenshots/Achievements.png)
+*Visualization of achievements*
+
+### Settings View
+![Settings](./screenshots/Settings.png)
+*Application settings*
+
+### Profile View
+![Profile](./screenshots/Profile.png)
+*Visualization of user profile*
+
+### Export View
+![Profile](./screenshots/Export.png)
+*Place where you can export your data*
 
 ## Technologies
 Frontend: Angular
