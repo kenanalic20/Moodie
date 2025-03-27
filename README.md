@@ -72,3 +72,7 @@ git clone https://github.com/kenanalic20/Moodie.git
 cd Moodie
 npm install
 npm start
+
+## 📜 License
+
+Moodie is released under the [MIT License](LICENSE).
