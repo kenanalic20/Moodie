@@ -1,7 +1,5 @@
 # Moodie - Mood Tracking Application
 
-![Moodie Logo](./assets/logo.png) <!-- Add your logo if available -->
-
 ## Overview
 Moodie is an open-source and self-hostable mood tracker with a plethora of features that work with and for you.
 It’s currently being developed by 2 software engineering students for a school project, but we plan on making it a fully-featured application. 
