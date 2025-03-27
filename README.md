@@ -14,15 +14,11 @@ It’s privacy-oriented, secure, and incredibly easy to use, but don’t trust u
 ## Screenshots
 
 ### Dashboard View
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](./screenshots/Dashboard.png)
 *Main dashboard showing current mood and weekly summary*
 
-### Mood Entry
-![Mood Entry](./screenshots/mood-entry.png)
-*Interface for logging a new mood entry*
-
-### History View
-![History](./screenshots/history.png)
+### Calendar View
+![History](./screenshots/Calendar.png)
 *Visualization of mood history over time*
 
 ## Technologies
