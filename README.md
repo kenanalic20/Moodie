@@ -13,13 +13,21 @@ It’s privacy-oriented, secure, and incredibly easy to use, but don’t trust u
 
 ## Screenshots
 
+### About View
+![Dashboard](./screenshots/About.png)
+*Main dashboard with mood selector*
+
 ### Dashboard View
 ![Dashboard](./screenshots/Dashboard.png)
-*Main dashboard showing current mood and weekly summary*
+*Main dashboard with mood selector*
 
 ### Calendar View
 ![History](./screenshots/Calendar.png)
 *Visualization of mood history over time*
+
+### Daily View
+![History](./screenshots/CalendarOverview.png)
+*Visualization of daily mood and notes*
 
 ## Technologies
 Frontend: Angular
